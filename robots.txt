@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://imresizer.textify.tools/sitemap.xml
-Host: https://imresizer.textify.tools
+Sitemap: https://imresizer.in/sitemap.xml
+Host: https://imresizer.in
