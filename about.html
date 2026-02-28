@@ -91,6 +91,8 @@
             --line-color: #e5e7eb;
             --accent-bg: #f8fafc;
             --highlight: #dbeafe;
+            --error: #ef4444;
+            --success: #22c55e;
             --footer-bg: #0f172a;
             --footer-text: #94a3b8;
         }
@@ -193,6 +195,17 @@
             color: var(--text-light); 
             margin-bottom: 20px; 
             font-size: 16px; 
+        }
+        
+        ul, ol { 
+            padding-left: 25px; 
+            color: var(--text-light); 
+            margin-bottom: 25px; 
+        }
+        
+        li { 
+            margin-bottom: 10px; 
+            line-height: 1.7; 
         }
         
         /* BACK BUTTON */
@@ -441,7 +454,8 @@
         <div class="content-block">
             <p><strong>Last Updated: February 2026</strong></p>
 
-            <p>Welcome to <strong>ImResizer</strong>, a free online image resizing and compression tool built specifically for students, job aspirants, and professionals who need to prepare photos for government exams, visa applications, and official documents.</p>
+            <h2>Welcome to ImResizer</h2>
+            <p><strong>ImResizer</strong> is a free online image resizing and compression tool built specifically for students, job aspirants, and professionals who need to prepare photos for government exams, visa applications, and official documents.</p>
 
             <h2>Our Mission</h2>
             <p>Our mission is simple: to help you avoid photo rejection in your important applications. Every year, thousands of applications get rejected due to incorrect image size, wrong file format, or oversized files. We built ImResizer to solve this problem once and for all.</p>
@@ -451,37 +465,79 @@
             <ul>
                 <li><strong>Simple:</strong> Upload, adjust, download – that's it.</li>
                 <li><strong>Accurate:</strong> Exact dimensions in cm, mm, inches, and pixels.</li>
-                <li><strong>Secure:</strong> Your photos never leave your device.</li>
-                <li><strong>Free:</strong> Forever free, no hidden charges.</li>
+                <li><strong>Secure:</strong> Your photos never leave your device (100% client-side).</li>
+                <li><strong>Free:</strong> Forever free, no hidden charges, no registration.</li>
             </ul>
 
             <h2>Key Features</h2>
             <ul>
-                <li><strong>Compress to Exact KB:</strong> Target specific file sizes like 20KB, 50KB, or 100KB.</li>
-                <li><strong>Multiple Units:</strong> Resize in centimeters, millimeters, inches, or pixels.</li>
-                <li><strong>Exam Presets:</strong> Ready-made sizes for SSC, UPSC, IBPS, GATE, and more.</li>
-                <li><strong>International Presets:</strong> US Visa, UK Passport, Schengen, Japan, Canada, China.</li>
-                <li><strong>Name & Date Overlay:</strong> Add applicant details as required by SSC.</li>
-                <li><strong>PDF Export:</strong> Create PDF documents with exact print dimensions.</li>
-                <li><strong>Printable Sheets:</strong> Generate multiple copies on a single page.</li>
-                <li><strong>100% Client-Side:</strong> Your photos stay on your computer. We never see them.</li>
+                <li><strong>Compress to Exact KB:</strong> Target specific file sizes like 20KB, 50KB, or 100KB with precision.</li>
+                <li><strong>Multiple Units:</strong> Resize in centimeters, millimeters, inches, or pixels with DPI control.</li>
+                <li><strong>Exam Presets:</strong> Ready-made sizes for SSC, UPSC, IBPS, GATE, Banking, and Railway exams.</li>
+                <li><strong>International Presets:</strong> US Visa, UK Passport, Schengen Visa, Japan, Canada, China, and more.</li>
+                <li><strong>Name & Date Overlay:</strong> Add applicant details in DD/MM/YYYY format as required by SSC.</li>
+                <li><strong>PDF Export:</strong> Create PDF documents with exact print dimensions for professional use.</li>
+                <li><strong>Printable Sheets:</strong> Generate multiple copies of photos on a single page for photo studios.</li>
+                <li><strong>Image Enhancements:</strong> Grayscale, signature mode, brightness, contrast, and rotation tools.</li>
+                <li><strong>Crop Tool:</strong> Precise cropping with aspect ratio lock for perfect compositions.</li>
             </ul>
 
             <h2>Our Technology</h2>
-            <p>ImResizer is built using modern web technologies that run entirely in your browser. We use HTML5 Canvas for image processing, Cropper.js for precise cropping, and jsPDF for PDF generation. All processing happens locally on your device. No servers, no uploads, no privacy concerns.</p>
-
-            <h2>Our Team</h2>
-            <p>ImResizer is a small team of developers passionate about creating useful, privacy-focused utilities for students and professionals. We believe that essential tools should be free, accessible, and secure for everyone.</p>
-
-            <h2>Contact Us</h2>
-            <p>Have questions, suggestions, or feedback? We'd love to hear from you:</p>
+            <p>ImResizer is built using modern web technologies that run entirely in your browser:</p>
             <ul>
-                <li>Email: <strong>support@imresizer.in</strong></li>
-                <li>Response Time: Within 24-48 hours</li>
+                <li><strong>HTML5 Canvas:</strong> For all image processing operations</li>
+                <li><strong>Cropper.js:</strong> For precise, interactive image cropping</li>
+                <li><strong>jsPDF:</strong> For PDF document generation</li>
+                <li><strong>Lucide Icons:</strong> For clean, professional interface icons</li>
+            </ul>
+            <p><strong>Key Technical Advantage:</strong> All processing happens locally on your device. No servers, no uploads, no privacy concerns. Your images never leave your computer. This makes ImResizer one of the most secure image editing tools available online.</p>
+
+            <h2>Who We Serve</h2>
+            <p>ImResizer is trusted by millions of users worldwide, including:</p>
+            <ul>
+                <li><strong>Students:</strong> Preparing photos for SSC, UPSC, Banking, Railway, and other competitive exams</li>
+                <li><strong>Job Aspirants:</strong> Creating application photos for government and private sector jobs</li>
+                <li><strong>Travelers:</strong> Resizing photos for US Visa, UK Passport, Schengen Visa, and other international travel documents</li>
+                <li><strong>Photo Studios:</strong> Using our printable sheet feature to create multiple copies efficiently</li>
+                <li><strong>Professionals:</strong> Preparing ID photos for company badges and professional certifications</li>
             </ul>
 
+            <h2>Our Commitment to Privacy</h2>
+            <p>Privacy is at the core of everything we do. Unlike other online image editors that upload your photos to their servers, ImResizer processes everything in your browser. This means:</p>
+            <ul>
+                <li>We never see your photos</li>
+                <li>We cannot access your personal information</li>
+                <li>No data leaves your device</li>
+                <li>Your privacy is completely protected</li>
+            </ul>
+            <p>For more details, please read our <a href="privacy.html" style="color: var(--primary);">Privacy Policy</a>.</p>
+
+            <h2>Our Team</h2>
+            <p>ImResizer is a small, passionate team of developers and designers who understand the challenges students face with exam photo requirements. We're committed to keeping ImResizer free, simple, and effective for everyone. We believe that essential tools should be accessible to all, regardless of budget.</p>
+
+            <h2>Continuous Improvement</h2>
+            <p>We constantly update ImResizer based on user feedback and changing exam requirements. Recent updates include:</p>
+            <ul>
+                <li>DD/MM/YYYY date format for SSC applications</li>
+                <li>New international passport presets</li>
+                <li>Enhanced compression algorithms for better quality at smaller file sizes</li>
+                <li>Improved mobile responsiveness</li>
+            </ul>
+            <p>Have a suggestion? We'd love to hear from you!</p>
+
+            <h2>Contact Us</h2>
+            <p>Have questions, suggestions, or feedback? We're here to help:</p>
+            <ul>
+                <li><strong>General Inquiries:</strong> <a href="mailto:support@imresizer.in" style="color: var(--primary);">support@imresizer.in</a> (24-48 hour response)</li>
+                <li><strong>Legal Matters:</strong> <a href="mailto:legal@imresizer.in" style="color: var(--primary);">legal@imresizer.in</a> (5-7 business days)</li>
+                <li><strong>Business Inquiries:</strong> <a href="mailto:business@imresizer.in" style="color: var(--primary);">business@imresizer.in</a></li>
+            </ul>
+            <p>For the fastest response, please include relevant details about your issue or suggestion.</p>
+
             <h2>Stay Connected</h2>
-            <p>Bookmark ImResizer for your next exam application. We're constantly adding new features and exam presets based on user feedback.</p>
+            <p>Bookmark ImResizer for your next exam application. We're constantly adding new features and exam presets based on user feedback. Follow us on social media or check back regularly for updates.</p>
+            
+            <p style="margin-top: 30px; font-style: italic; color: var(--text-light);">Thank you for choosing ImResizer. We're honored to be part of your journey toward your goals!</p>
         </div>
     </main>
 
@@ -581,5 +637,6 @@
                 alert('Link copied to clipboard! Share it with your friends.');
             });
         }
+    </script>
 </body>
 </html>
