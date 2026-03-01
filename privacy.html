@@ -81,10 +81,11 @@
     }
     </script>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
     
     <style>
-        /* --- CORE THEME - CLEAN & PROFESSIONAL --- */
+        /* --- CORE THEME - TOOL PAGE वाला स्टाइल (बिल्कुल वैसा) --- */
         :root {
             --primary: #2563eb;
             --primary-dark: #1e40af;
@@ -218,6 +219,17 @@
             line-height: 1.7; 
         }
         
+        a { 
+            color: var(--primary); 
+            text-decoration: none; 
+            transition: color 0.2s ease;
+        }
+        
+        a:hover { 
+            color: var(--primary-dark); 
+            text-decoration: underline; 
+        }
+        
         /* BACK BUTTON */
         .back-link {
             color: var(--primary); 
@@ -227,13 +239,14 @@
             gap: 8px; 
             margin-bottom: 25px; 
             text-decoration: none;
-            transition: color 0.2s ease;
+            transition: color 0.2s ease, gap 0.2s ease;
             cursor: pointer;
         }
         
         .back-link:hover { 
             color: var(--primary-dark); 
             gap: 10px;
+            text-decoration: none;
         }
 
         /* CONTENT BLOCK */
@@ -241,15 +254,7 @@
             margin-bottom: 40px; 
         }
 
-        .privacy-note {
-            background: #eff6ff;
-            border-left: 5px solid var(--primary);
-            padding: 20px;
-            border-radius: 8px;
-            margin: 30px 0;
-        }
-
-        /* ===== FOOTER - पहले वाला स्टाइल ===== */
+        /* ===== FOOTER - टूल पेज वाला स्टाइल (बिना शेयर आइकॉन के) ===== */
         footer {
             background-color: var(--footer-bg);
             color: var(--footer-text);
@@ -333,73 +338,7 @@
         .footer-links a:hover {
             color: var(--primary);
             padding-left: 5px;
-        }
-
-        /* SOCIAL SHARE SECTION - आइकॉन के साथ, एक के नीचे एक */
-        .social-share-section {
-            max-width: 1000px;
-            margin: 30px auto 0;
-            padding: 30px 25px 20px;
-            border-top: 1px solid #334155;
-        }
-        
-        .social-share-section h5 {
-            color: white;
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            letter-spacing: 0.5px;
-        }
-        
-        .social-share-section ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .social-share-section li {
-            margin-bottom: 15px;
-            padding: 0;
-        }
-        
-        .social-share-section li:last-child {
-            margin-bottom: 0;
-        }
-        
-        .social-share-section a,
-        .social-share-section button {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #cbd5e1;
             text-decoration: none;
-            background: transparent;
-            border: none;
-            padding: 0;
-            font-family: inherit;
-            font-size: 14px;
-            cursor: pointer;
-            width: 100%;
-            text-align: left;
-            transition: color 0.2s ease;
-        }
-        
-        .social-share-section a:hover,
-        .social-share-section button:hover {
-            color: var(--primary);
-            padding-left: 5px;
-        }
-        
-        .social-share-section i {
-            width: 18px;
-            height: 18px;
-            color: #94a3b8;
-            transition: color 0.2s ease;
-        }
-        
-        .social-share-section a:hover i,
-        .social-share-section button:hover i {
-            color: var(--primary);
         }
 
         .footer-bottom {
@@ -431,6 +370,9 @@
         /* UTILS */
         .hidden { display: none !important; }
     </style>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
@@ -458,9 +400,7 @@
         <div class="content-block">
             <p><strong>Last Updated: February 28, 2026</strong></p>
 
-            <div class="privacy-note">
-                <strong>🔒 Our Promise:</strong> ImResizer is a <strong>100% client-side application</strong>. This means your photos are processed entirely in your browser and <strong>never uploaded to our servers</strong>. We cannot see, access, or store your images.
-            </div>
+            <!-- Prominent note box removed as requested -->
 
             <h2>1. Our Privacy-First Approach</h2>
             <p>At ImResizer, we believe privacy is a fundamental right. That's why we built our tool to work entirely within your browser. You don't need to create an account, log in, or trust us with your personal data. All image processing happens locally on your device.</p>
@@ -497,7 +437,7 @@
             <h2>4. Third-Party Services</h2>
             <p>We use trusted third-party services to operate our website:</p>
             <ul>
-                <li><strong>Google Analytics:</strong> For anonymous traffic analysis. Google's privacy policy can be viewed at <a href="https://policies.google.com/privacy" style="color: var(--primary);" target="_blank" rel="noopener">https://policies.google.com/privacy</a></li>
+                <li><strong>Google Analytics:</strong> For anonymous traffic analysis. Google's privacy policy can be viewed at <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">https://policies.google.com/privacy</a></li>
                 <li><strong>Cloudflare:</strong> For DNS, security, and content delivery. Cloudflare may collect basic connection data as described in their privacy policy.</li>
                 <li><strong>Unpkg and CDN services:</strong> For delivering JavaScript libraries like Cropper.js and jsPDF. These services may log standard server information.</li>
                 <li><strong>Lucide Icons:</strong> For icon rendering. This service does not collect any user data.</li>
@@ -540,16 +480,16 @@
             <h2>10. Contact Us</h2>
             <p>If you have questions about this privacy policy, our data practices, or if you would like to exercise any privacy rights, please contact us:</p>
             <ul>
-                <li>Email: <strong><a href="mailto:privacy@imresizer.in" style="color: var(--primary);">privacy@imresizer.in</a></strong></li>
+                <li>Email: <strong><a href="mailto:privacy@imresizer.in">privacy@imresizer.in</a></strong></li>
                 <li>Response Time: Within 5-7 business days</li>
             </ul>
-            <p>For general inquiries, please visit our <a href="contact.html" style="color: var(--primary);">Contact page</a>.</p>
+            <p>For general inquiries, please visit our <a href="contact.html">Contact page</a>.</p>
 
             <p><em>By using ImResizer, you acknowledge that you have read and understood this privacy policy. Your trust is important to us, and we are committed to protecting your privacy.</em></p>
         </div>
     </main>
 
-    <!-- ===== FOOTER - पहले वाला स्टाइल ===== -->
+    <!-- ===== FOOTER - टूल पेज वाला स्टाइल (बिना शेयर आइकॉन के) ===== -->
     <footer>
         <div class="footer-container">
             <div class="footer-col footer-brand">
@@ -559,7 +499,7 @@
                     </div>
                     <div class="footer-logo-text">Im<span>Resizer</span></div>
                 </a>
-                <p>Trusted by students worldwide for accurate image resizing and compression. We help simplify your application process by providing instant and privacy-focused tools.</p>
+                <p>Trusted by students worldwide for accurate image resizing and compression. We help simplify your application process by providing instant and privacy-focused tools with always high-quality output.</p>
             </div>
 
             <div class="footer-col">
@@ -581,43 +521,7 @@
             </div>
         </div>
 
-        <!-- SOCIAL SHARE SECTION - आइकॉन के साथ, एक के नीचे एक -->
-        <div class="social-share-section">
-            <h5>SHARE</h5>
-            <ul>
-                <li>
-                    <a href="https://wa.me/?text=Check out ImResizer - Free online image compressor for exams! https://imresizer.in" target="_blank" rel="noopener noreferrer">
-                        <i data-lucide="message-circle" width="18" height="18"></i>
-                        WhatsApp
-                    </a>
-                </li>
-                <li>
-                    <a href="https://t.me/share/url?url=https://imresizer.in&text=Free image compressor for exam forms - 20KB, 50KB, 100KB" target="_blank" rel="noopener noreferrer">
-                        <i data-lucide="send" width="18" height="18"></i>
-                        Telegram
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://imresizer.in" target="_blank" rel="noopener noreferrer">
-                        <i data-lucide="facebook" width="18" height="18"></i>
-                        Facebook
-                    </a>
-                </li>
-                <li>
-                    <a href="https://twitter.com/intent/tweet?url=https://imresizer.in&text=Compress images to 20KB, 50KB, 100KB for exams - Free tool!" target="_blank" rel="noopener noreferrer">
-                        <i data-lucide="x" width="18" height="18"></i>
-                        X (Twitter)
-                    </a>
-                </li>
-                <li>
-                    <button onclick="copyPageLink()">
-                        <i data-lucide="link" width="18" height="18"></i>
-                        Copy Link
-                    </button>
-                </li>
-            </ul>
-        </div>
-
+        <!-- FOOTER BOTTOM - बिना शेयर आइकॉन के -->
         <div class="footer-bottom">
             <div>&copy; 2026 imresizer.in. All rights reserved. Made For Students</div>
             <div>Designed for Students</div>
@@ -629,22 +533,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
         });
-
-        // Copy link function
-        function copyPageLink() {
-            const url = window.location.href;
-            navigator.clipboard.writeText(url).then(() => {
-                alert('Link copied to clipboard! Share it with your friends.');
-            }).catch(() => {
-                const textarea = document.createElement('textarea');
-                textarea.value = url;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-                alert('Link copied to clipboard! Share it with your friends.');
-            });
-        }
     </script>
 
 </body>
