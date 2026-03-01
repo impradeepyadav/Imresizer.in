@@ -81,10 +81,11 @@
     }
     </script>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
     
     <style>
-        /* --- CORE THEME - CLEAN & PROFESSIONAL --- */
+        /* --- CORE THEME - TOOL PAGE वाला स्टाइल (बिल्कुल वैसा) --- */
         :root {
             --primary: #2563eb;
             --primary-dark: #1e40af;
@@ -218,6 +219,17 @@
             line-height: 1.7; 
         }
         
+        a { 
+            color: var(--primary); 
+            text-decoration: none; 
+            transition: color 0.2s ease;
+        }
+        
+        a:hover { 
+            color: var(--primary-dark); 
+            text-decoration: underline; 
+        }
+        
         /* BACK BUTTON */
         .back-link {
             color: var(--primary); 
@@ -227,13 +239,14 @@
             gap: 8px; 
             margin-bottom: 25px; 
             text-decoration: none;
-            transition: color 0.2s ease;
+            transition: color 0.2s ease, gap 0.2s ease;
             cursor: pointer;
         }
         
         .back-link:hover { 
             color: var(--primary-dark); 
             gap: 10px;
+            text-decoration: none;
         }
 
         /* CONTENT BLOCK */
@@ -241,15 +254,7 @@
             margin-bottom: 40px; 
         }
 
-        .disclaimer-note {
-            background: #fef2f2;
-            border-left: 5px solid var(--error);
-            padding: 20px;
-            border-radius: 8px;
-            margin: 30px 0;
-        }
-
-        /* ===== FOOTER - पहले वाला स्टाइल ===== */
+        /* ===== FOOTER - टूल पेज वाला स्टाइल (बिना शेयर आइकॉन के) ===== */
         footer {
             background-color: var(--footer-bg);
             color: var(--footer-text);
@@ -333,72 +338,7 @@
         .footer-links a:hover {
             color: var(--primary);
             padding-left: 5px;
-        }
-
-        /* SOCIAL SHARE SECTION - X आइकॉन के साथ */
-        .social-share-section {
-            max-width: 1000px;
-            margin: 30px auto 0;
-            padding: 30px 25px 20px;
-            border-top: 1px solid #334155;
-        }
-        
-        .social-share-section h5 {
-            color: white;
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            letter-spacing: 0.5px;
-        }
-        
-        .social-share-section ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .social-share-section li {
-            margin-bottom: 15px;
-            padding: 0;
-        }
-        
-        .social-share-section li:last-child {
-            margin-bottom: 0;
-        }
-        
-        .social-share-section a,
-        .social-share-section button {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #cbd5e1;
             text-decoration: none;
-            background: transparent;
-            border: none;
-            padding: 0;
-            font-family: inherit;
-            font-size: 14px;
-            cursor: pointer;
-            width: 100%;
-            text-align: left;
-            transition: color 0.2s ease;
-        }
-        
-        .social-share-section a:hover,
-        .social-share-section button:hover {
-            color: var(--primary);
-        }
-        
-        .social-share-section i {
-            width: 18px;
-            height: 18px;
-            color: #94a3b8;
-            transition: color 0.2s ease;
-        }
-        
-        .social-share-section a:hover i,
-        .social-share-section button:hover i {
-            color: var(--primary);
         }
 
         .footer-bottom {
@@ -430,6 +370,9 @@
         /* UTILS */
         .hidden { display: none !important; }
     </style>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
@@ -457,9 +400,7 @@
         <div class="content-block">
             <p><strong>Last Updated: February 28, 2026</strong></p>
 
-            <div class="disclaimer-note">
-                <strong>⚠️ Important Notice:</strong> ImResizer is provided "as is" without any warranties. You are solely responsible for verifying your images before submission to any official portal or authority.
-            </div>
+            <!-- Important Notice box has been removed as requested -->
 
             <h2>1. General Information</h2>
             <p>The information provided by ImResizer on <strong>https://imresizer.in/</strong> is for general informational and utility purposes only. All content on this website is provided in good faith; however, we make no representations or warranties of any kind, express or implied, regarding the accuracy, adequacy, reliability, availability, or completeness of any information or output generated using this tool.</p>
@@ -535,7 +476,7 @@
             <p>If any provision of this Disclaimer is held to be unenforceable or invalid under applicable law, such provision shall be modified or eliminated to the minimum extent necessary, and the remaining provisions shall continue in full force and effect.</p>
 
             <h2>14. Entire Agreement</h2>
-            <p>This Disclaimer, together with our <a href="privacy.html" style="color: var(--primary);">Privacy Policy</a> and <a href="terms.html" style="color: var(--primary);">Terms of Use</a>, constitutes the entire agreement between you and ImResizer regarding your use of the Service and supersedes all prior agreements and understandings.</p>
+            <p>This Disclaimer, together with our <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms of Use</a>, constitutes the entire agreement between you and ImResizer regarding your use of the Service and supersedes all prior agreements and understandings.</p>
 
             <h2>15. Acceptance of Terms</h2>
             <p>By using imresizer.in, you hereby acknowledge that you have read, understood, and agreed to be bound by the terms of this Disclaimer. If you do not agree with any part of this Disclaimer, please discontinue use of our Service immediately.</p>
@@ -543,14 +484,14 @@
             <h2>16. Contact Information</h2>
             <p>If you have any questions about this Disclaimer or our practices, please contact us at:</p>
             <ul>
-                <li>Email: <strong><a href="mailto:legal@imresizer.in" style="color: var(--primary);">legal@imresizer.in</a></strong></li>
+                <li>Email: <strong><a href="mailto:legal@imresizer.in">legal@imresizer.in</a></strong></li>
                 <li>Response Time: Within 7-10 business days</li>
             </ul>
-            <p>For general inquiries, please visit our <a href="contact.html" style="color: var(--primary);">Contact page</a>.</p>
+            <p>For general inquiries, please visit our <a href="contact.html">Contact page</a>.</p>
         </div>
     </main>
 
-    <!-- ===== FOOTER - पहले वाला स्टाइल ===== -->
+    <!-- ===== FOOTER - टूल पेज वाला स्टाइल (बिना शेयर आइकॉन के) ===== -->
     <footer>
         <div class="footer-container">
             <div class="footer-col footer-brand">
@@ -560,7 +501,7 @@
                     </div>
                     <div class="footer-logo-text">Im<span>Resizer</span></div>
                 </a>
-                <p>Trusted by students worldwide for accurate image resizing and compression. We help simplify your application process by providing instant and privacy-focused tools.</p>
+                <p>Trusted by students worldwide for accurate image resizing and compression. We help simplify your application process by providing instant and privacy-focused tools with always high-quality output.</p>
             </div>
 
             <div class="footer-col">
@@ -582,43 +523,7 @@
             </div>
         </div>
 
-        <!-- SOCIAL SHARE SECTION - X आइकॉन के साथ -->
-        <div class="social-share-section">
-            <h5>SHARE</h5>
-            <ul>
-                <li>
-                    <a href="https://wa.me/?text=Check out ImResizer - Free online image compressor for exams! https://imresizer.in" target="_blank" rel="noopener noreferrer">
-                        <i data-lucide="message-circle" width="18" height="18"></i>
-                        WhatsApp
-                    </a>
-                </li>
-                <li>
-                    <a href="https://t.me/share/url?url=https://imresizer.in&text=Free image compressor for exam forms - 20KB, 50KB, 100KB" target="_blank" rel="noopener noreferrer">
-                        <i data-lucide="send" width="18" height="18"></i>
-                        Telegram
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://imresizer.in" target="_blank" rel="noopener noreferrer">
-                        <i data-lucide="facebook" width="18" height="18"></i>
-                        Facebook
-                    </a>
-                </li>
-                <li>
-                    <a href="https://twitter.com/intent/tweet?url=https://imresizer.in&text=Compress images to 20KB, 50KB, 100KB for exams - Free tool!" target="_blank" rel="noopener noreferrer">
-                        <i data-lucide="x" width="18" height="18"></i>
-                        X (Twitter)
-                    </a>
-                </li>
-                <li>
-                    <button onclick="copyPageLink()">
-                        <i data-lucide="link" width="18" height="18"></i>
-                        Copy Link
-                    </button>
-                </li>
-            </ul>
-        </div>
-
+        <!-- FOOTER BOTTOM - बिना शेयर आइकॉन के -->
         <div class="footer-bottom">
             <div>&copy; 2026 imresizer.in. All rights reserved. Made For Students</div>
             <div>Designed for Students</div>
@@ -630,22 +535,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
         });
-
-        // Copy link function
-        function copyPageLink() {
-            const url = window.location.href;
-            navigator.clipboard.writeText(url).then(() => {
-                alert('Link copied to clipboard! Share it with your friends.');
-            }).catch(() => {
-                const textarea = document.createElement('textarea');
-                textarea.value = url;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-                alert('Link copied to clipboard! Share it with your friends.');
-            });
-        }
     </script>
 
 </body>
