@@ -81,10 +81,11 @@
     }
     </script>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
     
     <style>
-        /* --- CORE THEME - SAME AS ABOUT PAGE --- */
+        /* --- CORE THEME - TOOL PAGE वाला स्टाइल (बिल्कुल वैसा) --- */
         :root {
             --primary: #2563eb;
             --primary-dark: #1e40af;
@@ -94,6 +95,8 @@
             --line-color: #e5e7eb;
             --accent-bg: #f8fafc;
             --highlight: #dbeafe;
+            --error: #ef4444;
+            --success: #22c55e;
             --footer-bg: #0f172a;
             --footer-text: #94a3b8;
         }
@@ -198,6 +201,17 @@
             font-size: 16px; 
         }
         
+        a { 
+            color: var(--primary); 
+            text-decoration: none; 
+            transition: color 0.2s ease;
+        }
+        
+        a:hover { 
+            color: var(--primary-dark); 
+            text-decoration: underline; 
+        }
+        
         /* BACK BUTTON */
         .back-link {
             color: var(--primary); 
@@ -207,30 +221,14 @@
             gap: 8px; 
             margin-bottom: 25px; 
             text-decoration: none;
-            transition: color 0.2s ease;
+            transition: color 0.2s ease, gap 0.2s ease;
             cursor: pointer;
         }
         
         .back-link:hover { 
             color: var(--primary-dark); 
             gap: 10px;
-        }
-
-        /* CONTENT BLOCK */
-        .content-block { 
-            margin-bottom: 40px; 
-        }
-        
-        .content-block ul, 
-        .content-block ol { 
-            padding-left: 25px; 
-            color: var(--text-light); 
-            margin-bottom: 25px; 
-        }
-        
-        .content-block li { 
-            margin-bottom: 10px; 
-            line-height: 1.7; 
+            text-decoration: none;
         }
 
         /* CONTACT CARD */
@@ -293,7 +291,7 @@
             text-decoration: underline;
         }
 
-        /* ===== FOOTER - SAME AS ABOUT PAGE ===== */
+        /* ===== FOOTER - टूल पेज वाला स्टाइल (बिना शेयर आइकॉन के) ===== */
         footer {
             background-color: var(--footer-bg);
             color: var(--footer-text);
@@ -377,75 +375,7 @@
         .footer-links a:hover {
             color: var(--primary);
             padding-left: 5px;
-        }
-
-        /* SOCIAL SHARE SECTION */
-        .social-share-section {
-            max-width: 1000px;
-            margin: 30px auto 0;
-            padding: 0 25px;
-            border-top: 1px solid #334155;
-            padding-top: 30px;
-        }
-        
-        .social-share-section h5 {
-            color: white;
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            letter-spacing: 0.5px;
-        }
-        
-        .social-links {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .social-links li {
-            margin: 0;
-            padding: 0;
-        }
-        
-        .social-links a,
-        .social-links button {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #cbd5e1;
             text-decoration: none;
-            background: transparent;
-            border: none;
-            padding: 0;
-            font-family: inherit;
-            font-size: 14px;
-            cursor: pointer;
-            width: 100%;
-            text-align: left;
-            transition: all 0.2s ease;
-        }
-        
-        .social-links a:hover,
-        .social-links button:hover {
-            color: var(--primary);
-            padding-left: 5px;
-        }
-        
-        .social-links i {
-            width: 18px;
-            height: 18px;
-            color: #94a3b8;
-            transition: color 0.2s ease;
-        }
-        
-        .social-links a:hover i,
-        .social-links button:hover i {
-            color: var(--primary);
-        }
-        
-        .share-link-text {
-            flex: 1;
         }
 
         .footer-bottom {
@@ -481,6 +411,9 @@
         /* UTILS */
         .hidden { display: none !important; }
     </style>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
@@ -518,6 +451,7 @@
                     <div class="contact-details">
                         <h4>Email Support</h4>
                         <p><a href="mailto:contact.pandacybercafe@gmail.com">contact.pandacybercafe@gmail.com</a></p>
+                        <p style="font-size:14px; margin-top:4px;">(Preferred for quick responses)</p>
                     </div>
                 </div>
 
@@ -536,29 +470,29 @@
                         <i data-lucide="message-circle" width="24" height="24"></i>
                     </div>
                     <div class="contact-details">
-                        <h4>Feedback</h4>
+                        <h4>Feedback & Suggestions</h4>
                         <p>We welcome suggestions for new exam presets, features, or improvements. Your feedback helps us serve you better!</p>
                     </div>
                 </div>
             </div>
 
             <h2>Frequently Asked Questions</h2>
-            <p>Before contacting us, you might find answers in our <a href="/" style="color: var(--primary);">FAQ section</a> on the home page.</p>
+            <p>Before contacting us, you might find answers in our <a href="/">FAQ section on the home page</a>.</p>
 
             <h3>Common Topics</h3>
             <ul>
-                <li><strong>Image Rejection:</strong> Why was my photo rejected? Check our troubleshooting guide.</li>
+                <li><strong>Image Rejection:</strong> Why was my photo rejected? Check our troubleshooting guide on the home page.</li>
                 <li><strong>Exam Presets:</strong> How to use SSC, UPSC, IBPS presets.</li>
                 <li><strong>File Size:</strong> How to compress to exact KB.</li>
                 <li><strong>Privacy:</strong> Is my data safe? Yes, 100% client-side processing.</li>
             </ul>
 
             <h2>Business Inquiries</h2>
-            <p>For partnership opportunities, advertising, or other business inquiries, please email us with "Business" in the subject line.</p>
+            <p>For partnership opportunities, advertising, or other business inquiries, please email us at <a href="mailto:contact.pandacybercafe@gmail.com">contact.pandacybercafe@gmail.com</a> with "Business" in the subject line.</p>
         </div>
     </main>
 
-    <!-- ===== FOOTER - SAME AS ABOUT PAGE ===== -->
+    <!-- ===== FOOTER - टूल पेज वाला स्टाइल (बिना शेयर आइकॉन के) ===== -->
     <footer>
         <div class="footer-container">
             <div class="footer-col footer-brand">
@@ -568,7 +502,7 @@
                     </div>
                     <div class="footer-logo-text">Im<span>Resizer</span></div>
                 </a>
-                <p>Trusted by students worldwide for accurate image resizing and compression. We help simplify your application process by providing instant and privacy-focused tools.</p>
+                <p>Trusted by students worldwide for accurate image resizing and compression. We help simplify your application process by providing instant and privacy-focused tools with always high-quality output.</p>
             </div>
 
             <div class="footer-col">
@@ -590,43 +524,7 @@
             </div>
         </div>
 
-        <!-- SOCIAL SHARE SECTION -->
-        <div class="social-share-section">
-            <h5>SHARE</h5>
-            <ul class="social-links">
-                <li>
-                    <a href="https://wa.me/?text=Check out ImResizer - Free online image compressor for exams! https://imresizer.in" target="_blank" rel="noopener noreferrer">
-                        <i data-lucide="message-circle" width="18" height="18"></i>
-                        <span class="share-link-text">WhatsApp</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://t.me/share/url?url=https://imresizer.in&text=Free image compressor for exam forms - 20KB, 50KB, 100KB" target="_blank" rel="noopener noreferrer">
-                        <i data-lucide="send" width="18" height="18"></i>
-                        <span class="share-link-text">Telegram</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://imresizer.in" target="_blank" rel="noopener noreferrer">
-                        <i data-lucide="facebook" width="18" height="18"></i>
-                        <span class="share-link-text">Facebook</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://twitter.com/intent/tweet?url=https://imresizer.in&text=Compress images to 20KB, 50KB, 100KB for exams - Free tool!" target="_blank" rel="noopener noreferrer">
-                        <i data-lucide="x" width="18" height="18"></i>
-                        <span class="share-link-text">X (Twitter)</span>
-                    </a>
-                </li>
-                <li>
-                    <button onclick="copyPageLink()">
-                        <i data-lucide="link" width="18" height="18"></i>
-                        <span class="share-link-text">Copy Link</span>
-                    </button>
-                </li>
-            </ul>
-        </div>
-
+        <!-- FOOTER BOTTOM - बिना शेयर आइकॉन के -->
         <div class="footer-bottom">
             <div>&copy; 2026 imresizer.in. All rights reserved. Made For Students</div>
             <div>Designed for Students</div>
@@ -638,22 +536,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
         });
-
-        // Copy link function
-        function copyPageLink() {
-            const url = window.location.href;
-            navigator.clipboard.writeText(url).then(() => {
-                alert('Link copied to clipboard! Share it with your friends.');
-            }).catch(() => {
-                const textarea = document.createElement('textarea');
-                textarea.value = url;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-                alert('Link copied to clipboard! Share it with your friends.');
-            });
-        }
     </script>
 
 </body>
