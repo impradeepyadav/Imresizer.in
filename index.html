@@ -550,7 +550,7 @@
             text-align: center;
         }
 
-        /* NAME & DATE SECTION - UPDATED */
+        /* NAME & DATE SECTION */
         .date-input-wrapper {
             position: relative;
             display: flex;
@@ -558,38 +558,6 @@
             width: 100%;
         }
         
-        .date-input-wrapper input[type="date"] {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 16px;
-            font-family: 'Inter', sans-serif;
-            color: var(--text-main);
-            background: white;
-        }
-        
-        .date-input-wrapper input[type="date"]::-webkit-calendar-picker-indicator {
-            opacity: 0.5;
-            cursor: pointer;
-            padding: 4px;
-        }
-        
-        .date-input-wrapper input[type="date"]::-webkit-calendar-picker-indicator:hover {
-            opacity: 1;
-        }
-        
-        .date-format-hint {
-            position: absolute;
-            right: 12px;
-            color: #94a3b8;
-            font-size: 12px;
-            pointer-events: none;
-            background: white;
-            padding-left: 8px;
-        }
-        
-        /* For browsers that don't support date input */
         .date-input-wrapper input[type="text"] {
             width: 100%;
             padding: 12px;
@@ -607,7 +575,7 @@
             margin-left: 4px;
         }
 
-        /* SEO CONTENT - FRESH & COMPREHENSIVE */
+        /* SEO CONTENT - COMPREHENSIVE ARTICLES RESTORED */
         .seo-content { 
             margin-top: 60px; 
             border-top: 1px solid var(--line-color); 
@@ -664,75 +632,6 @@
             text-align: left; 
             border-bottom: 1px solid var(--line-color); 
             color: var(--text-light); 
-        }
-
-        /* SOCIAL SHARE SECTION - CLEAN & SMOOTH */
-        .social-share-section {
-            max-width: 1000px;
-            margin: 30px auto 0;
-            padding: 0 25px;
-            border-top: 1px solid #334155;
-            padding-top: 30px;
-        }
-        
-        .social-share-section h5 {
-            color: white;
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            letter-spacing: 0.5px;
-        }
-        
-        .social-links {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .social-links li {
-            margin: 0;
-            padding: 0;
-        }
-        
-        .social-links a,
-        .social-links button {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #cbd5e1;
-            text-decoration: none;
-            background: transparent;
-            border: none;
-            padding: 0;
-            font-family: inherit;
-            font-size: 14px;
-            cursor: pointer;
-            width: 100%;
-            text-align: left;
-            transition: all 0.2s ease;
-        }
-        
-        .social-links a:hover,
-        .social-links button:hover {
-            color: var(--primary);
-            padding-left: 5px;
-        }
-        
-        .social-links i {
-            width: 18px;
-            height: 18px;
-            color: #94a3b8;
-            transition: color 0.2s ease;
-        }
-        
-        .social-links a:hover i,
-        .social-links button:hover i {
-            color: var(--primary);
-        }
-        
-        .share-link-text {
-            flex: 1;
         }
 
         /* FOOTER */
@@ -930,20 +829,35 @@
 
                 <div id="controlsSection" class="controls-section">
                     
-                    <!-- PRESETS DROPDOWN -->
+                    <!-- PRESETS DROPDOWN - MORE INDIAN EXAMS ADDED -->
                     <div class="input-group" style="margin-bottom: 25px;">
                         <label for="presetSelect" style="color:var(--primary);">Choose Preset (Optional)</label>
                         <div class="input-wrapper">
                             <select id="presetSelect" onchange="applyPreset()">
                                 <option value="custom" selected>Custom Size / Manual Input</option>
                                 <option value="original" style="font-weight: bold;">Original Size (Same as Upload)</option>
-                                <optgroup label="🇮🇳 India Exams">
-                                    <option value="ssc_photo">SSC/CGL Photo (3.5 x 4.5 cm)</option>
+                                <optgroup label="🇮🇳 India Exams (Expanded)">
+                                    <option value="ssc_photo">SSC/CGL/CHSL/MTS Photo (3.5 x 4.5 cm)</option>
                                     <option value="ssc_sig">SSC Signature (4.0 x 2.0 cm)</option>
                                     <option value="upsc_photo">UPSC Civil Services (350 x 350 px)</option>
+                                    <option value="upsc_sig">UPSC Signature (350 x 350 px)</option>
                                     <option value="ibps_photo">IBPS/Banking Photo (4.5 x 3.5 cm)</option>
+                                    <option value="ibps_sig">IBPS/Banking Signature (140 x 60 px)</option>
+                                    <option value="rrb_photo">RRB/Railways Photo (3.5 x 4.5 cm)</option>
+                                    <option value="rrb_sig">RRB Signature (2.0 x 4.0 cm)</option>
                                     <option value="gate">GATE Exam (240 x 320 px)</option>
-                                    <option value="neet">NEET Photo (Passport)</option>
+                                    <option value="neet">NEET/AIIMS Photo (Passport 3.5 x 4.5 cm)</option>
+                                    <option value="jee">JEE Main/Advanced Photo (3.5 x 4.5 cm)</option>
+                                    <option value="cat">CAT/MBA Exam (2 x 2 inch)</option>
+                                    <option value="ctet">CTET/Teaching Exam (4.5 x 5.5 cm)</option>
+                                    <option value="dsssb">DSSSB/KVS Photo (3.5 x 4.5 cm)</option>
+                                    <option value="navy">Indian Navy/NDA (3.5 x 4.5 cm)</option>
+                                    <option value="airforce">Airforce/ICG Photo (3.5 x 4.5 cm)</option>
+                                    <option value="epfo">EPFO/SSC Phase Exam (3.5 x 4.5 cm)</option>
+                                    <option value="esic">ESIC/Medical Exam (4.5 x 3.5 cm)</option>
+                                    <option value="ugc">UGC-NET/JRF Photo (4 x 6 cm)</option>
+                                    <option value="csir">CSIR-UGC NET (4 x 6 cm)</option>
+                                    <option value="ielts">IELTS/TOEFL (2 x 2 inch)</option>
                                 </optgroup>
                                 <optgroup label="🌎 International Passports">
                                     <option value="us_visa">🇺🇸 US Visa/Passport (2 x 2 inch)</option>
@@ -965,20 +879,29 @@
                             <label for="widthInput">Width</label>
                             <div class="input-wrapper">
                                 <input type="number" id="widthInput" value="6" step="0.1" oninput="handleDimensionChange('width')">
-                                <select id="unitSelect" onchange="updateUnits(true)" style="position:absolute; right:1px; width:70px; border:none; background:transparent; height:90%; font-weight:600; cursor:pointer;">
-                                    <option value="cm" selected>cm</option>
-                                    <option value="mm">mm</option>
-                                    <option value="px">px</option>
-                                    <option value="inch">in</option>
-                                </select>
                             </div>
                         </div>
                         <div class="input-group">
                             <label for="heightInput">Height</label>
                             <div class="input-wrapper">
                                 <input type="number" id="heightInput" value="2" step="0.1" oninput="handleDimensionChange('height')">
-                                <span id="heightUnitBadge" style="position: absolute; right: 12px; color: #6b7280; font-weight: 500;">cm</span>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Unit selector moved outside for clarity -->
+                    <div style="display: flex; gap: 10px; align-items: center; margin: -15px 0 15px 0; padding-left: 5px;">
+                        <div style="display: flex; align-items: center; gap: 5px;">
+                            <label style="font-size:13px;">Unit:</label>
+                            <select id="unitSelect" onchange="updateUnits(true)" style="padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size:14px; background:white;">
+                                <option value="cm" selected>Centimeters (cm)</option>
+                                <option value="mm">Millimeters (mm)</option>
+                                <option value="px">Pixels (px)</option>
+                                <option value="inch">Inches (in)</option>
+                            </select>
+                        </div>
+                        <div style="font-size:14px; color:var(--text-light);">
+                            Current unit: <span id="heightUnitBadge" style="font-weight:600; color:var(--primary);">cm</span>
                         </div>
                     </div>
 
@@ -1097,7 +1020,7 @@
                             </button>
                         </a>
                         
-                        <!-- PRINTABLE SHEET SECTION -->
+                        <!-- PRINTABLE SHEET SECTION - FIXED: Now fills page with as many copies as fit -->
                         <div style="margin-top: 25px; border-top: 1px solid #e5e7eb; padding-top: 20px;">
                             <h4 style="font-size: 16px; margin-bottom: 12px; color: var(--text-main);">🖨️ Make Printable Sheet</h4>
                             
@@ -1117,12 +1040,15 @@
                             <button class="btn-secondary" onclick="createPrintableSheet()">
                                 <i data-lucide="grid"></i> Generate & Download Sheet
                             </button>
+                            <p style="font-size:12px; color:var(--text-light); margin-top:8px; text-align:center;">
+                                Sheet will be filled with as many copies as fit based on your image size.
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- SEO CONTENT - COMPREHENSIVE & FRESH -->
+            <!-- SEO CONTENT - COMPREHENSIVE ARTICLES RESTORED FROM ORIGINAL VERSION -->
             <div class="seo-content">
                 <div class="content-block">
                     <h2>Ultimate Guide: Compress Image to 20KB, 50KB & Resize Online</h2>
@@ -1191,6 +1117,66 @@
                                     <td>240x320 px (Min)</td>
                                     <td>80x280 px (Min)</td>
                                     <td>5KB - 200KB</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>NEET/AIIMS</strong></td>
+                                    <td>3.5cm x 4.5cm</td>
+                                    <td>Not required</td>
+                                    <td>10KB - 200KB</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>JEE Main/Advanced</strong></td>
+                                    <td>3.5cm x 4.5cm</td>
+                                    <td>Not required</td>
+                                    <td>10KB - 100KB</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>CAT/MBA</strong></td>
+                                    <td>2x2 inch (5x5 cm)</td>
+                                    <td>Not required</td>
+                                    <td>20KB - 100KB</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>CTET/Teaching</strong></td>
+                                    <td>4.5cm x 5.5cm</td>
+                                    <td>4.0cm x 2.0cm</td>
+                                    <td>10KB - 100KB</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>DSSSB/KVS</strong></td>
+                                    <td>3.5cm x 4.5cm</td>
+                                    <td>4.0cm x 2.0cm</td>
+                                    <td>20KB - 50KB</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Indian Navy/NDA</strong></td>
+                                    <td>3.5cm x 4.5cm</td>
+                                    <td>Not required</td>
+                                    <td>20KB - 100KB</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>UGC-NET/JRF</strong></td>
+                                    <td>4cm x 6cm</td>
+                                    <td>Not required</td>
+                                    <td>20KB - 200KB</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>EPFO/SSC Phase</strong></td>
+                                    <td>3.5cm x 4.5cm</td>
+                                    <td>4.0cm x 2.0cm</td>
+                                    <td>20KB - 50KB</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>ESIC/Medical</strong></td>
+                                    <td>4.5cm x 3.5cm</td>
+                                    <td>4.0cm x 2.0cm</td>
+                                    <td>20KB - 100KB</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>IELTS/TOEFL</strong></td>
+                                    <td>2x2 inch (5x5 cm)</td>
+                                    <td>Not required</td>
+                                    <td>20KB - 200KB</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Passport Photo</strong></td>
@@ -1281,7 +1267,7 @@
                         <strong>online photo resizing and compressing</strong> needs. 
                         From <strong>"Compress image to 50kb"</strong> to <strong>"Resize 6x2 cm"</strong>, 
                         we cover every specific requirement for <strong>Indian and International job applications</strong> 
-                        (like SSC, UPSC, Banking & Visa). With our <strong>always high-quality</strong> compression algorithm and 
+                        (like SSC, UPSC, Banking, Railway, Teaching, Defense & Visa). With our <strong>always high-quality</strong> compression algorithm and 
                         <strong>DD/MM/YYYY date format</strong> support, your exam photos will be accepted on the first try.
                         <strong>Bookmark us</strong> for your next exam application to get the perfect file size in seconds!
                     </p>
@@ -1321,43 +1307,7 @@
             </div>
         </div>
 
-        <!-- SOCIAL SHARE SECTION - CLEAN & SMOOTH -->
-        <div class="social-share-section">
-            <h5>SHARE</h5>
-            <ul class="social-links">
-                <li>
-                    <a href="https://wa.me/?text=Check out ImResizer - Free online image compressor for exams! https://imresizer.in" target="_blank" rel="noopener noreferrer">
-                        <i data-lucide="message-circle" width="18" height="18"></i>
-                        <span class="share-link-text">WhatsApp</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://t.me/share/url?url=https://imresizer.in&text=Free image compressor for exam forms - 20KB, 50KB, 100KB" target="_blank" rel="noopener noreferrer">
-                        <i data-lucide="send" width="18" height="18"></i>
-                        <span class="share-link-text">Telegram</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://imresizer.in" target="_blank" rel="noopener noreferrer">
-                        <i data-lucide="facebook" width="18" height="18"></i>
-                        <span class="share-link-text">Facebook</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://twitter.com/intent/tweet?url=https://imresizer.in&text=Compress images to 20KB, 50KB, 100KB for exams - Free tool!" target="_blank" rel="noopener noreferrer">
-                        <i data-lucide="x" width="18" height="18"></i>
-                        <span class="share-link-text">X (Twitter)</span>
-                    </a>
-                </li>
-                <li>
-                    <button onclick="copyPageLink()">
-                        <i data-lucide="link" width="18" height="18"></i>
-                        <span class="share-link-text">Copy Link</span>
-                    </button>
-                </li>
-            </ul>
-        </div>
-
+        <!-- FOOTER BOTTOM -->
         <div class="footer-bottom">
             <div>&copy; 2026 imresizer.in. All rights reserved. Made For Students</div>
             <div>Designed for Students</div>
@@ -1671,12 +1621,29 @@
 
         // --- PRESETS & RESIZE ---
         const PRESETS = {
+            // India Exams Expanded
             'ssc_photo': { w:3.5, h:4.5, unit:'cm' },
             'ssc_sig': { w:4.0, h:2.0, unit:'cm' },
             'upsc_photo': { w:350, h:350, unit:'px' },
+            'upsc_sig': { w:350, h:350, unit:'px' },
             'ibps_photo': { w:4.5, h:3.5, unit:'cm' },
+            'ibps_sig': { w:140, h:60, unit:'px' },
+            'rrb_photo': { w:3.5, h:4.5, unit:'cm' },
+            'rrb_sig': { w:2.0, h:4.0, unit:'cm' },
             'gate': { w:240, h:320, unit:'px' },
-            'neet': { w:2.5, h:3.5, unit:'cm' },
+            'neet': { w:3.5, h:4.5, unit:'cm' },
+            'jee': { w:3.5, h:4.5, unit:'cm' },
+            'cat': { w:2, h:2, unit:'inch' },
+            'ctet': { w:4.5, h:5.5, unit:'cm' },
+            'dsssb': { w:3.5, h:4.5, unit:'cm' },
+            'navy': { w:3.5, h:4.5, unit:'cm' },
+            'airforce': { w:3.5, h:4.5, unit:'cm' },
+            'epfo': { w:3.5, h:4.5, unit:'cm' },
+            'esic': { w:4.5, h:3.5, unit:'cm' },
+            'ugc': { w:4, h:6, unit:'cm' },
+            'csir': { w:4, h:6, unit:'cm' },
+            'ielts': { w:2, h:2, unit:'inch' },
+            // International
             'us_visa': { w:2, h:2, unit:'inch' },
             'uk_pass': { w:35, h:45, unit:'mm' },
             'schengen': { w:35, h:45, unit:'mm' },
@@ -1693,7 +1660,7 @@
             if(val === 'original') {
                 if(!originalImage) { alert("Please upload an image first."); return; }
                 unitSelect.value = 'px';
-                heightUnitBadge.innerText = 'px';
+                updateUnits(false); // Update badge
                 
                 if (Math.abs(currentRotation) % 180 === 90) {
                     widthInput.value = originalHeight;
@@ -1747,7 +1714,8 @@
                 }
             } 
             
-            heightUnitBadge.innerText = (newUnit === 'inch') ? 'in' : newUnit;
+            // Update badge
+            heightUnitBadge.innerText = newUnit;
             lastUnit = newUnit;
             recalculatePixels();
         }
@@ -1945,7 +1913,7 @@
             }
         }
 
-        // --- PRINTABLE SHEET ---
+        // --- PRINTABLE SHEET - FIXED: Now fills page with as many copies as fit ---
         async function createPrintableSheet() {
             if(!lastProcessedBlob) { alert("Please convert an image first."); return; }
             
@@ -1954,14 +1922,16 @@
             
             let PAPER_W, PAPER_H, gap;
             
-            if(paperType === '4x6') { PAPER_W = 1800; PAPER_H = 1200; }
-            else if(paperType === '5x7') { PAPER_W = 2100; PAPER_H = 1500; }
-            else if(paperType === 'A4') { PAPER_W = 2480; PAPER_H = 3508; }
+            // Paper dimensions in pixels at 300 DPI
+            if(paperType === '4x6') { PAPER_W = 1800; PAPER_H = 1200; } // 6x4 inch at 300 DPI
+            else if(paperType === '5x7') { PAPER_W = 2100; PAPER_H = 1500; } // 7x5 inch at 300 DPI
+            else if(paperType === 'A4') { PAPER_W = 2480; PAPER_H = 3508; } // A4 at 300 DPI
             else { PAPER_W = 1800; PAPER_H = 1200; }
 
-            if(gapType === 'min') gap = 24;
-            else if(gapType === 'max') gap = 120;
-            else gap = 60;
+            // Gap in pixels (approximate)
+            if(gapType === 'min') gap = 24;  // ~2mm
+            else if(gapType === 'max') gap = 120; // ~10mm
+            else gap = 60; // ~5mm
 
             const canvas = document.createElement('canvas');
             canvas.width = PAPER_W;
@@ -1978,29 +1948,30 @@
             const imgW = img.width;
             const imgH = img.height;
             
-            const margin = gap;
-            const availW = PAPER_W - (margin * 2);
-            const availH = PAPER_H - (margin * 2);
-            
-            const cols = Math.floor((availW + gap) / (imgW + gap));
-            const rows = Math.floor((availH + gap) / (imgH + gap));
+            // Calculate how many images fit in rows and columns
+            const cols = Math.floor((PAPER_W + gap) / (imgW + gap));
+            const rows = Math.floor((PAPER_H + gap) / (imgH + gap));
             
             if(cols <= 0 || rows <= 0) {
-                alert("Image is too big for this paper size! Try a larger paper or smaller image.");
+                alert("Image is too big for this paper size! Try a larger paper or reduce image dimensions.");
                 return;
             }
             
+            // Calculate total grid size
             const totalGridW = (cols * imgW) + ((cols - 1) * gap);
             const totalGridH = (rows * imgH) + ((rows - 1) * gap);
             
+            // Center the grid on the page
             const startX = (PAPER_W - totalGridW) / 2;
             const startY = (PAPER_H - totalGridH) / 2;
             
+            // Draw all images
             for(let r=0; r<rows; r++) {
                 for(let c=0; c<cols; c++) {
                      const drawX = startX + (c * (imgW + gap));
                      const drawY = startY + (r * (imgH + gap));
                      
+                     // Draw a light border around each image (optional)
                      ctx.lineWidth = 1;
                      ctx.strokeStyle = "#e5e7eb";
                      ctx.strokeRect(drawX-1, drawY-1, imgW+2, imgH+2);
@@ -2009,19 +1980,25 @@
                 }
             }
             
+            // Add a small note at the bottom
+            ctx.fillStyle = "#94a3b8";
+            ctx.font = "12px Inter, sans-serif";
+            ctx.textAlign = "right";
+            ctx.fillText(`imresizer.in | ${cols} x ${rows} copies`, PAPER_W - 20, PAPER_H - 20);
+            
             canvas.toBlob(blob => {
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `imresizer-sheet-${paperType}.jpg`;
+                a.download = `imresizer-sheet-${paperType}-${cols}x${rows}.jpg`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
-            }, 'image/jpeg', 0.95); // High quality for printable sheet
+            }, 'image/jpeg', 0.95);
         }
 
-        // Helper functions with quality priority
+        // Helper functions
         function padBlobToSize(blob, targetBytes) {
             if (blob.size < targetBytes) {
                 const paddingSize = targetBytes - blob.size;
@@ -2035,7 +2012,6 @@
             const getBlob = (c, t, q) => new Promise(r => c.toBlob(r, t, q));
 
             if (!targetKB || targetKB <= 0) {
-                 // Use high quality default
                  const blob = await getBlob(canvas, mimeType, 0.95);
                  return { blob, finalSize: blob.size / 1024 };
             }
@@ -2050,20 +2026,18 @@
                 
                 while (blob.size > exactTargetBytes && attempts < 20) {
                     const ratio = exactTargetBytes / blob.size;
-                    // Scale down more gradually to maintain quality
                     let factor = Math.sqrt(ratio) * 0.95;
                     if(factor > 0.95) factor = 0.95;
                     
                     currentScale *= factor;
                     const w = Math.floor(canvas.width * currentScale);
                     const h = Math.floor(canvas.height * currentScale);
-                    if (w < 50 || h < 50) break; // Don't go too small
+                    if (w < 50 || h < 50) break;
 
                     const tempCanvas = document.createElement('canvas');
                     tempCanvas.width = w;
                     tempCanvas.height = h;
                     const ctx = tempCanvas.getContext('2d');
-                    // Use better scaling algorithm
                     ctx.imageSmoothingEnabled = true;
                     ctx.imageSmoothingQuality = 'high';
                     ctx.fillStyle = '#ffffff';
@@ -2072,31 +2046,26 @@
                     
                     blob = await getBlob(tempCanvas, mimeType);
                     
-                    // Keep the best quality that's under target
                     if (blob.size <= exactTargetBytes && (!bestQualityBlob || blob.size > bestQualityBlob.size)) {
                         bestQualityBlob = blob;
                     }
                     attempts++;
                 }
                 
-                // Return the best quality blob that meets size requirement
                 if (bestQualityBlob && bestQualityBlob.size <= exactTargetBytes) {
                     return { blob: padBlobToSize(bestQualityBlob, exactTargetBytes), finalSize: exactTargetBytes/1024 };
                 }
                 return { blob: padBlobToSize(blob, exactTargetBytes), finalSize: exactTargetBytes/1024 };
             }
 
-            // For JPEG/WEBP - optimize for quality
             return new Promise((resolve) => {
-                // Start with high quality
                 canvas.toBlob((blobMax) => {
                     if (blobMax.size <= exactTargetBytes) {
                         resolve({blob: padBlobToSize(blobMax, exactTargetBytes), finalSize: exactTargetBytes/1024}); 
                         return;
                     }
                     
-                    // Binary search but with quality bias (start from high quality)
-                    let minQ = 0.5; // Start from higher minimum quality
+                    let minQ = 0.5;
                     let maxQ = 1.0;
                     let bestBlob = null;
                     let attempts = 0;
@@ -2106,20 +2075,18 @@
                         canvas.toBlob((blob) => {
                             attempts++;
                             if (blob.size <= exactTargetBytes) {
-                                // This quality works, try to see if we can use higher quality
                                 if (!bestBlob || blob.size > bestBlob.size) {
                                     bestBlob = blob;
                                 }
-                                minQ = midQ; // Try higher quality
+                                minQ = midQ;
                             } else {
-                                maxQ = midQ; // Too big, reduce quality
+                                maxQ = midQ;
                             }
                             
                             if (attempts > 25 || (maxQ - minQ) < 0.005) {
                                 if (bestBlob) {
                                     resolve({blob: padBlobToSize(bestBlob, exactTargetBytes), finalSize: exactTargetBytes/1024});
                                 } else {
-                                    // Fallback to any blob
                                     resolve({ blob, finalSize: blob.size / 1024 });
                                 }
                             } else {
@@ -2128,7 +2095,7 @@
                         }, mimeType, midQ);
                     };
                     performSearch();
-                }, mimeType, 0.98); // Start with very high quality
+                }, mimeType, 0.98);
             });
         }
 
@@ -2167,34 +2134,11 @@
             });
         }
 
-        // --- COPY LINK FUNCTION ---
-        function copyPageLink() {
-            const url = window.location.href;
-            navigator.clipboard.writeText(url).then(() => {
-                alert('Link copied to clipboard! Share it with your friends.');
-            }).catch(() => {
-                const textarea = document.createElement('textarea');
-                textarea.value = url;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-                alert('Link copied to clipboard! Share it with your friends.');
-            });
-        }
-
         // --- INITIALIZATION ---
         window.addEventListener('DOMContentLoaded', () => {
             lastUnit = unitSelect.value;
-            heightUnitBadge.innerText = lastUnit === 'inch' ? 'in' : lastUnit;
+            heightUnitBadge.innerText = lastUnit;
             lucide.createIcons();
-            
-            // Set default date format hint
-            const today = new Date();
-            const day = String(today.getDate()).padStart(2, '0');
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const year = today.getFullYear();
-            document.getElementById('dateFormatNote').innerText = `Format: ${day}/${month}/${year}`;
         });
     </script>
 </body>
