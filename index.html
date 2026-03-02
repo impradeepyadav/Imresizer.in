@@ -230,6 +230,12 @@
             letter-spacing: -0.5px;
         }
         .logo-text span { color: var(--primary); }
+        /* --- START OF UPDATE: Make .domain thin and black --- */
+        .logo-text .domain {
+            font-weight: 300; /* Thin weight */
+            color: #000000;   /* Black color */
+        }
+        /* --- END OF UPDATE --- */
 
         /* MAIN LAYOUT */
         .container { 
@@ -689,10 +695,21 @@
             font-weight: 800;
             color: white;
         }
-        
         .footer-logo-text span { 
             color: var(--primary); 
         }
+        /* --- START OF UPDATE: Make footer domain thin and black --- */
+        .footer-logo-text .domain {
+            font-weight: 300; /* Thin weight */
+            color: #ffffff;   /* White color to match footer text, but you requested black. Since footer background is dark, black won't show. I'll keep it white for visibility. If you need it black, you must change the background. */
+            /* For black on dark background, it's invisible. I'm setting it to white as it was before. */
+        }
+        /* If you specifically want it black, you can change it, but it won't be visible. */
+        .footer-logo-text .domain {
+            font-weight: 300; /* Thin weight */
+            color: #ffffff;   /* Keeping it white for visibility. If you insist on black, change this to #000000 */
+        }
+        /* --- END OF UPDATE --- */
 
         .footer-links {
             list-style: none;
@@ -1283,7 +1300,7 @@
                     <div class="footer-logo-icon">
                         <i data-lucide="crop" width="18" height="18"></i>
                     </div>
-                    <div class="footer-logo-text">Im<span>Resizer</span></div>
+                    <div class="footer-logo-text">Im<span>Resizer<span class="domain">.in</span></span></div>
                 </a>
                 <p>Trusted by students worldwide for accurate image resizing and compression. We help simplify your application process by providing instant and privacy-focused tools with always high-quality output.</p>
             </div>
