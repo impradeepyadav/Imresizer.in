@@ -640,7 +640,7 @@
             color: var(--text-light); 
         }
 
-        /* FOOTER */
+        /* FOOTER - UPDATED TO 5 COLUMNS */
         footer {
             background-color: var(--footer-bg);
             color: var(--footer-text);
@@ -654,8 +654,8 @@
             margin: 0 auto;
             padding: 0 25px;
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 40px;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 30px;
         }
 
         .footer-col h5 {
@@ -698,18 +698,10 @@
         .footer-logo-text span { 
             color: var(--primary); 
         }
-        /* --- START OF UPDATE: Make footer domain thin and black --- */
         .footer-logo-text .domain {
-            font-weight: 300; /* Thin weight */
-            color: #ffffff;   /* White color to match footer text, but you requested black. Since footer background is dark, black won't show. I'll keep it white for visibility. If you need it black, you must change the background. */
-            /* For black on dark background, it's invisible. I'm setting it to white as it was before. */
+            font-weight: 300;
+            color: #ffffff;
         }
-        /* If you specifically want it black, you can change it, but it won't be visible. */
-        .footer-logo-text .domain {
-            font-weight: 300; /* Thin weight */
-            color: #ffffff;   /* Keeping it white for visibility. If you insist on black, change this to #000000 */
-        }
-        /* --- END OF UPDATE --- */
 
         .footer-links {
             list-style: none;
@@ -1293,8 +1285,10 @@
         </div>
     </main>
 
+    <!-- FOOTER - UPDATED WITH 5 COLUMNS (2 NEW ADDED) -->
     <footer>
         <div class="footer-container">
+            <!-- Column 1: Brand info with logo and description (2fr width) -->
             <div class="footer-col footer-brand">
                 <a href="/" class="footer-logo">
                     <div class="footer-logo-icon">
@@ -1305,6 +1299,7 @@
                 <p>Trusted by students worldwide for accurate image resizing and compression. We help simplify your application process by providing instant and privacy-focused tools with always high-quality output.</p>
             </div>
 
+            <!-- Column 2: Quick Links (1fr width) -->
             <div class="footer-col">
                 <h5>QUICK LINKS</h5>
                 <ul class="footer-links">
@@ -1314,12 +1309,35 @@
                 </ul>
             </div>
 
+            <!-- Column 3: Legal & Info (1fr width) -->
             <div class="footer-col">
                 <h5>LEGAL & INFO</h5>
                 <ul class="footer-links">
                     <li><a href="disclaimer.html">Disclaimer</a></li>
                     <li><a href="privacy.html">Privacy Policy</a></li>
                     <li><a href="terms.html">Terms of Use</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 4: NEW COLUMN - Tools (1fr width) -->
+            <div class="footer-col">
+                <h5>TOOLS</h5>
+                <ul class="footer-links">
+                    <li><a href="image-compressor.html">Image Compressor</a></li>
+                    <li><a href="pdf-converter.html">PDF Converter</a></li>
+                    <li><a href="signature-maker.html">Signature Maker</a></li>
+                    <li><a href="passport-photo.html">Passport Photo</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 5: NEW COLUMN - Resources (1fr width) -->
+            <div class="footer-col">
+                <h5>RESOURCES</h5>
+                <ul class="footer-links">
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="guides.html">Guides</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
                 </ul>
             </div>
         </div>
