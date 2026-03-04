@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebApplication">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="google-site-verification" content="adRkeSd13WOOtl240N_RB8FWfNn_FAz9JG2DhWapRFE" />
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5757459170037186" crossorigin="anonymous"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EN650KEM8H"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-EN650KEM8H');
+    </script>
+
+    <!-- Primary SEO Tags -->
+    <title>Advanced Signature Maker - Draw, Type or Upload Digital Signature - ImResizer</title>
+    <meta name="description" content="Create professional digital signatures for documents, forms, and emails. Draw with mouse/touch, type your name in stylish fonts, or upload an existing signature. 100% free and private.">
+    <meta name="keywords" content="signature maker, digital signature, electronic signature, online signature generator, draw signature, signature creator, sign document online">
+
+    <link rel="canonical" href="https://imresizer.in/signature-maker.html" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://imresizer.in/signature-maker.html">
+    <meta property="og:title" content="Advanced Signature Maker - ImResizer">
+    <meta property="og:description" content="Create professional digital signatures. Draw, type, or upload. 100% free and private.">
+    <meta property="og:image" content="https://imresizer.in/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Advanced Signature Maker - ImResizer">
+    <meta property="twitter:description" content="Create professional digital signatures. Draw, type, or upload. 100% free and private.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "ImResizer - Advanced Signature Maker",
+      "url": "https://imresizer.in/signature-maker.html",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All",
+      "description": "Free online tool to create digital signatures by drawing, typing, or uploading images.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": "Draw signature, Type signature, Upload signature, Multiple fonts, Adjustable pen size, Color picker, PNG and JPG download"
+    }
+    </script>
+
+    <!-- FAQ Schema for rich snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How to create a digital signature online?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can create a digital signature in three ways: 1) Draw using your mouse or touch screen, 2) Type your name and choose from various fonts, or 3) Upload an existing signature image. All processing happens in your browser - no server uploads."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is it safe to create signatures online?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, 100% safe. ImResizer processes everything in your browser. Your signature never leaves your device. We don't store or have access to your data."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I download signature with transparent background?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, download as PNG format which supports transparent background. For white background, use JPG format."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- HowTo Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Create a Digital Signature",
+      "description": "Step-by-step guide to create your signature online",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Choose creation method",
+          "text": "Select from Draw, Type, or Upload tabs based on your preference."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Customize your signature",
+          "text": "Adjust color, size, font, and background as needed."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Generate and download",
+          "text": "Click save button and download your signature as PNG or JPG."
+        }
+      ]
+    }
+    </script>
+
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
+    <style>
+        /* --- CORE THEME - IDENTICAL TO OTHER IMRESIZER PAGES --- */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --text-main: #1f2937;
+            --text-light: #4b5563;
+            --bg-color: #ffffff;
+            --line-color: #e5e7eb;
+            --accent-bg: #f8fafc;
+            --highlight: #dbeafe;
+            --error: #ef4444;
+            --success: #22c55e;
+            --footer-bg: #0f172a;
+            --footer-text: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.5;
+        }
+
+        /* HEADER */
+        header {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--line-color);
+            background: white;
+        }
+
+        .navbar {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        .logo-icon-box {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+        .logo-text span { color: var(--primary); }
+        .logo-text .domain {
+            font-weight: 300;
+            color: #000000;
+        }
+
+        /* MAIN LAYOUT */
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        /* TYPOGRAPHY */
+        h1 {
+            font-size: 34px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: var(--text-main);
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        h2 {
+            font-size: 28px;
+            color: var(--text-main);
+            margin: 40px 0 20px;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 22px;
+            color: var(--text-main);
+            margin: 30px 0 15px;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 16px;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        p.subtitle {
+            font-size: 18px;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        /* BACK BUTTON */
+        .back-link {
+            color: var(--primary);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 25px;
+            text-decoration: none;
+            transition: color 0.2s ease, gap 0.2s ease;
+            cursor: pointer;
+        }
+
+        .back-link:hover {
+            color: var(--primary-dark);
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        /* --- TOOL SPECIFIC STYLES (Advanced Signature Maker) --- */
+        .tool-container {
+            background: var(--accent-bg);
+            border: 1px solid var(--line-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .signature-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--line-color);
+            padding-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            border: 1px solid var(--line-color);
+            border-radius: 30px;
+            background: white;
+            color: var(--text-main);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .tab-pane {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Canvas Area */
+        .canvas-container {
+            background: white;
+            border: 2px dashed var(--line-color);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: border-color 0.2s;
+        }
+
+        .canvas-container:hover {
+            border-color: var(--primary);
+        }
+
+        .signature-canvas {
+            border: 1px solid var(--line-color);
+            border-radius: 8px;
+            background: white;
+            max-width: 100%;
+            height: auto;
+            cursor: crosshair;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            touch-action: none; /* Prevents scrolling while drawing on mobile */
+        }
+
+        /* Controls */
+        .control-panel {
+            background: white;
+            border: 1px solid var(--line-color);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .control-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .control-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-item label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .control-item input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: var(--line-color);
+            border-radius: 3px;
+            -webkit-appearance: none;
+        }
+
+        .control-item input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .control-item input[type="color"] {
+            width: 60px;
+            height: 40px;
+            border: 1px solid var(--line-color);
+            border-radius: 6px;
+            cursor: pointer;
+            padding: 2px;
+        }
+
+        .value-badge {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+            background: var(--highlight);
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            align-self: flex-start;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 8px -1px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            border-color: var(--line-color);
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #16a34a;
+            transform: translateY(-1px);
+        }
+
+        /* Type Tab specific */
+        .text-input-area {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        #signatureText {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--line-color);
+            border-radius: 8px;
+            font-size: 18px;
+            transition: border-color 0.2s;
+        }
+
+        #signatureText:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .font-selector {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+            background: var(--accent-bg);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .font-selector select {
+            padding: 10px 15px;
+            border: 1px solid var(--line-color);
+            border-radius: 6px;
+            background: white;
+            flex: 1;
+            min-width: 180px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .font-selector select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Upload Tab specific */
+        .upload-area {
+            border: 2px dashed var(--line-color);
+            border-radius: 12px;
+            padding: 50px 20px;
+            text-align: center;
+            background: var(--accent-bg);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .upload-area.dragover {
+            border-color: var(--primary);
+            background: #eff6ff;
+            transform: scale(1.02);
+        }
+
+        .upload-icon {
+            width: 64px;
+            height: 64px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        /* Download Area */
+        #downloadArea {
+            margin-top: 30px;
+            border-top: 1px solid var(--line-color);
+            padding-top: 20px;
+        }
+
+        .success-box {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .download-options {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        /* SEO Content Section */
+        .seo-content {
+            margin-top: 60px;
+            border-top: 1px solid var(--line-color);
+            padding-top: 40px;
+        }
+
+        .content-block {
+            margin-bottom: 50px;
+        }
+
+        .content-block p {
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .content-block ul, .content-block ol {
+            padding-left: 25px;
+            color: var(--text-light);
+            margin-bottom: 25px;
+        }
+
+        .content-block li {
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+
+        .tip-card {
+            background: var(--highlight);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+
+        .tip-card h4 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        /* FOOTER - 5 COLUMN (same as other pages) */
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 70px 0 25px;
+            margin-top: 80px;
+            font-size: 14px;
+        }
+
+        .footer-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 25px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 30px;
+        }
+
+        .footer-col h5 {
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-top: 15px;
+            max-width: 320px;
+        }
+
+        .footer-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .footer-logo-icon {
+            background-color: transparent;
+            color: white;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-logo-text {
+            font-size: 20px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .footer-logo-text span {
+            color: var(--primary);
+        }
+
+        .footer-logo-text .domain {
+            font-weight: 300;
+            color: #ffffff;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.2s ease, padding-left 0.2s ease;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+            text-decoration: none;
+        }
+
+        .footer-bottom {
+            max-width: 1000px;
+            margin: 50px auto 0;
+            padding-top: 25px;
+            border-top: 1px solid #334155;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 25px;
+            padding-right: 25px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .control-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 28px;
+            }
+        }
+
+        /* UTILS */
+        .hidden { display: none !important; }
+    </style>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <header>
+        <div class="navbar">
+            <a href="/" class="brand-logo">
+                <div class="logo-icon-box">
+                    <i data-lucide="crop" width="28" height="28"></i>
+                </div>
+                <div class="logo-text">Im<span>Resizer<span class="domain">.in</span></span></div>
+            </a>
+            <span style="font-size:12px; color:var(--text-light); font-weight:500; background: #f3f4f6; padding: 6px 10px; border-radius: 6px; border: 1px solid #e5e7eb;">Free Tool</span>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <a href="/" class="back-link">
+            <i data-lucide="arrow-left" width="16" height="16"></i>
+            Back to Home
+        </a>
+
+        <h1>Advanced Signature Maker</h1>
+        <p class="subtitle">Create professional digital signatures for documents, forms, and emails. Choose your preferred method below. 100% free and private.</p>
+
+        <div class="tool-container">
+
+            <!-- Tabs for different input methods -->
+            <div class="signature-tabs">
+                <button class="tab-btn active" id="tabDrawBtn">
+                    <i data-lucide="pencil" width="18" height="18"></i> Draw Signature
+                </button>
+                <button class="tab-btn" id="tabTypeBtn">
+                    <i data-lucide="type" width="18" height="18"></i> Type Signature
+                </button>
+                <button class="tab-btn" id="tabUploadBtn">
+                    <i data-lucide="upload-cloud" width="18" height="18"></i> Upload Signature
+                </button>
+            </div>
+
+            <!-- Draw Tab Content -->
+            <div class="tab-pane active" id="drawPane">
+                <div class="canvas-container">
+                    <canvas id="signatureCanvas" class="signature-canvas" width="600" height="250"></canvas>
+                    <p style="font-size:12px; color:var(--text-light); margin-top:10px;">
+                        <i data-lucide="info" width="12" height="12"></i> Draw using mouse or touch screen
+                    </p>
+                </div>
+
+                <div class="control-panel">
+                    <div class="control-grid">
+                        <div class="control-item">
+                            <label>Pen Color</label>
+                            <input type="color" id="penColor" value="#000000">
+                        </div>
+                        <div class="control-item">
+                            <label>Background</label>
+                            <input type="color" id="bgColor" value="#ffffff">
+                        </div>
+                        <div class="control-item">
+                            <label>Pen Size</label>
+                            <input type="range" id="penSize" min="1" max="30" value="3">
+                            <span class="value-badge" id="penSizeValue">3px</span>
+                        </div>
+                        <div class="control-item">
+                            <label>Smoothing</label>
+                            <input type="range" id="smoothing" min="0" max="1" step="0.1" value="0.5">
+                            <span class="value-badge" id="smoothingValue">0.5</span>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-secondary" id="clearCanvasBtn">
+                            <i data-lucide="eraser" width="16" height="16"></i> Clear All
+                        </button>
+                        <button class="btn btn-secondary" id="undoCanvasBtn">
+                            <i data-lucide="rotate-ccw" width="16" height="16"></i> Undo
+                        </button>
+                        <button class="btn btn-primary" id="saveDrawBtn">
+                            <i data-lucide="save" width="16" height="16"></i> Generate Signature
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Type Tab Content -->
+            <div class="tab-pane" id="typePane">
+                <div class="control-panel">
+                    <div class="text-input-area">
+                        <input type="text" id="signatureText" placeholder="Type your full name here..." value="Your Name">
+                        
+                        <div class="font-selector">
+                            <select id="fontFamily">
+                                <option value="'Arial', sans-serif">Arial (Professional)</option>
+                                <option value="'Brush Script MT', cursive">Brush Script (Elegant)</option>
+                                <option value="'Courier New', monospace">Courier New (Typewriter)</option>
+                                <option value="'Georgia', serif">Georgia (Formal)</option>
+                                <option value="'Times New Roman', serif">Times New Roman (Classic)</option>
+                                <option value="'Verdana', sans-serif">Verdana (Clean)</option>
+                                <option value="'Comic Sans MS', cursive">Comic Sans (Casual)</option>
+                                <option value="'Trebuchet MS', sans-serif">Trebuchet MS (Modern)</option>
+                                <option value="'Pacifico', cursive">Pacifico (Handwritten)</option>
+                                <option value="'Great Vibes', cursive">Great Vibes (Calligraphy)</option>
+                            </select>
+                            
+                            <select id="fontSize">
+                                <option value="30">30px (Small)</option>
+                                <option value="40" selected>40px (Medium)</option>
+                                <option value="50">50px (Large)</option>
+                                <option value="60">60px (Extra Large)</option>
+                                <option value="70">70px (Huge)</option>
+                                <option value="80">80px (Very Huge)</option>
+                            </select>
+                            
+                            <input type="color" id="fontColor" value="#000000" title="Text Color">
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" id="generateTextBtn">
+                                <i data-lucide="type" width="16" height="16"></i> Generate & Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="canvas-container">
+                    <p style="text-align: left; margin-bottom: 10px; font-weight:600;">Preview:</p>
+                    <canvas id="textPreviewCanvas" class="signature-canvas" width="600" height="250"></canvas>
+                </div>
+            </div>
+
+            <!-- Upload Tab Content -->
+            <div class="tab-pane" id="uploadPane">
+                <div class="upload-area" id="uploadDropZone">
+                    <i data-lucide="upload-cloud" class="upload-icon"></i>
+                    <div style="font-weight: 700; font-size: 20px; margin-bottom: 8px;">Upload Signature Image</div>
+                    <div style="color: var(--text-light); font-size: 15px; margin-bottom: 5px;">Click or drag & drop</div>
+                    <div style="color: var(--text-light); font-size: 13px;">Supports: PNG, JPG, GIF (max 5MB)</div>
+                    <input type="file" id="uploadFileInput" accept="image/*" style="display: none;">
+                </div>
+                
+                <div class="canvas-container" id="uploadPreviewContainer" style="display: none;">
+                    <canvas id="uploadCanvas" class="signature-canvas" width="600" height="250"></canvas>
+                    <div class="action-buttons" style="margin-top: 20px; justify-content: center;">
+                        <button class="btn btn-primary" id="processUploadBtn">
+                            <i data-lucide="save" width="16" height="16"></i> Save as Signature
+                        </button>
+                        <button class="btn btn-secondary" id="clearUploadBtn">
+                            <i data-lucide="trash-2" width="16" height="16"></i> Remove
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Download Area (appears after saving) -->
+            <div id="downloadArea" style="display: none;">
+                <div class="success-box">
+                    <i data-lucide="check-circle" width="32" height="32" style="color: var(--success); margin-bottom: 10px;"></i>
+                    <div style="color: #166534; font-weight: 700; font-size: 18px; margin-bottom: 5px;">Signature Ready!</div>
+                    <div id="finalSizeInfo" style="font-size: 14px; color: #15803d;"></div>
+                </div>
+                
+                <div class="download-options">
+                    <a id="downloadPngLink" href="#" style="text-decoration: none; flex: 1;">
+                        <button class="btn btn-success download-btn">
+                            <i data-lucide="image" width="16" height="16"></i> Download PNG (Transparent)
+                        </button>
+                    </a>
+                    <a id="downloadJpgLink" href="#" style="text-decoration: none; flex: 1;">
+                        <button class="btn btn-success download-btn">
+                            <i data-lucide="file-image" width="16" height="16"></i> Download JPG (White BG)
+                        </button>
+                    </a>
+                </div>
+                <p style="font-size:12px; color:var(--text-light); margin-top:15px; text-align:center;">
+                    <i data-lucide="info" width="12" height="12"></i> PNG format supports transparent background, ideal for documents.
+                </p>
+            </div>
+        </div>
+
+        <!-- SEO Content Section - Comprehensive Articles -->
+        <div class="seo-content">
+            
+            <div class="content-block">
+                <h2>Complete Guide: Create Digital Signature Online Free</h2>
+                <p>Welcome to ImResizer's <strong>Advanced Signature Maker</strong> – a professional tool designed to help you create digital signatures for all your official needs. Whether you need to sign PDF documents, email attachments, online forms, or government applications, our signature maker provides three flexible methods to create your perfect digital signature.</p>
+                <p>All processing happens <strong>100% client-side</strong> in your browser. Your signature never leaves your device, ensuring complete privacy and security. No registration, no uploads, no data collection.</p>
+            </div>
+
+            <div class="content-block">
+                <h2>1. How to Create Signature by Drawing</h2>
+                <p>The drawing method is the most natural way to create a signature that looks like your handwritten signature. Follow these steps:</p>
+                <ol>
+                    <li><strong>Select "Draw Signature" tab:</strong> This opens the drawing canvas.</li>
+                    <li><strong>Adjust settings:</strong> Choose your preferred pen color, background color, and pen size using the sliders.</li>
+                    <li><strong>Draw your signature:</strong> Use your mouse (on desktop) or finger/stylus (on mobile/touch screen) to draw directly on the canvas.</li>
+                    <li><strong>Use controls:</strong> If you make a mistake, use "Undo" to remove the last stroke or "Clear All" to start fresh.</li>
+                    <li><strong>Generate:</strong> Click "Generate Signature" when satisfied, then download as PNG or JPG.</li>
+                </ol>
+                <div class="tip-card">
+                    <h4>✍️ Pro Tip for Drawing</h4>
+                    <p>For best results, use a stylus on mobile or draw slowly. Higher pen size values create thicker lines. If your signature looks jagged, increase the smoothing value for smoother curves.</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2>2. How to Create Signature by Typing</h2>
+                <p>Perfect for creating clean, professional signatures using various fonts:</p>
+                <ol>
+                    <li><strong>Select "Type Signature" tab:</strong> This opens the text input panel.</li>
+                    <li><strong>Enter your name:</strong> Type your full name as you want it to appear in the signature.</li>
+                    <li><strong>Choose font style:</strong> Select from 10+ professionally curated fonts including elegant scripts (Brush Script, Pacifico), formal serifs (Times New Roman, Georgia), and clean sans-serifs (Arial, Verdana).</li>
+                    <li><strong>Adjust size and color:</strong> Pick the appropriate font size and text color.</li>
+                    <li><strong>Preview:</strong> See real-time preview of your signature on the canvas below.</li>
+                    <li><strong>Generate:</strong> Click "Generate & Save" to create your signature.</li>
+                </ol>
+                <div class="tip-card">
+                    <h4>🔤 Font Selection Tips</h4>
+                    <p>For official documents, choose professional fonts like Arial, Times New Roman, or Georgia. For a personal touch, Brush Script or Pacifico mimics handwriting beautifully. Test different sizes to ensure your signature fits well in document fields.</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2>3. How to Create Signature by Uploading</h2>
+                <p>Already have a scanned image of your signature? Upload it and convert to a clean digital signature:</p>
+                <ol>
+                    <li><strong>Select "Upload Signature" tab:</strong> This opens the upload area.</li>
+                    <li><strong>Upload image:</strong> Click the upload area or drag & drop your signature image (PNG, JPG, GIF).</li>
+                    <li><strong>Automatic processing:</strong> The tool automatically centers and resizes your signature to fit the canvas.</li>
+                    <li><strong>Review:</strong> Check if the signature looks good. You can remove and re-upload if needed.</li>
+                    <li><strong>Save:</strong> Click "Save as Signature" to process and download.</li>
+                </ol>
+                <div class="tip-card">
+                    <h4>📸 Upload Best Practices</h4>
+                    <p>For best results, upload an image with a clean white background and dark ink. The tool works best with high-contrast images. If your signature appears too light, try a different source image.</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2>4. Download Options: PNG vs JPG</h2>
+                <p>After creating your signature, you have two download formats:</p>
+                <ul>
+                    <li><strong>PNG (Portable Network Graphics):</strong> Supports transparent background. Ideal for overlaying on documents, PDFs, or any colored background. The signature appears without any white box around it. Recommended for most professional uses.</li>
+                    <li><strong>JPG (JPEG):</strong> Always has a white background. Smaller file size but lacks transparency. Suitable for basic use where background doesn't matter.</li>
+                </ul>
+                <p><strong>Recommendation:</strong> Always choose PNG for official documents to maintain a professional look without background artifacts.</p>
+            </div>
+
+            <div class="content-block">
+                <h2>5. Common Use Cases for Digital Signatures</h2>
+                <ul>
+                    <li><strong>Government Exam Forms:</strong> Many online application forms (SSC, UPSC, Banking, Railway) require uploading a scanned signature. Use our tool to create a clean, properly sized signature.</li>
+                    <li><strong>PDF Documents:</strong> Sign contracts, agreements, and forms electronically without printing.</li>
+                    <li><strong>Email Signatures:</strong> Create a professional email signature block.</li>
+                    <li><strong>Digital Artwork:</strong> Artists can create signature watermarks for their work.</li>
+                    <li><strong>Official Correspondence:</strong> Add a personal touch to official letters and documents.</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h2>6. Signature Requirements for Indian Exams</h2>
+                <div style="overflow-x: auto; margin: 20px 0;">
+                    <table style="width:100%; border-collapse:collapse; border:1px solid var(--line-color);">
+                        <thead>
+                            <tr style="background:var(--accent-bg);">
+                                <th style="padding:12px; text-align:left; border-bottom:2px solid var(--primary);">Exam/Organization</th>
+                                <th style="padding:12px; text-align:left; border-bottom:2px solid var(--primary);">Signature Size</th>
+                                <th style="padding:12px; text-align:left; border-bottom:2px solid var(--primary);">File Size Limit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td style="padding:10px; border-bottom:1px solid var(--line-color);">SSC (CGL/CHSL/MTS)</td><td style="padding:10px;">4.0 x 2.0 cm</td><td style="padding:10px;">10-20 KB</td></tr>
+                            <tr><td style="padding:10px; border-bottom:1px solid var(--line-color);">UPSC Civil Services</td><td style="padding:10px;">350 x 350 px</td><td style="padding:10px;">20-300 KB</td></tr>
+                            <tr><td style="padding:10px; border-bottom:1px solid var(--line-color);">IBPS Banking</td><td style="padding:10px;">140 x 60 px</td><td style="padding:10px;">10-20 KB</td></tr>
+                            <tr><td style="padding:10px; border-bottom:1px solid var(--line-color);">RRB Railways</td><td style="padding:10px;">2.0 x 4.0 cm</td><td style="padding:10px;">10-20 KB</td></tr>
+                            <tr><td style="padding:10px;">GATE Exam</td><td style="padding:10px;">80 x 280 px</td><td style="padding:10px;">5-200 KB</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>Our Signature Maker creates signatures that can be easily resized using our <a href="/">main image resizer tool</a> to meet specific exam requirements.</p>
+            </div>
+
+            <div class="content-block">
+                <h2>7. Privacy & Security: Your Signature Never Leaves Your Device</h2>
+                <p>ImResizer is built with privacy as the highest priority. Unlike other online signature tools that upload your signature to their servers, our tool works entirely in your browser:</p>
+                <ul>
+                    <li><strong>100% Client-Side:</strong> All drawing, text rendering, and image processing happens locally using JavaScript.</li>
+                    <li><strong>No Server Uploads:</strong> Your signature image is never transmitted to any server.</li>
+                    <li><strong>No Data Storage:</strong> We don't store any information about you or your signature.</li>
+                    <li><strong>Secure Connection:</strong> Our website uses HTTPS encryption for all connections.</li>
+                </ul>
+                <p>This means your signature remains completely private and secure. You can use our tool with confidence even for sensitive documents.</p>
+            </div>
+
+            <div class="content-block">
+                <h2>8. Frequently Asked Questions (FAQ)</h2>
+                
+                <h3>Q: Can I use this signature for legal documents?</h3>
+                <p><strong>A:</strong> Yes, digital signatures created with our tool are widely accepted for most online forms, applications, and digital documents. However, for legally binding contracts, you should check the specific requirements of the accepting authority. Some legal processes may require specific types of digital signatures (like DSC).</p>
+
+                <h3>Q: What file format is best for signatures?</h3>
+                <p><strong>A:</strong> PNG format is recommended as it supports transparency, allowing your signature to be placed on any colored background without a white box. JPG format adds a white background and is smaller in file size but less versatile.</p>
+
+                <h3>Q: Can I resize my signature after creating it?</h3>
+                <p><strong>A:</strong> Absolutely! After downloading your signature, you can use our <a href="/">main image resizer tool</a> to adjust dimensions to exactly match exam requirements (like 4.0 x 2.0 cm for SSC).</p>
+
+                <h3>Q: Is there a limit on how many signatures I can create?</h3>
+                <p><strong>A:</strong> No limits! You can create as many signatures as you want, completely free. No registration, no watermarks, no hidden charges.</p>
+
+                <h3>Q: Does it work on mobile phones?</h3>
+                <p><strong>A:</strong> Yes, our Signature Maker is fully responsive and works on all devices including smartphones and tablets. You can draw with your finger on mobile screens.</p>
+
+                <h3>Q: Can I change the signature after saving?</h3>
+                <p><strong>A:</strong> Yes, you can always go back and make changes using the appropriate tab. Each time you generate, you'll get a fresh download option.</p>
+            </div>
+
+            <div class="content-block">
+                <h2>9. Tips for Perfect Digital Signature</h2>
+                <ul>
+                    <li><strong>Practice drawing:</strong> If using draw mode, practice a few times to get comfortable with the mouse or touch input.</li>
+                    <li><strong>Choose appropriate size:</strong> For most forms, a signature around 200-300 pixels wide is sufficient.</li>
+                    <li><strong>Maintain consistency:</strong> Use the same signature for all your documents to maintain consistency.</li>
+                    <li><strong>Test on target document:</strong> Before final submission, test how your signature looks on the actual form or document.</li>
+                    <li><strong>Keep a backup:</strong> Save your signature in a safe place for future use.</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h2>10. Conclusion</h2>
+                <p><strong>ImResizer's Advanced Signature Maker</strong> provides everything you need to create professional digital signatures. Whether you're applying for government exams, signing business documents, or adding a personal touch to your emails, our tool delivers high-quality results while protecting your privacy.</p>
+                <p><strong>Bookmark this page</strong> for quick access whenever you need to create or update your digital signature. We're constantly improving our tools based on user feedback – if you have suggestions, please <a href="contact.html">contact us</a>!</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER - 5 COLUMN (same as other pages) -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col footer-brand">
+                <a href="/" class="footer-logo">
+                    <div class="footer-logo-icon">
+                        <i data-lucide="crop" width="18" height="18"></i>
+                    </div>
+                    <div class="footer-logo-text">Im<span>Resizer<span class="domain">.in</span></span></div>
+                </a>
+                <p>Trusted by students worldwide for accurate image resizing and compression. We help simplify your application process by providing instant and privacy-focused tools with always high-quality output.</p>
+            </div>
+            <div class="footer-col">
+                <h5>QUICK LINKS</h5>
+                <ul class="footer-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>LEGAL & INFO</h5>
+                <ul class="footer-links">
+                    <li><a href="disclaimer.html">Disclaimer</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>TOOLS</h5>
+                <ul class="footer-links">
+                    <li><a href="image-compressor.html">Image Compressor</a></li>
+                    <li><a href="pdf-converter.html">PDF Converter</a></li>
+                    <li><a href="signature-maker.html">Signature Maker</a></li>
+                    <li><a href="passport-photo.html">Passport Photo</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>RESOURCES</h5>
+                <ul class="footer-links">
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="guides.html">Guides</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>&copy; 2026 imresizer.in. All rights reserved. Made For Students</div>
+            <div>Designed for Students</div>
+        </div>
+    </footer>
+
+    <script>
+        // Lucide icons initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            initAdvancedSignatureTool();
+        });
+
+        function initAdvancedSignatureTool() {
+            // --- DOM Elements ---
+            const tabDraw = document.getElementById('tabDrawBtn');
+            const tabType = document.getElementById('tabTypeBtn');
+            const tabUpload = document.getElementById('tabUploadBtn');
+            const paneDraw = document.getElementById('drawPane');
+            const paneType = document.getElementById('typePane');
+            const paneUpload = document.getElementById('uploadPane');
+
+            // Canvas elements
+            const drawCanvas = document.getElementById('signatureCanvas');
+            const textCanvas = document.getElementById('textPreviewCanvas');
+            const uploadCanvas = document.getElementById('uploadCanvas');
+            const uploadContainer = document.getElementById('uploadPreviewContainer');
+            const uploadDropZone = document.getElementById('uploadDropZone');
+            const uploadInput = document.getElementById('uploadFileInput');
+
+            // Controls
+            const penColor = document.getElementById('penColor');
+            const bgColor = document.getElementById('bgColor');
+            const penSize = document.getElementById('penSize');
+            const penSizeValue = document.getElementById('penSizeValue');
+            const smoothing = document.getElementById('smoothing');
+            const smoothingValue = document.getElementById('smoothingValue');
+            const clearBtn = document.getElementById('clearCanvasBtn');
+            const undoBtn = document.getElementById('undoCanvasBtn');
+            const saveDrawBtn = document.getElementById('saveDrawBtn');
+
+            // Type controls
+            const signatureText = document.getElementById('signatureText');
+            const fontFamily = document.getElementById('fontFamily');
+            const fontSize = document.getElementById('fontSize');
+            const fontColor = document.getElementById('fontColor');
+            const generateTextBtn = document.getElementById('generateTextBtn');
+
+            // Upload controls
+            const processUploadBtn = document.getElementById('processUploadBtn');
+            const clearUploadBtn = document.getElementById('clearUploadBtn');
+
+            // Download area
+            const downloadArea = document.getElementById('downloadArea');
+            const downloadPngLink = document.getElementById('downloadPngLink');
+            const downloadJpgLink = document.getElementById('downloadJpgLink');
+            const finalSizeInfo = document.getElementById('finalSizeInfo');
+
+            // --- Drawing State ---
+            let isDrawing = false;
+            let lastX = 0, lastY = 0;
+            let undoStack = [];
+            let ctx = drawCanvas.getContext('2d');
+            
+            // Set canvas resolution for better quality
+            drawCanvas.width = 600;
+            drawCanvas.height = 250;
+            
+            // Initialize draw canvas
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, drawCanvas.width, drawCanvas.height);
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            // Save initial state for undo
+            saveCanvasState();
+
+            // Update smoothing display
+            smoothing.addEventListener('input', () => {
+                smoothingValue.textContent = smoothing.value;
+            });
+
+            // --- Tab Switching ---
+            function setActiveTab(activeTab) {
+                [tabDraw, tabType, tabUpload].forEach(btn => btn.classList.remove('active'));
+                [paneDraw, paneType, paneUpload].forEach(pane => pane.classList.remove('active'));
+                
+                activeTab.classList.add('active');
+                if (activeTab === tabDraw) paneDraw.classList.add('active');
+                if (activeTab === tabType) {
+                    paneType.classList.add('active');
+                    updateTextPreview();
+                }
+                if (activeTab === tabUpload) paneUpload.classList.add('active');
+            }
+
+            tabDraw.addEventListener('click', () => setActiveTab(tabDraw));
+            tabType.addEventListener('click', () => setActiveTab(tabType));
+            tabUpload.addEventListener('click', () => setActiveTab(tabUpload));
+
+            // --- Drawing Functions ---
+            function saveCanvasState() {
+                undoStack.push(drawCanvas.toDataURL());
+                if (undoStack.length > 20) undoStack.shift();
+            }
+
+            function restoreLastState() {
+                if (undoStack.length > 1) {
+                    undoStack.pop();
+                    const lastState = undoStack[undoStack.length - 1];
+                    const img = new Image();
+                    img.onload = () => {
+                        ctx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+                        ctx.drawImage(img, 0, 0);
+                    };
+                    img.src = lastState;
+                }
+            }
+
+            function startDrawing(e) {
+                e.preventDefault();
+                isDrawing = true;
+                const pos = getCanvasCoordinates(e, drawCanvas);
+                lastX = pos.x;
+                lastY = pos.y;
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+            }
+
+            function draw(e) {
+                e.preventDefault();
+                if (!isDrawing) return;
+                
+                const pos = getCanvasCoordinates(e, drawCanvas);
+                const currentX = pos.x;
+                const currentY = pos.y;
+
+                ctx.strokeStyle = penColor.value;
+                ctx.lineWidth = penSize.value;
+
+                ctx.lineTo(currentX, currentY);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(currentX, currentY);
+
+                lastX = currentX;
+                lastY = currentY;
+            }
+
+            function stopDrawing(e) {
+                e.preventDefault();
+                if (isDrawing) {
+                    isDrawing = false;
+                    saveCanvasState();
+                }
+            }
+
+            function getCanvasCoordinates(e, canvas) {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+
+                let clientX, clientY;
+                if (e.touches) {
+                    clientX = e.touches[0].clientX;
+                    clientY = e.touches[0].clientY;
+                } else {
+                    clientX = e.clientX;
+                    clientY = e.clientY;
+                }
+
+                return {
+                    x: Math.min(Math.max((clientX - rect.left) * scaleX, 0), canvas.width),
+                    y: Math.min(Math.max((clientY - rect.top) * scaleY, 0), canvas.height)
+                };
+            }
+
+            // Event listeners for drawing
+            drawCanvas.addEventListener('mousedown', startDrawing);
+            drawCanvas.addEventListener('mousemove', draw);
+            drawCanvas.addEventListener('mouseup', stopDrawing);
+            drawCanvas.addEventListener('mouseleave', stopDrawing);
+            
+            // Touch events for mobile
+            drawCanvas.addEventListener('touchstart', startDrawing, { passive: false });
+            drawCanvas.addEventListener('touchmove', draw, { passive: false });
+            drawCanvas.addEventListener('touchend', stopDrawing);
+            drawCanvas.addEventListener('touchcancel', stopDrawing);
+
+            // Update pen size display
+            penSize.addEventListener('input', () => {
+                penSizeValue.textContent = penSize.value + 'px';
+            });
+
+            // Clear canvas
+            clearBtn.addEventListener('click', () => {
+                ctx.fillStyle = bgColor.value;
+                ctx.fillRect(0, 0, drawCanvas.width, drawCanvas.height);
+                saveCanvasState();
+            });
+
+            // Undo
+            undoBtn.addEventListener('click', restoreLastState);
+
+            // Background color change
+            bgColor.addEventListener('input', () => {
+                if (confirm('Change background color? This will clear the current signature.')) {
+                    ctx.fillStyle = bgColor.value;
+                    ctx.fillRect(0, 0, drawCanvas.width, drawCanvas.height);
+                    saveCanvasState();
+                }
+            });
+
+            // --- Type Mode Functions ---
+            function updateTextPreview() {
+                const ctxText = textCanvas.getContext('2d');
+                ctxText.clearRect(0, 0, textCanvas.width, textCanvas.height);
+                
+                ctxText.fillStyle = '#ffffff';
+                ctxText.fillRect(0, 0, textCanvas.width, textCanvas.height);
+                
+                ctxText.font = `${fontSize.value}px ${fontFamily.value}`;
+                ctxText.fillStyle = fontColor.value;
+                ctxText.textAlign = 'center';
+                ctxText.textBaseline = 'middle';
+                ctxText.fillText(signatureText.value || 'Your Signature', textCanvas.width/2, textCanvas.height/2);
+            }
+
+            signatureText.addEventListener('input', updateTextPreview);
+            fontFamily.addEventListener('change', updateTextPreview);
+            fontSize.addEventListener('change', updateTextPreview);
+            fontColor.addEventListener('input', updateTextPreview);
+
+            // Generate from text
+            generateTextBtn.addEventListener('click', () => {
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = textCanvas.width;
+                tempCanvas.height = textCanvas.height;
+                const ctxTemp = tempCanvas.getContext('2d');
+                
+                ctxTemp.fillStyle = '#ffffff';
+                ctxTemp.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+                ctxTemp.font = `${fontSize.value}px ${fontFamily.value}`;
+                ctxTemp.fillStyle = fontColor.value;
+                ctxTemp.textAlign = 'center';
+                ctxTemp.textBaseline = 'middle';
+                ctxTemp.fillText(signatureText.value || 'Your Signature', tempCanvas.width/2, tempCanvas.height/2);
+                
+                showDownloadOptions(tempCanvas);
+            });
+
+            // --- Upload Mode Functions ---
+            uploadDropZone.addEventListener('click', () => uploadInput.click());
+            
+            uploadDropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadDropZone.classList.add('dragover');
+            });
+            
+            uploadDropZone.addEventListener('dragleave', () => {
+                uploadDropZone.classList.remove('dragover');
+            });
+            
+            uploadDropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadDropZone.classList.remove('dragover');
+                if (e.dataTransfer.files.length) handleUploadFile(e.dataTransfer.files[0]);
+            });
+
+            uploadInput.addEventListener('change', (e) => {
+                if (e.target.files.length) handleUploadFile(e.target.files[0]);
+            });
+
+            function handleUploadFile(file) {
+                if (!file.type.startsWith('image/')) {
+                    alert('Please upload an image file');
+                    return;
+                }
+                
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('File size too large. Maximum 5MB allowed.');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const ctxUpload = uploadCanvas.getContext('2d');
+                        
+                        // Calculate dimensions to fit canvas
+                        let width = img.width;
+                        let height = img.height;
+                        const maxWidth = uploadCanvas.width * 0.8;
+                        const maxHeight = uploadCanvas.height * 0.8;
+                        
+                        if (width > maxWidth) {
+                            height *= maxWidth / width;
+                            width = maxWidth;
+                        }
+                        if (height > maxHeight) {
+                            width *= maxHeight / height;
+                            height = maxHeight;
+                        }
+                        
+                        ctxUpload.clearRect(0, 0, uploadCanvas.width, uploadCanvas.height);
+                        ctxUpload.fillStyle = '#ffffff';
+                        ctxUpload.fillRect(0, 0, uploadCanvas.width, uploadCanvas.height);
+                        
+                        const x = (uploadCanvas.width - width) / 2;
+                        const y = (uploadCanvas.height - height) / 2;
+                        
+                        // Enable image smoothing for better quality
+                        ctxUpload.imageSmoothingEnabled = true;
+                        ctxUpload.imageSmoothingQuality = 'high';
+                        ctxUpload.drawImage(img, x, y, width, height);
+                        
+                        uploadContainer.style.display = 'block';
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+
+            clearUploadBtn.addEventListener('click', () => {
+                uploadContainer.style.display = 'none';
+                uploadInput.value = '';
+            });
+
+            processUploadBtn.addEventListener('click', () => {
+                showDownloadOptions(uploadCanvas);
+            });
+
+            // Save from draw mode
+            saveDrawBtn.addEventListener('click', () => {
+                showDownloadOptions(drawCanvas);
+            });
+
+            // --- Download Functions ---
+            function showDownloadOptions(canvas) {
+                // PNG
+                canvas.toBlob((pngBlob) => {
+                    const pngUrl = URL.createObjectURL(pngBlob);
+                    downloadPngLink.href = pngUrl;
+                    downloadPngLink.download = 'signature.png';
+                    
+                    // JPG
+                    canvas.toBlob((jpgBlob) => {
+                        const jpgUrl = URL.createObjectURL(jpgBlob);
+                        downloadJpgLink.href = jpgUrl;
+                        downloadJpgLink.download = 'signature.jpg';
+                        
+                        finalSizeInfo.textContent = `PNG: ${(pngBlob.size / 1024).toFixed(2)} KB | JPG: ${(jpgBlob.size / 1024).toFixed(2)} KB`;
+                        downloadArea.style.display = 'block';
+                        
+                        // Scroll to download area
+                        downloadArea.scrollIntoView({ behavior: 'smooth' });
+                    }, 'image/jpeg', 0.95);
+                }, 'image/png');
+            }
+
+            // Initial text preview
+            updateTextPreview();
+            
+            // Load additional font for Pacifico and Great Vibes
+            const link = document.createElement('link');
+            link.href = 'https://fonts.googleapis.com/css2?family=Pacifico&family=Great+Vibes&display=swap';
+            link.rel = 'stylesheet';
+            document.head.appendChild(link);
+        }
+    </script>
+</body>
+</html>
