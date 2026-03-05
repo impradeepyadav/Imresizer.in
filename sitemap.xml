@@ -1,50 +1,218 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Home Page - Main Tool -->
+
+  <!-- Home Page (Main Tool) -->
   <url>
-    <loc>https://imresizer.textify.tools/</loc>
-    <lastmod>2026-02-14</lastmod>
+    <loc>https://imresizer.in/</loc>
+    <lastmod>2026-03-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-  
-  <!-- About Page -->
+
+  <!-- Core Tools -->
+  <url>
+    <loc>https://imresizer.in/image-compressor.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/passport-photo.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/signature-maker.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/pdf-converter.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Information Pages -->
   <url>
     <loc>https://imresizer.in/about.html</loc>
-    <lastmod>2026-02-14</lastmod>
+    <lastmod>2026-03-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  
-  <!-- Contact Page -->
   <url>
     <loc>https://imresizer.in/contact.html</loc>
-    <lastmod>2026-02-14</lastmod>
+    <lastmod>2026-03-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-  
-  <!-- Privacy Policy Page -->
   <url>
     <loc>https://imresizer.in/privacy.html</loc>
-    <lastmod>2026-02-14</lastmod>
+    <lastmod>2026-03-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
-  
-  <!-- Terms of Use Page -->
   <url>
     <loc>https://imresizer.in/terms.html</loc>
-    <lastmod>2026-02-14</lastmod>
+    <lastmod>2026-03-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
-  
-  <!-- Disclaimer Page -->
   <url>
     <loc>https://imresizer.in/disclaimer.html</loc>
-    <lastmod>2026-02-14</lastmod>
+    <lastmod>2026-03-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
+
+  <!-- Blog, Guides, FAQ, Sitemap -->
+  <url>
+    <loc>https://imresizer.in/blog.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/guides.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/faq.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/sitemap.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Articles (20 posts) -->
+  <url>
+    <loc>https://imresizer.in/article-what-is-image-compression.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/article-jpeg-vs-png-vs-webp.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/article-how-to-compress-without-losing-quality.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/article-ssc-exam-photo-requirements-2026.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/article-upsc-photo-signature-requirements.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/article-ibps-banking-exam-photo-guide.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/article-rrb-railway-exam-photo-requirements.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/article-how-to-prepare-photos-for-government-exams.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/article-why-image-compression-improves-seo.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/article-how-to-optimize-images-for-pagespeed.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/article-image-alt-text-guide.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/article-best-image-file-names-for-seo.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/article-how-to-resize-images-in-centimeters.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/article-how-to-compress-to-exact-kb-20-50-100.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/article-batch-image-compression-tips.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/article-add-name-date-to-photo-ssc.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/article-why-exam-photo-rejected-common-reasons.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/article-image-compression-faq.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/article-lossy-vs-lossless-compression.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imresizer.in/article-how-to-check-photo-meets-exam-requirements.html</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
