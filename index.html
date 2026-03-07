@@ -65,39 +65,31 @@
 </script>
 
     <!-- FAQ Schema - Google Safe -->
-    <script type="application/ld+json">
+   <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
     {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "How to compress image to 20KB?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Upload your image to ImResizer and select 20KB as target size. The tool automatically compresses it to exactly 20KB."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How to compress image to 50KB?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Upload your photo, choose 50KB option, and download the compressed image instantly."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How to compress image to 100KB?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Select 100KB target size and your image will be compressed to 100KB automatically."
-          }
-        }
-      ]
+      "@type": "Question",
+      "name": "How to compress image to 20KB?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Upload your image to ImResizer, select 20KB as the target size, and the tool will automatically compress it to the required size for your form."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How to compress image to 50KB or 100KB?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Choose the 50KB or 100KB option after uploading your photo. The tool will instantly resize it for JEE, NEET, or UPSC applications."
+      }
     }
-    </script>
-
+  ]
+}
+</script>
+    
     <!-- Preload critical resources -->
     <link rel="preconnect" href="https://unpkg.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
