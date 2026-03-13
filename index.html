@@ -1293,11 +1293,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <script>
-        // ==================== ALL FUNCTIONS DEFINED FIRST ====================
+        // ==================== FIXED AND RESTRUCTURED CODE ====================
         
-        // --- Helper Functions (Define at the top) ---
+        // --- Helper Functions (Defined First) ---
         function capitalize(s) { 
-            return s.charAt(0).toUpperCase() + s.slice(1); 
+            if (!s) return '';
+            return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase(); 
         }
 
         function formatDateInput(input) {
@@ -1335,271 +1336,7 @@
         const CM_TO_INCH = 0.393700787;
         const MM_TO_INCH = 0.0393700787;
 
-        // --- CORE TOOL LOGIC ---
-        let originalImage = null;
-        let activeCropper = null; 
-        let currentImageSrc = null; 
-        let originalWidth = 0, originalHeight = 0;
-        let lastProcessedBlob = null;
-        
-        // Pro States
-        let currentRotation = 0;
-        let flipH = 1;
-        let flipV = 1;
-        let activeFilter = 'none';
-        let brightnessVal = 100;
-        let contrastVal = 100;
-
-        // Unit Tracking
-        let lastUnit = 'cm';
-
-        // DOM Elements
-        const fileInput = document.getElementById('fileInput');
-        const dropZone = document.getElementById('dropZone');
-        const previewImage = document.getElementById('previewImage');
-        const previewContainer = document.getElementById('previewContainer');
-        const controlsSection = document.getElementById('controlsSection');
-        const widthInput = document.getElementById('widthInput');
-        const heightInput = document.getElementById('heightInput');
-        const unitSelect = document.getElementById('unitSelect');
-        const dpiInput = document.getElementById('dpiInput');
-        const formatSelect = document.getElementById('formatSelect');
-        const kbInput = document.getElementById('kbInput');
-        const ratioCheck = document.getElementById('ratioCheck');
-        const targetPixelInfo = document.getElementById('targetPixelInfo');
-        const downloadArea = document.getElementById('downloadArea');
-        const downloadLink = document.getElementById('downloadLink');
-        const finalSizeInfo = document.getElementById('finalSizeInfo');
-        const resizeBtn = document.getElementById('resizeBtn');
-        const presetSelect = document.getElementById('presetSelect');
-        const heightUnitBadge = document.getElementById('heightUnitBadge');
-        const brightnessRange = document.getElementById('brightnessRange');
-        const contrastRange = document.getElementById('contrastRange');
-        const btnGrayscale = document.getElementById('btnGrayscale');
-        const btnSignature = document.getElementById('btnSignature');
-        const addTextParams = document.getElementById('addTextParams');
-        const textInputs = document.getElementById('textInputs');
-        const pdfSettings = document.getElementById('pdfSettings');
-        const pdfPageSize = document.getElementById('pdfPageSize');
-        const btnStartCrop = document.getElementById('btnStartCrop');
-        const btnApplyCrop = document.getElementById('btnApplyCrop');
-        const btnCancelCrop = document.getElementById('btnCancelCrop');
-        const btnToggleRatio = document.getElementById('btnToggleRatio');
-        const nameText = document.getElementById('nameText');
-        const dateText = document.getElementById('dateText');
-        const sheetPaperSize = document.getElementById('sheetPaperSize');
-        const sheetGap = document.getElementById('sheetGap');
-
-        // ==================== CORE FUNCTIONS ====================
-        
-        function updatePreviewTransforms() {
-            previewImage.style.transform = `rotate(${currentRotation}deg) scale(${flipH}, ${flipV})`;
-            updatePreviewFilter();
-        }
-
-        function resetFilterUI() {
-            brightnessRange.value = 100;
-            contrastRange.value = 100;
-            document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
-        }
-
-        function toggleCropButtons(isCropping) {
-            btnStartCrop.classList.toggle('hidden', isCropping);
-            btnApplyCrop.classList.toggle('hidden', !isCropping);
-            btnCancelCrop.classList.toggle('hidden', !isCropping);
-            btnToggleRatio.classList.toggle('hidden', !isCropping);
-            
-            const btns = document.querySelectorAll('.action-bar .btn-sm');
-            btns.forEach(b => {
-                if(b.innerHTML.includes('Left') || b.innerHTML.includes('Right') || 
-                   b.innerHTML.includes('Flip') || b.innerHTML.includes('Remove')) {
-                    b.classList.toggle('hidden', isCropping);
-                }
-            });
-        }
-
-        function handleFile(file) {
-            if(!file.type.match('image.*')) { alert("Please select a valid image."); return; }
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                currentImageSrc = e.target.result;
-                loadImage(currentImageSrc);
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function loadImage(src) {
-            originalImage = new Image();
-            originalImage.onload = () => {
-                originalWidth = originalImage.width;
-                originalHeight = originalImage.height;
-                
-                currentRotation = 0; flipH = 1; flipV = 1;
-                activeFilter = 'none'; brightnessVal = 100; contrastVal = 100;
-                resetFilterUI();
-
-                previewImage.src = src;
-                updatePreviewTransforms();
-                
-                dropZone.style.display = 'none';
-                previewContainer.style.display = 'block';
-                controlsSection.style.display = 'block';
-                
-                recalculatePixels();
-                controlsSection.scrollIntoView({behavior:'smooth'});
-            };
-            originalImage.src = src;
-        }
-
-        // --- CROPPER ---
-        function startCropper() {
-            if(activeCropper) {
-                activeCropper.destroy();
-                activeCropper = null;
-            }
-            
-            previewImage.style.transform = 'none';
-            previewImage.style.filter = 'none';
-            
-            let aspectRatio = NaN;
-            const w = parseFloat(widthInput.value);
-            const h = parseFloat(heightInput.value);
-            if(w && h && w > 0 && h > 0) {
-                aspectRatio = w / h;
-            }
-
-            activeCropper = new Cropper(previewImage, {
-                viewMode: 1, 
-                dragMode: 'move', 
-                autoCropArea: 0.8,
-                restore: false, 
-                guides: true, 
-                center: true, 
-                highlight: false,
-                cropBoxMovable: true, 
-                cropBoxResizable: true, 
-                toggleDragModeOnDblclick: false,
-                aspectRatio: aspectRatio,
-                ready() {
-                    if(currentRotation !== 0) activeCropper.rotate(currentRotation);
-                    if(flipH === -1) activeCropper.scaleX(-1);
-                    if(flipV === -1) activeCropper.scaleY(-1);
-                }
-            });
-            
-            toggleCropButtons(true);
-            
-            const btn = btnToggleRatio;
-            btn.innerHTML = isNaN(aspectRatio) ? 
-                '<i data-lucide="unlock"></i> Free Crop' : 
-                '<i data-lucide="lock"></i> Lock Ratio';
-            lucide.createIcons();
-        }
-
-        function toggleCropMode() {
-            if(!activeCropper) return;
-            const btn = btnToggleRatio;
-            const w = parseFloat(widthInput.value);
-            const h = parseFloat(heightInput.value);
-            
-            if(btn.innerHTML.includes('Free')) {
-                activeCropper.setAspectRatio(NaN);
-                btn.innerHTML = '<i data-lucide="lock"></i> Lock Ratio';
-            } else {
-                if(w && h) {
-                    activeCropper.setAspectRatio(w/h);
-                    btn.innerHTML = '<i data-lucide="unlock"></i> Free Crop';
-                } else {
-                    alert("Please enter valid Width and Height first.");
-                }
-            }
-            lucide.createIcons();
-        }
-
-        function applyCrop() {
-            if(!activeCropper) return;
-            const canvas = activeCropper.getCroppedCanvas({ fillColor: 'transparent' }); 
-            const croppedDataUrl = canvas.toDataURL('image/png');
-            
-            currentRotation = 0; flipH = 1; flipV = 1;
-            
-            destroyCropper();
-            currentImageSrc = croppedDataUrl;
-            loadImage(currentImageSrc);
-        }
-
-        function destroyCropper() {
-            if(activeCropper) { 
-                activeCropper.destroy(); 
-                activeCropper = null; 
-            }
-            updatePreviewTransforms();
-            toggleCropButtons(false);
-        }
-
-        // --- PRO TRANSFORMS ---
-        function rotateImage(deg) {
-            if(activeCropper) { 
-                activeCropper.rotate(deg); 
-                return; 
-            }
-            currentRotation = (currentRotation + deg) % 360;
-            updatePreviewTransforms();
-            recalculatePixels();
-        }
-
-        function flipImage(dir) {
-            if(activeCropper) { 
-                if(dir==='h') activeCropper.scaleX(-activeCropper.getData().scaleX || -1);
-                if(dir==='v') activeCropper.scaleY(-activeCropper.getData().scaleY || -1);
-                return;
-            }
-            if(dir === 'h') flipH *= -1;
-            if(dir === 'v') flipV *= -1;
-            updatePreviewTransforms();
-        }
-
-        function toggleFilter(filterName) {
-            if(activeFilter === filterName) {
-                activeFilter = 'none';
-                document.getElementById('btn' + capitalize(filterName)).classList.remove('active');
-            } else {
-                activeFilter = filterName;
-                document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
-                document.getElementById('btn' + capitalize(filterName)).classList.add('active');
-            }
-            updatePreviewFilter();
-        }
-
-        function resetFilters() {
-            activeFilter = 'none'; 
-            brightnessVal = 100; 
-            contrastVal = 100;
-            resetFilterUI();
-            updatePreviewFilter();
-        }
-
-        function updatePreviewFilter() {
-            brightnessVal = brightnessRange.value;
-            contrastVal = contrastRange.value;
-            let filterString = `brightness(${brightnessVal}%) contrast(${contrastVal}%)`;
-            if(activeFilter === 'grayscale') filterString += ' grayscale(100%)';
-            if(activeFilter === 'signature') filterString += ' grayscale(100%) contrast(150%) brightness(110%)';
-            previewImage.style.filter = filterString;
-        }
-
-        function resetTool() {
-            destroyCropper();
-            originalImage = null; 
-            currentImageSrc = null; 
-            fileInput.value = '';
-            dropZone.style.display = 'block';
-            previewContainer.style.display = 'none';
-            controlsSection.style.display = 'none';
-            downloadArea.classList.add('hidden');
-        }
-
-        // --- PRESETS & RESIZE ---
+        // --- PRESETS ---
         const PRESETS = {
             'ssc_photo': { w:3.5, h:4.5, unit:'cm' },
             'ssc_sig': { w:4.0, h:2.0, unit:'cm' },
@@ -1631,40 +1368,302 @@
             'insta_sq': { w:1080, h:1080, unit:'px' }
         };
 
-        function applyPreset() {
-            const val = presetSelect.value;
-            if(val === 'custom') return;
+        // --- STATE VARIABLES ---
+        let originalImage = null;
+        let activeCropper = null; 
+        let currentImageSrc = null; 
+        let originalWidth = 0, originalHeight = 0;
+        let lastProcessedBlob = null;
+        
+        // Pro States
+        let currentRotation = 0;
+        let flipH = 1;
+        let flipV = 1;
+        let activeFilter = 'none';
+        let brightnessVal = 100;
+        let contrastVal = 100;
+
+        // Unit Tracking
+        let lastUnit = 'cm';
+
+        // DOM Elements (will be initialized after DOM loads)
+        let fileInput, dropZone, previewImage, previewContainer, controlsSection;
+        let widthInput, heightInput, unitSelect, dpiInput, formatSelect, kbInput;
+        let ratioCheck, targetPixelInfo, downloadArea, downloadLink, finalSizeInfo;
+        let resizeBtn, presetSelect, heightUnitBadge, brightnessRange, contrastRange;
+        let btnGrayscale, btnSignature, addTextParams, textInputs, pdfSettings;
+        let pdfPageSize, btnStartCrop, btnApplyCrop, btnCancelCrop, btnToggleRatio;
+        let nameText, dateText, sheetPaperSize, sheetGap;
+
+        // ==================== CORE FUNCTIONS ====================
+        
+        function recalculatePixels() {
+            if (!widthInput || !heightInput || !unitSelect || !dpiInput || !targetPixelInfo) return {w:0, h:0};
             
-            if(val === 'original') {
-                if(!originalImage) { alert("Please upload an image first."); return; }
-                unitSelect.value = 'px';
-                updateUnits(false);
-                
-                if (Math.abs(currentRotation) % 180 === 90) {
-                    widthInput.value = originalHeight;
-                    heightInput.value = originalWidth;
-                } else {
-                    widthInput.value = originalWidth;
-                    heightInput.value = originalHeight;
+            const w = parseFloat(widthInput.value)||0;
+            const h = parseFloat(heightInput.value)||0;
+            const dpi = parseInt(dpiInput.value)||300;
+            const unit = unitSelect.value;
+            let pxW=0, pxH=0;
+
+            if(unit==='px'){ pxW=w; pxH=h; }
+            else if(unit==='cm'){ pxW=(w*CM_TO_INCH)*dpi; pxH=(h*CM_TO_INCH)*dpi; }
+            else if(unit==='mm'){ pxW=(w*MM_TO_INCH)*dpi; pxH=(h*MM_TO_INCH)*dpi; }
+            else if(unit==='inch'){ pxW=w*dpi; pxH=h*dpi; } 
+            else { pxW=w*dpi; pxH=h*dpi; }
+
+            targetPixelInfo.innerText = `${Math.round(pxW)} x ${Math.round(pxH)} px`;
+            return {w: Math.round(pxW), h: Math.round(pxH)};
+        }
+
+        function updatePreviewFilter() {
+            if (!previewImage || !brightnessRange || !contrastRange) return;
+            
+            brightnessVal = brightnessRange.value;
+            contrastVal = contrastRange.value;
+            let filterString = `brightness(${brightnessVal}%) contrast(${contrastVal}%)`;
+            if(activeFilter === 'grayscale') filterString += ' grayscale(100%)';
+            if(activeFilter === 'signature') filterString += ' grayscale(100%) contrast(150%) brightness(110%)';
+            previewImage.style.filter = filterString;
+        }
+
+        function updatePreviewTransforms() {
+            if (!previewImage) return;
+            previewImage.style.transform = `rotate(${currentRotation}deg) scale(${flipH}, ${flipV})`;
+            updatePreviewFilter();
+        }
+
+        function resetFilterUI() {
+            if (!brightnessRange || !contrastRange) return;
+            brightnessRange.value = 100;
+            contrastRange.value = 100;
+            document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+        }
+
+        function toggleCropButtons(isCropping) {
+            if (!btnStartCrop || !btnApplyCrop || !btnCancelCrop || !btnToggleRatio) return;
+            
+            btnStartCrop.classList.toggle('hidden', isCropping);
+            btnApplyCrop.classList.toggle('hidden', !isCropping);
+            btnCancelCrop.classList.toggle('hidden', !isCropping);
+            btnToggleRatio.classList.toggle('hidden', !isCropping);
+            
+            const btns = document.querySelectorAll('.action-bar .btn-sm');
+            btns.forEach(b => {
+                if(b && (b.innerHTML.includes('Left') || b.innerHTML.includes('Right') || 
+                   b.innerHTML.includes('Flip') || b.innerHTML.includes('Remove'))) {
+                    b.classList.toggle('hidden', isCropping);
                 }
-                lastUnit = 'px';
-                recalculatePixels();
-                return;
+            });
+        }
+
+        function destroyCropper() {
+            if(activeCropper) { 
+                activeCropper.destroy(); 
+                activeCropper = null; 
+            }
+            updatePreviewTransforms();
+            toggleCropButtons(false);
+        }
+
+        function startCropper() {
+            if (!previewImage || !widthInput || !heightInput) return;
+            
+            if(activeCropper) {
+                activeCropper.destroy();
+                activeCropper = null;
+            }
+            
+            previewImage.style.transform = 'none';
+            previewImage.style.filter = 'none';
+            
+            let aspectRatio = NaN;
+            const w = parseFloat(widthInput.value);
+            const h = parseFloat(heightInput.value);
+            if(w && h && w > 0 && h > 0) {
+                aspectRatio = w / h;
             }
 
-            const p = PRESETS[val];
-            if(p) {
-                ratioCheck.checked = false;
-                unitSelect.value = p.unit;
-                updateUnits(false); 
-                widthInput.value = p.w;
-                heightInput.value = p.h;
-                recalculatePixels();
+            try {
+                activeCropper = new Cropper(previewImage, {
+                    viewMode: 1, 
+                    dragMode: 'move', 
+                    autoCropArea: 0.8,
+                    restore: false, 
+                    guides: true, 
+                    center: true, 
+                    highlight: false,
+                    cropBoxMovable: true, 
+                    cropBoxResizable: true, 
+                    toggleDragModeOnDblclick: false,
+                    aspectRatio: aspectRatio,
+                    ready() {
+                        if(currentRotation !== 0 && activeCropper) activeCropper.rotate(currentRotation);
+                        if(flipH === -1 && activeCropper) activeCropper.scaleX(-1);
+                        if(flipV === -1 && activeCropper) activeCropper.scaleY(-1);
+                    }
+                });
+                
+                toggleCropButtons(true);
+                
+                if (btnToggleRatio) {
+                    btnToggleRatio.innerHTML = isNaN(aspectRatio) ? 
+                        '<i data-lucide="unlock"></i> Free Crop' : 
+                        '<i data-lucide="lock"></i> Lock Ratio';
+                    if (typeof lucide !== 'undefined') lucide.createIcons();
+                }
+            } catch (error) {
+                console.error("Cropper initialization failed:", error);
             }
         }
 
-        // --- UNIT CONVERSION ---
+        function toggleCropMode() {
+            if(!activeCropper || !widthInput || !heightInput || !btnToggleRatio) return;
+            
+            const w = parseFloat(widthInput.value);
+            const h = parseFloat(heightInput.value);
+            
+            if(btnToggleRatio.innerHTML.includes('Free')) {
+                activeCropper.setAspectRatio(NaN);
+                btnToggleRatio.innerHTML = '<i data-lucide="lock"></i> Lock Ratio';
+            } else {
+                if(w && h) {
+                    activeCropper.setAspectRatio(w/h);
+                    btnToggleRatio.innerHTML = '<i data-lucide="unlock"></i> Free Crop';
+                } else {
+                    alert("Please enter valid Width and Height first.");
+                }
+            }
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        function applyCrop() {
+            if(!activeCropper) return;
+            
+            try {
+                const canvas = activeCropper.getCroppedCanvas({ fillColor: 'transparent' }); 
+                const croppedDataUrl = canvas.toDataURL('image/png');
+                
+                currentRotation = 0; 
+                flipH = 1; 
+                flipV = 1;
+                
+                destroyCropper();
+                currentImageSrc = croppedDataUrl;
+                loadImage(currentImageSrc);
+            } catch (error) {
+                console.error("Crop apply failed:", error);
+                alert("Failed to apply crop. Please try again.");
+            }
+        }
+
+        function rotateImage(deg) {
+            if(activeCropper) { 
+                activeCropper.rotate(deg); 
+                return; 
+            }
+            currentRotation = (currentRotation + deg) % 360;
+            updatePreviewTransforms();
+            recalculatePixels();
+        }
+
+        function flipImage(dir) {
+            if(activeCropper) { 
+                if(dir==='h') activeCropper.scaleX(-activeCropper.getData().scaleX || -1);
+                if(dir==='v') activeCropper.scaleY(-activeCropper.getData().scaleY || -1);
+                return;
+            }
+            if(dir === 'h') flipH *= -1;
+            if(dir === 'v') flipV *= -1;
+            updatePreviewTransforms();
+        }
+
+        function toggleFilter(filterName) {
+            if (!btnGrayscale || !btnSignature) return;
+            
+            const buttonId = filterName === 'grayscale' ? 'btnGrayscale' : 'btnSignature';
+            
+            if(activeFilter === filterName) {
+                activeFilter = 'none';
+                document.getElementById(buttonId)?.classList.remove('active');
+            } else {
+                activeFilter = filterName;
+                document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+                document.getElementById(buttonId)?.classList.add('active');
+            }
+            updatePreviewFilter();
+        }
+
+        function resetFilters() {
+            activeFilter = 'none'; 
+            brightnessVal = 100; 
+            contrastVal = 100;
+            resetFilterUI();
+            updatePreviewFilter();
+        }
+
+        function resetTool() {
+            destroyCropper();
+            originalImage = null; 
+            currentImageSrc = null; 
+            if (fileInput) fileInput.value = '';
+            if (dropZone) dropZone.style.display = 'block';
+            if (previewContainer) previewContainer.style.display = 'none';
+            if (controlsSection) controlsSection.style.display = 'none';
+            if (downloadArea) downloadArea.classList.add('hidden');
+        }
+
+        function handleFile(file) {
+            if(!file || !file.type.match('image.*')) { 
+                alert("Please select a valid image."); 
+                return; 
+            }
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                currentImageSrc = e.target.result;
+                loadImage(currentImageSrc);
+            };
+            reader.onerror = () => {
+                alert("Failed to read file. Please try again.");
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function loadImage(src) {
+            if (!previewImage || !dropZone || !previewContainer || !controlsSection) return;
+            
+            originalImage = new Image();
+            originalImage.onload = () => {
+                originalWidth = originalImage.width;
+                originalHeight = originalImage.height;
+                
+                currentRotation = 0; 
+                flipH = 1; 
+                flipV = 1;
+                activeFilter = 'none'; 
+                brightnessVal = 100; 
+                contrastVal = 100;
+                resetFilterUI();
+
+                previewImage.src = src;
+                updatePreviewTransforms();
+                
+                dropZone.style.display = 'none';
+                previewContainer.style.display = 'block';
+                controlsSection.style.display = 'block';
+                
+                recalculatePixels();
+                controlsSection.scrollIntoView({behavior:'smooth'});
+            };
+            originalImage.onerror = () => {
+                alert("Failed to load image. Please try another file.");
+            };
+            originalImage.src = src;
+        }
+
         function updateUnits(convert = true) {
+            if (!unitSelect || !widthInput || !heightInput || !dpiInput || !heightUnitBadge) return;
+            
             const newUnit = unitSelect.value;
             const wVal = parseFloat(widthInput.value) || 0;
             const hVal = parseFloat(heightInput.value) || 0;
@@ -1698,7 +1697,12 @@
         }
 
         function handleDimensionChange(source) {
-            if(!ratioCheck.checked || !originalImage) { 
+            if (!ratioCheck || !originalImage || !widthInput || !heightInput || !unitSelect) { 
+                recalculatePixels(); 
+                return; 
+            }
+            
+            if(!ratioCheck.checked) { 
                 recalculatePixels(); 
                 return; 
             }
@@ -1722,24 +1726,43 @@
             recalculatePixels();
         }
 
-        function recalculatePixels() {
-            const w = parseFloat(widthInput.value)||0;
-            const h = parseFloat(heightInput.value)||0;
-            const dpi = parseInt(dpiInput.value)||300;
-            const unit = unitSelect.value;
-            let pxW=0, pxH=0;
+        function applyPreset() {
+            if (!presetSelect || !unitSelect || !widthInput || !heightInput || !originalImage) return;
+            
+            const val = presetSelect.value;
+            if(val === 'custom') return;
+            
+            if(val === 'original') {
+                if(!originalImage) { alert("Please upload an image first."); return; }
+                unitSelect.value = 'px';
+                updateUnits(false);
+                
+                if (Math.abs(currentRotation) % 180 === 90) {
+                    widthInput.value = originalHeight;
+                    heightInput.value = originalWidth;
+                } else {
+                    widthInput.value = originalWidth;
+                    heightInput.value = originalHeight;
+                }
+                lastUnit = 'px';
+                recalculatePixels();
+                return;
+            }
 
-            if(unit==='px'){ pxW=w; pxH=h; }
-            else if(unit==='cm'){ pxW=(w*CM_TO_INCH)*dpi; pxH=(h*CM_TO_INCH)*dpi; }
-            else if(unit==='mm'){ pxW=(w*MM_TO_INCH)*dpi; pxH=(h*MM_TO_INCH)*dpi; }
-            else if(unit==='inch'){ pxW=w*dpi; pxH=h*dpi; } 
-            else { pxW=w*dpi; pxH=h*dpi; }
-
-            targetPixelInfo.innerText = `${Math.round(pxW)} x ${Math.round(pxH)} px`;
-            return {w: Math.round(pxW), h: Math.round(pxH)};
+            const p = PRESETS[val];
+            if(p) {
+                if (ratioCheck) ratioCheck.checked = false;
+                unitSelect.value = p.unit;
+                updateUnits(false); 
+                widthInput.value = p.w;
+                heightInput.value = p.h;
+                recalculatePixels();
+            }
         }
-        
+
         function handleFormatChange() {
+            if (!formatSelect || !pdfSettings) return;
+            
             const fmt = formatSelect.value;
             if (fmt === 'application/pdf') {
                 pdfSettings.classList.remove('hidden');
@@ -1847,6 +1870,11 @@
         function generatePDFBlob(imageBlob, w, h, unit, pageSize) {
             return new Promise((resolve, reject) => {
                 try {
+                    if (typeof window.jspdf === 'undefined') {
+                        reject(new Error('jsPDF library not loaded'));
+                        return;
+                    }
+                    
                     const { jsPDF } = window.jspdf;
                     
                     let docConfig = {
@@ -1866,21 +1894,29 @@
                     
                     const img = new Image();
                     img.onload = function() {
-                        if (pageSize === 'fit') {
-                            doc.addImage(img, 'JPEG', 0, 0, w, h);
-                        } else {
-                            const pageWidth = doc.internal.pageSize.getWidth();
-                            const pageHeight = doc.internal.pageSize.getHeight();
-                            
-                            const x = (pageWidth - w) / 2;
-                            const y = (pageHeight - h) / 2;
-                            
-                            doc.addImage(img, 'JPEG', x, y, w, h);
+                        try {
+                            if (pageSize === 'fit') {
+                                doc.addImage(img, 'JPEG', 0, 0, w, h);
+                            } else {
+                                const pageWidth = doc.internal.pageSize.getWidth();
+                                const pageHeight = doc.internal.pageSize.getHeight();
+                                
+                                const x = (pageWidth - w) / 2;
+                                const y = (pageHeight - h) / 2;
+                                
+                                doc.addImage(img, 'JPEG', x, y, w, h);
+                            }
+                            resolve(doc.output('blob'));
+                        } catch (e) {
+                            reject(e);
+                        } finally {
+                            URL.revokeObjectURL(imgUrl);
                         }
-                        resolve(doc.output('blob'));
-                        URL.revokeObjectURL(imgUrl);
                     };
-                    img.onerror = reject;
+                    img.onerror = () => {
+                        URL.revokeObjectURL(imgUrl);
+                        reject(new Error('Failed to load image for PDF'));
+                    };
                     img.src = imgUrl;
                 } catch (error) {
                     reject(error);
@@ -1893,7 +1929,7 @@
 
         async function processImage() {
             if(processing) return;
-            if(!originalImage) return;
+            if(!originalImage || !resizeBtn || !formatSelect || !kbInput || !downloadLink || !finalSizeInfo || !downloadArea) return;
             
             try {
                 processing = true;
@@ -1934,7 +1970,7 @@
                 ctx.drawImage(originalImage, -drawW/2, -drawH/2, drawW, drawH);
                 ctx.restore();
 
-                if(addTextParams.checked) {
+                if(addTextParams && addTextParams.checked && nameText && dateText) {
                     const name = nameText.value;
                     let dateStr = dateText.value;
                     
@@ -1971,7 +2007,7 @@
                     const wVal = parseFloat(widthInput.value)||0;
                     const hVal = parseFloat(heightInput.value)||0;
                     const unit = unitSelect.value;
-                    const pageSize = pdfPageSize.value;
+                    const pageSize = pdfPageSize ? pdfPageSize.value : 'fit';
                     
                     let pdfW = wVal, pdfH = hVal, pdfUnit = 'in';
                     
@@ -2011,36 +2047,43 @@
                 }
 
             } catch (error) {
-                console.error(error);
-                alert("Processing error. Try a different image.");
-                resizeBtn.innerHTML = `<i data-lucide="download-cloud"></i> Convert & Download`;
-                resizeBtn.disabled = false;
-                lucide.createIcons();
+                console.error("Processing error:", error);
+                alert("Processing error. Try a different image or check console for details.");
+                if (resizeBtn) {
+                    resizeBtn.innerHTML = `<i data-lucide="download-cloud"></i> Convert & Download`;
+                    resizeBtn.disabled = false;
+                }
+                if (typeof lucide !== 'undefined') lucide.createIcons();
             } finally {
                 processing = false;
             }
         }
 
         function finishProcess(result, filename) {
-            if (result) {
+            if (result && downloadLink && finalSizeInfo && downloadArea) {
                 const url = URL.createObjectURL(result.blob);
                 downloadLink.href = url;
                 downloadLink.download = filename;
-                finalSizeInfo.innerText = `Final Size: ${result.finalSize.toFixed(2)} KB (Exact Target)`;
+                finalSizeInfo.innerText = `Final Size: ${result.finalSize.toFixed(2)} KB`;
                 downloadArea.classList.remove('hidden');
                 downloadArea.scrollIntoView({behavior:'smooth'});
             }
-            resizeBtn.innerHTML = `<i data-lucide="download-cloud"></i> Convert & Download`;
-            resizeBtn.disabled = false;
-            lucide.createIcons();
+            if (resizeBtn) {
+                resizeBtn.innerHTML = `<i data-lucide="download-cloud"></i> Convert & Download`;
+                resizeBtn.disabled = false;
+            }
+            if (typeof lucide !== 'undefined') lucide.createIcons();
         }
 
         // ===================== PRINTABLE SHEET =====================
         async function createPrintableSheet() {
-            if(!lastProcessedBlob) { alert("Please convert an image first."); return; }
+            if(!lastProcessedBlob) { 
+                alert("Please convert an image first."); 
+                return; 
+            }
             
-            const paperType = sheetPaperSize.value;
-            const gapType = sheetGap.value;
+            const paperType = sheetPaperSize ? sheetPaperSize.value : '4x6';
+            const gapType = sheetGap ? sheetGap.value : 'norm';
             
             let PAPER_W, PAPER_H, gap;
             
@@ -2063,7 +2106,16 @@
             
             const img = new Image();
             img.src = URL.createObjectURL(lastProcessedBlob);
-            await new Promise(r => img.onload = r);
+            
+            try {
+                await new Promise((resolve, reject) => {
+                    img.onload = resolve;
+                    img.onerror = reject;
+                });
+            } catch (error) {
+                alert("Failed to load image for sheet generation");
+                return;
+            }
             
             const imgW = img.width;
             const imgH = img.height;
@@ -2073,6 +2125,7 @@
             
             if(cols <= 0 || rows <= 0) {
                 alert("Image is too big for this paper size! Try a larger paper or reduce image dimensions.");
+                URL.revokeObjectURL(img.src);
                 return;
             }
             
@@ -2109,44 +2162,142 @@
                 a.click();
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
+                URL.revokeObjectURL(img.src);
             }, 'image/jpeg', 0.95);
         }
 
-        // ==================== EVENT LISTENERS ====================
-        dropZone.addEventListener('click', () => fileInput.click());
-        dropZone.addEventListener('dragover', (e) => { 
-            e.preventDefault(); 
-            dropZone.classList.add('dragover'); 
-        });
-        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-        dropZone.addEventListener('drop', (e) => { 
-            e.preventDefault(); 
-            dropZone.classList.remove('dragover'); 
-            if(e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]); 
-        });
-        fileInput.addEventListener('change', (e) => { 
-            if(e.target.files.length) handleFile(e.target.files[0]); 
-        });
-
-        // Set DPI minimum to 300
-        dpiInput.addEventListener('change', function() {
-            if (this.value < 300) {
-                this.value = 300;
-                recalculatePixels();
-            }
-        });
-
         // ==================== INITIALIZATION ====================
+        function initializeElements() {
+            // Get all DOM elements
+            fileInput = document.getElementById('fileInput');
+            dropZone = document.getElementById('dropZone');
+            previewImage = document.getElementById('previewImage');
+            previewContainer = document.getElementById('previewContainer');
+            controlsSection = document.getElementById('controlsSection');
+            widthInput = document.getElementById('widthInput');
+            heightInput = document.getElementById('heightInput');
+            unitSelect = document.getElementById('unitSelect');
+            dpiInput = document.getElementById('dpiInput');
+            formatSelect = document.getElementById('formatSelect');
+            kbInput = document.getElementById('kbInput');
+            ratioCheck = document.getElementById('ratioCheck');
+            targetPixelInfo = document.getElementById('targetPixelInfo');
+            downloadArea = document.getElementById('downloadArea');
+            downloadLink = document.getElementById('downloadLink');
+            finalSizeInfo = document.getElementById('finalSizeInfo');
+            resizeBtn = document.getElementById('resizeBtn');
+            presetSelect = document.getElementById('presetSelect');
+            heightUnitBadge = document.getElementById('heightUnitBadge');
+            brightnessRange = document.getElementById('brightnessRange');
+            contrastRange = document.getElementById('contrastRange');
+            btnGrayscale = document.getElementById('btnGrayscale');
+            btnSignature = document.getElementById('btnSignature');
+            addTextParams = document.getElementById('addTextParams');
+            textInputs = document.getElementById('textInputs');
+            pdfSettings = document.getElementById('pdfSettings');
+            pdfPageSize = document.getElementById('pdfPageSize');
+            btnStartCrop = document.getElementById('btnStartCrop');
+            btnApplyCrop = document.getElementById('btnApplyCrop');
+            btnCancelCrop = document.getElementById('btnCancelCrop');
+            btnToggleRatio = document.getElementById('btnToggleRatio');
+            nameText = document.getElementById('nameText');
+            dateText = document.getElementById('dateText');
+            sheetPaperSize = document.getElementById('sheetPaperSize');
+            sheetGap = document.getElementById('sheetGap');
+        }
+
+        function setupEventListeners() {
+            if (dropZone && fileInput) {
+                dropZone.addEventListener('click', () => fileInput.click());
+                dropZone.addEventListener('dragover', (e) => { 
+                    e.preventDefault(); 
+                    dropZone.classList.add('dragover'); 
+                });
+                dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+                dropZone.addEventListener('drop', (e) => { 
+                    e.preventDefault(); 
+                    dropZone.classList.remove('dragover'); 
+                    if(e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]); 
+                });
+            }
+            
+            if (fileInput) {
+                fileInput.addEventListener('change', (e) => { 
+                    if(e.target.files.length) handleFile(e.target.files[0]); 
+                });
+            }
+
+            // Set DPI minimum to 300
+            if (dpiInput) {
+                dpiInput.addEventListener('change', function() {
+                    if (this.value < 300) {
+                        this.value = 300;
+                        recalculatePixels();
+                    }
+                });
+            }
+
+            if (brightnessRange) {
+                brightnessRange.addEventListener('input', updatePreviewFilter);
+            }
+            
+            if (contrastRange) {
+                contrastRange.addEventListener('input', updatePreviewFilter);
+            }
+            
+            if (addTextParams && textInputs) {
+                addTextParams.addEventListener('change', function() {
+                    textInputs.classList.toggle('hidden', !this.checked);
+                });
+            }
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
-            lastUnit = unitSelect.value;
-            heightUnitBadge.innerText = lastUnit;
-            lucide.createIcons();
+            // Initialize all DOM elements
+            initializeElements();
             
-            brightnessRange.addEventListener('input', updatePreviewFilter);
-            contrastRange.addEventListener('input', updatePreviewFilter);
+            // Set initial values
+            if (unitSelect && heightUnitBadge) {
+                lastUnit = unitSelect.value;
+                heightUnitBadge.innerText = lastUnit;
+            }
             
+            // Initialize Lucide icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+            
+            // Handle format change initially
             handleFormatChange();
+            
+            // Setup all event listeners
+            setupEventListeners();
+            
+            // Add window resize handler for responsive adjustments
+            window.addEventListener('resize', () => {
+                // Recalculate if needed
+            });
         });
+
+        // Make functions globally available for onclick handlers
+        window.startCropper = startCropper;
+        window.rotateImage = rotateImage;
+        window.flipImage = flipImage;
+        window.applyCrop = applyCrop;
+        window.toggleCropMode = toggleCropMode;
+        window.destroyCropper = destroyCropper;
+        window.resetTool = resetTool;
+        window.applyPreset = applyPreset;
+        window.updateUnits = updateUnits;
+        window.handleDimensionChange = handleDimensionChange;
+        window.handleFormatChange = handleFormatChange;
+        window.formatDateInput = formatDateInput;
+        window.toggleFilter = toggleFilter;
+        window.resetFilters = resetFilters;
+        window.updatePreviewFilter = updatePreviewFilter;
+        window.recalculatePixels = recalculatePixels;
+        window.processImage = processImage;
+        window.createPrintableSheet = createPrintableSheet;
     </script>
 </body>
 </html>
