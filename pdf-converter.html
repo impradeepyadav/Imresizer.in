@@ -17,7 +17,7 @@
     </script>
 
     <!-- Primary SEO Tags -->
-    <title>Advanced PDF Converter - Image to PDF, Merge PDF - ImResizer</title>
+    <title>PDF Converter - Image to PDF, Merge PDF - ImResizer</title>
     <meta name="description" content="Free online PDF converter. Convert images (JPG, PNG) to PDF, merge multiple PDFs, extract images from PDF. No uploads, 100% private client-side processing.">
     <meta name="keywords" content="pdf converter, image to pdf, jpg to pdf, png to pdf, merge pdf, combine pdf, pdf to image, pdf editor, online pdf tool">
 
@@ -26,13 +26,13 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://imresizer.in/pdf-converter.html">
-    <meta property="og:title" content="Advanced PDF Converter - ImResizer">
+    <meta property="og:title" content="PDF Converter - ImResizer">
     <meta property="og:description" content="Free online PDF converter. Convert images to PDF, merge PDFs, extract images from PDF. 100% private.">
     <meta property="og:image" content="https://imresizer.in/og-image.jpg">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="Advanced PDF Converter - ImResizer">
+    <meta property="twitter:title" content="PDF Converter - ImResizer">
     <meta property="twitter:description" content="Free online PDF converter. Convert images to PDF, merge PDFs, extract images from PDF.">
 
     <!-- Favicon -->
@@ -47,7 +47,7 @@
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      "name": "ImResizer - Advanced PDF Converter",
+      "name": "ImResizer - PDF Converter",
       "url": "https://imresizer.in/pdf-converter.html",
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "All",
@@ -663,7 +663,7 @@
             Back to Home
         </a>
 
-        <h1>Advanced PDF Converter</h1>
+        <h1>PDF Converter</h1>
         <p class="subtitle">Convert images to PDF, merge multiple PDFs, or extract images from PDF. 100% private client-side processing.</p>
 
         <div class="tool-container">
@@ -721,6 +721,17 @@
                                 <label>Margin (mm)</label>
                                 <input type="number" id="pdfMargin" value="5" min="0" max="20" step="1">
                             </div>
+                            <div class="control-item">
+                                <label>Image DPI</label>
+                                <select id="imageDpi">
+                                    <option value="72">72 DPI (Screen)</option>
+                                    <option value="96" selected>96 DPI (Default)</option>
+                                    <option value="150">150 DPI</option>
+                                    <option value="300">300 DPI (Print)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-row">
                             <div class="control-item">
                                 <label>Image Quality</label>
                                 <div class="quality-slider">
@@ -834,7 +845,7 @@
         <div class="seo-content">
             <div class="content-block">
                 <h2>Complete Guide: Convert Images to PDF Online Free</h2>
-                <p>Welcome to ImResizer's <strong>Advanced PDF Converter</strong> – your all-in-one solution for PDF conversion needs. Whether you need to convert JPG to PDF, merge multiple PDFs, or extract images from PDF documents, our tool handles it all. All processing happens <strong>100% client-side</strong> in your browser – your files never leave your device, ensuring complete privacy and security.</p>
+                <p>Welcome to ImResizer's <strong>PDF Converter</strong> – your all-in-one solution for PDF conversion needs. Whether you need to convert JPG to PDF, merge multiple PDFs, or extract images from PDF documents, our tool handles it all. All processing happens <strong>100% client-side</strong> in your browser – your files never leave your device, ensuring complete privacy and security.</p>
             </div>
 
             <div class="content-block">
@@ -842,7 +853,7 @@
                 <ol>
                     <li><strong>Select Mode:</strong> Choose "Image to PDF" from the tabs.</li>
                     <li><strong>Upload Images:</strong> Click upload or drag & drop your JPG, PNG, or WEBP files. You can select multiple images.</li>
-                    <li><strong>Adjust Settings:</strong> Choose page size (A4, Letter, etc.), orientation, margin, and image quality.</li>
+                    <li><strong>Adjust Settings:</strong> Choose page size (A4, Letter, etc.), orientation, margin, DPI and image quality.</li>
                     <li><strong>Convert:</strong> Click "Convert to PDF" – the tool processes your images and creates a PDF.</li>
                     <li><strong>Download:</strong> Download your PDF instantly. All images are combined in the order you uploaded them.</li>
                 </ol>
@@ -930,7 +941,7 @@
 
             <div class="content-block">
                 <h2>Conclusion</h2>
-                <p><strong>ImResizer's Advanced PDF Converter</strong> provides all the essential PDF tools you need in one place – completely free and private. Whether you're a student preparing documents, a professional handling contracts, or anyone needing quick PDF conversions, our tool delivers high-quality results instantly. <strong>Bookmark this page</strong> for all your future PDF conversion needs!</p>
+                <p><strong>ImResizer's PDF Converter</strong> provides all the essential PDF tools you need in one place – completely free and private. Whether you're a student preparing documents, a professional handling contracts, or anyone needing quick PDF conversions, our tool delivers high-quality results instantly. <strong>Bookmark this page</strong> for all your future PDF conversion needs!</p>
             </div>
         </div>
     </main>
@@ -1124,7 +1135,7 @@
                 updateImageFileList();
             });
 
-            // Convert to PDF
+            // ---------- FIXED CONVERSION CODE ----------
             convertToPdfBtn.addEventListener('click', async () => {
                 if (imageFiles.length === 0) {
                     alert('Please upload at least one image');
@@ -1134,21 +1145,28 @@
                 const { jsPDF } = window.jspdf;
                 const pageSize = document.getElementById('pdfPageSize').value;
                 const orientation = document.getElementById('pdfOrientation').value;
-                const margin = parseInt(document.getElementById('pdfMargin').value);
-                const quality = parseFloat(pdfQuality.value);
+                const margin = parseFloat(document.getElementById('pdfMargin').value); // in mm
+                const dpi = parseInt(document.getElementById('imageDpi').value);
+                // quality slider not directly used, but kept for future (compression)
+                
+                // Helper: convert pixels to mm based on selected DPI
+                const pxToMm = (px) => px * 25.4 / dpi;
 
                 let pdf;
+
+                // Load first image to get dimensions if needed for "fit" mode
                 if (pageSize === 'fit') {
-                    // First image determines size
                     const firstImg = await loadImage(URL.createObjectURL(imageFiles[0]));
-                    const width = firstImg.width;
-                    const height = firstImg.height;
+                    // Create PDF with custom size in mm (convert pixels to mm) using first image
                     pdf = new jsPDF({
-                        orientation: width > height ? 'landscape' : 'portrait',
-                        unit: 'px',
-                        format: [width + 2*margin, height + 2*margin]
+                        orientation: firstImg.width > firstImg.height ? 'landscape' : 'portrait',
+                        unit: 'mm',
+                        format: [pxToMm(firstImg.width) + 2*margin, pxToMm(firstImg.height) + 2*margin]
                     });
+                    // Clean up object URL
+                    URL.revokeObjectURL(firstImg.src);
                 } else {
+                    // Standard paper size – create PDF in mm
                     pdf = new jsPDF({
                         orientation: orientation,
                         unit: 'mm',
@@ -1160,28 +1178,48 @@
                     if (i > 0) pdf.addPage();
 
                     const img = await loadImage(URL.createObjectURL(imageFiles[i]));
-                    
+                    const imgWidthMm = pxToMm(img.width);
+                    const imgHeightMm = pxToMm(img.height);
+
                     if (pageSize === 'fit') {
-                        // Image already sized correctly
-                        pdf.addImage(img, 'JPEG', margin, margin, img.width, img.height);
+                        // Page already sized to first image (we keep same size for all pages for simplicity)
+                        // Place current image centered, scaled to fit within the page minus margins
+                        const pageWidth = pdf.internal.pageSize.getWidth();
+                        const pageHeight = pdf.internal.pageSize.getHeight();
+                        const maxWidth = pageWidth - 2*margin;
+                        const maxHeight = pageHeight - 2*margin;
+
+                        const scale = Math.min(maxWidth / imgWidthMm, maxHeight / imgHeightMm);
+                        const w = imgWidthMm * scale;
+                        const h = imgHeightMm * scale;
+                        const x = (pageWidth - w) / 2;
+                        const y = (pageHeight - h) / 2;
+
+                        pdf.addImage(img, 'JPEG', x, y, w, h);
                     } else {
-                        // Scale to fit page with margins
-                        const pageWidth = pdf.internal.pageSize.getWidth() - 2*margin;
-                        const pageHeight = pdf.internal.pageSize.getHeight() - 2*margin;
-                        
-                        const scale = Math.min(pageWidth / img.width, pageHeight / img.height);
-                        const w = img.width * scale;
-                        const h = img.height * scale;
-                        const x = (pdf.internal.pageSize.getWidth() - w) / 2;
-                        const y = (pdf.internal.pageSize.getHeight() - h) / 2;
-                        
+                        // Standard page: scale image to fit within page minus margins, preserve aspect ratio
+                        const pageWidth = pdf.internal.pageSize.getWidth();
+                        const pageHeight = pdf.internal.pageSize.getHeight();
+
+                        const maxWidth = pageWidth - 2 * margin;
+                        const maxHeight = pageHeight - 2 * margin;
+
+                        const scale = Math.min(maxWidth / imgWidthMm, maxHeight / imgHeightMm);
+                        const w = imgWidthMm * scale;
+                        const h = imgHeightMm * scale;
+                        const x = (pageWidth - w) / 2;
+                        const y = (pageHeight - h) / 2;
+
                         pdf.addImage(img, 'JPEG', x, y, w, h);
                     }
+
+                    // Clean up object URL
+                    URL.revokeObjectURL(img.src);
                 }
 
                 const pdfBlob = pdf.output('blob');
                 const url = URL.createObjectURL(pdfBlob);
-                
+
                 document.getElementById('downloadInfo').textContent = `PDF created: ${(pdfBlob.size / 1024).toFixed(1)} KB`;
                 document.getElementById('downloadContainer').innerHTML = `
                     <a href="${url}" download="converted.pdf" class="btn btn-success download-btn">
@@ -1191,6 +1229,7 @@
                 document.getElementById('downloadArea').classList.remove('hidden');
                 lucide.createIcons();
             });
+            // --------------------------------------------
 
             // Merge PDF mode
             const pdfUploadArea = document.getElementById('pdfUploadArea');
