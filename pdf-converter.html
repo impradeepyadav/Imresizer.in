@@ -99,9 +99,11 @@
     <link rel="preconnect" href="https://unpkg.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
-    <!-- Load jsPDF and PDF.js -->
+    <!-- Load required libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
     <style>
         /* --- CORE THEME - Same as other pages --- */
@@ -540,7 +542,7 @@
             min-width: 200px;
         }
 
-        /* FOOTER - 5 COLUMN (exactly same as other pages) */
+        /* FOOTER - 5 COLUMN */
         footer {
             background-color: var(--footer-bg);
             color: var(--footer-text);
@@ -767,6 +769,13 @@
                 <!-- File List -->
                 <div id="pdfFileList" class="file-list"></div>
 
+                <!-- Filename input for merge -->
+                <div style="margin: 15px 0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                    <label for="mergePdfFileName" style="font-weight: 600; color: var(--text-main);">Output file name:</label>
+                    <input type="text" id="mergePdfFileName" value="merged" style="flex: 1; padding: 10px; border: 1px solid var(--line-color); border-radius: 6px; font-size: 14px; min-width: 200px;">
+                    <span style="font-size: 13px; color: var(--text-light);">.pdf will be added</span>
+                </div>
+
                 <!-- Action Buttons -->
                 <div class="action-buttons">
                     <button class="btn btn-primary" id="mergePdfBtn">
@@ -829,19 +838,26 @@
                 </div>
             </div>
 
-            <!-- Download Area -->
+            <!-- Download Area (used by all modes) -->
             <div id="downloadArea" class="download-area hidden">
                 <div class="success-box">
                     <i data-lucide="check-circle" width="32" height="32" style="color: var(--success); margin-bottom: 10px;"></i>
-                    <div style="color: #166534; font-weight: 700; font-size: 18px; margin-bottom: 5px;">Conversion Complete!</div>
+                    <div style="color: #166534; font-weight: 700; font-size: 18px; margin-bottom: 5px;">Success!</div>
                     <div id="downloadInfo" style="font-size: 14px; color: #15803d;"></div>
+                </div>
+
+                <!-- Filename input for Image to PDF (only used in that mode) -->
+                <div id="imagePdfFilenameContainer" style="margin: 15px 0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                    <label for="pdfFileName" style="font-weight: 600; color: var(--text-main);">File name:</label>
+                    <input type="text" id="pdfFileName" value="converted" style="flex: 1; padding: 10px; border: 1px solid var(--line-color); border-radius: 6px; font-size: 14px; min-width: 200px;">
+                    <span style="font-size: 13px; color: var(--text-light);">.pdf will be added automatically</span>
                 </div>
                 
                 <div id="downloadContainer" class="download-options"></div>
             </div>
         </div>
 
-        <!-- SEO Content Section - Comprehensive Articles -->
+        <!-- SEO Content Section - Comprehensive Articles (unchanged) -->
         <div class="seo-content">
             <div class="content-block">
                 <h2>Complete Guide: Convert Images to PDF Online Free</h2>
@@ -1011,6 +1027,9 @@
             initPDFTool();
         });
 
+        // Set up pdf.js worker
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
         function initPDFTool() {
             // Mode switching
             const modeImageToPdf = document.getElementById('modeImageToPdf');
@@ -1058,7 +1077,7 @@
             let pdfFiles = [];
             let pdfToImageFile = null;
 
-            // Image to PDF - Upload
+            // ========== IMAGE TO PDF ==========
             const imageUploadArea = document.getElementById('imageUploadArea');
             const imageFileInput = document.getElementById('imageFileInput');
             const imageFileList = document.getElementById('imageFileList');
@@ -1120,7 +1139,6 @@
                 imageFileList.innerHTML = html;
                 lucide.createIcons();
 
-                // Add remove handlers
                 document.querySelectorAll('.remove-file').forEach(btn => {
                     btn.addEventListener('click', (e) => {
                         const index = e.currentTarget.dataset.index;
@@ -1135,7 +1153,6 @@
                 updateImageFileList();
             });
 
-            // ---------- FIXED CONVERSION CODE ----------
             convertToPdfBtn.addEventListener('click', async () => {
                 if (imageFiles.length === 0) {
                     alert('Please upload at least one image');
@@ -1145,28 +1162,21 @@
                 const { jsPDF } = window.jspdf;
                 const pageSize = document.getElementById('pdfPageSize').value;
                 const orientation = document.getElementById('pdfOrientation').value;
-                const margin = parseFloat(document.getElementById('pdfMargin').value); // in mm
+                const margin = parseFloat(document.getElementById('pdfMargin').value);
                 const dpi = parseInt(document.getElementById('imageDpi').value);
-                // quality slider not directly used, but kept for future (compression)
-                
-                // Helper: convert pixels to mm based on selected DPI
                 const pxToMm = (px) => px * 25.4 / dpi;
 
                 let pdf;
 
-                // Load first image to get dimensions if needed for "fit" mode
                 if (pageSize === 'fit') {
                     const firstImg = await loadImage(URL.createObjectURL(imageFiles[0]));
-                    // Create PDF with custom size in mm (convert pixels to mm) using first image
                     pdf = new jsPDF({
                         orientation: firstImg.width > firstImg.height ? 'landscape' : 'portrait',
                         unit: 'mm',
                         format: [pxToMm(firstImg.width) + 2*margin, pxToMm(firstImg.height) + 2*margin]
                     });
-                    // Clean up object URL
                     URL.revokeObjectURL(firstImg.src);
                 } else {
-                    // Standard paper size – create PDF in mm
                     pdf = new jsPDF({
                         orientation: orientation,
                         unit: 'mm',
@@ -1180,63 +1190,58 @@
                     const img = await loadImage(URL.createObjectURL(imageFiles[i]));
                     const imgWidthMm = pxToMm(img.width);
                     const imgHeightMm = pxToMm(img.height);
+                    const pageWidth = pdf.internal.pageSize.getWidth();
+                    const pageHeight = pdf.internal.pageSize.getHeight();
 
-                    if (pageSize === 'fit') {
-                        // Page already sized to first image (we keep same size for all pages for simplicity)
-                        // Place current image centered, scaled to fit within the page minus margins
-                        const pageWidth = pdf.internal.pageSize.getWidth();
-                        const pageHeight = pdf.internal.pageSize.getHeight();
-                        const maxWidth = pageWidth - 2*margin;
-                        const maxHeight = pageHeight - 2*margin;
+                    const maxWidth = pageWidth - 2 * margin;
+                    const maxHeight = pageHeight - 2 * margin;
+                    const scale = Math.min(maxWidth / imgWidthMm, maxHeight / imgHeightMm);
+                    const w = imgWidthMm * scale;
+                    const h = imgHeightMm * scale;
+                    const x = (pageWidth - w) / 2;
+                    const y = (pageHeight - h) / 2;
 
-                        const scale = Math.min(maxWidth / imgWidthMm, maxHeight / imgHeightMm);
-                        const w = imgWidthMm * scale;
-                        const h = imgHeightMm * scale;
-                        const x = (pageWidth - w) / 2;
-                        const y = (pageHeight - h) / 2;
-
-                        pdf.addImage(img, 'JPEG', x, y, w, h);
-                    } else {
-                        // Standard page: scale image to fit within page minus margins, preserve aspect ratio
-                        const pageWidth = pdf.internal.pageSize.getWidth();
-                        const pageHeight = pdf.internal.pageSize.getHeight();
-
-                        const maxWidth = pageWidth - 2 * margin;
-                        const maxHeight = pageHeight - 2 * margin;
-
-                        const scale = Math.min(maxWidth / imgWidthMm, maxHeight / imgHeightMm);
-                        const w = imgWidthMm * scale;
-                        const h = imgHeightMm * scale;
-                        const x = (pageWidth - w) / 2;
-                        const y = (pageHeight - h) / 2;
-
-                        pdf.addImage(img, 'JPEG', x, y, w, h);
-                    }
-
-                    // Clean up object URL
+                    pdf.addImage(img, 'JPEG', x, y, w, h);
                     URL.revokeObjectURL(img.src);
                 }
 
                 const pdfBlob = pdf.output('blob');
                 const url = URL.createObjectURL(pdfBlob);
 
+                // Prepare download link with dynamic filename update
                 document.getElementById('downloadInfo').textContent = `PDF created: ${(pdfBlob.size / 1024).toFixed(1)} KB`;
                 document.getElementById('downloadContainer').innerHTML = `
-                    <a href="${url}" download="converted.pdf" class="btn btn-success download-btn">
+                    <a href="${url}" download="converted.pdf" class="btn btn-success download-btn" id="imagePdfDownloadLink">
                         <i data-lucide="download" width="16"></i> Download PDF
                     </a>
                 `;
                 document.getElementById('downloadArea').classList.remove('hidden');
                 lucide.createIcons();
-            });
-            // --------------------------------------------
 
-            // Merge PDF mode
+                // Attach filename input listener
+                const downloadLink = document.getElementById('imagePdfDownloadLink');
+                const fileNameInput = document.getElementById('pdfFileName');
+                if (downloadLink && fileNameInput) {
+                    const updateFileName = () => {
+                        let name = fileNameInput.value.trim();
+                        if (!name) name = 'converted';
+                        name = name.replace(/[<>:"/\\|?*]/g, '_');
+                        if (!name.toLowerCase().endsWith('.pdf')) name += '.pdf';
+                        downloadLink.setAttribute('download', name);
+                    };
+                    fileNameInput.removeEventListener('input', updateFileName); // avoid duplicates
+                    fileNameInput.addEventListener('input', updateFileName);
+                    updateFileName(); // set initial
+                }
+            });
+
+            // ========== MERGE PDF ==========
             const pdfUploadArea = document.getElementById('pdfUploadArea');
             const pdfFileInput = document.getElementById('pdfFileInput');
             const pdfFileList = document.getElementById('pdfFileList');
             const clearPdfsBtn = document.getElementById('clearPdfsBtn');
             const mergePdfBtn = document.getElementById('mergePdfBtn');
+            const mergePdfFileName = document.getElementById('mergePdfFileName');
 
             pdfUploadArea.addEventListener('click', () => pdfFileInput.click());
             pdfUploadArea.addEventListener('dragover', (e) => {
@@ -1307,16 +1312,54 @@
                 updatePdfFileList();
             });
 
-            // Merge PDF (simplified - in real app would use pdf-lib)
-            mergePdfBtn.addEventListener('click', () => {
+            mergePdfBtn.addEventListener('click', async () => {
                 if (pdfFiles.length < 2) {
                     alert('Please upload at least 2 PDF files to merge');
                     return;
                 }
-                alert('PDF merge functionality requires pdf-lib library. This is a demo version. In production, integrate pdf-lib for full functionality.');
+
+                const { PDFDocument } = PDFLib;
+                const mergedPdf = await PDFDocument.create();
+
+                for (let file of pdfFiles) {
+                    const arrayBuffer = await file.arrayBuffer();
+                    const pdf = await PDFDocument.load(arrayBuffer);
+                    const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+                    copiedPages.forEach(page => mergedPdf.addPage(page));
+                }
+
+                const mergedPdfBytes = await mergedPdf.save();
+                const blob = new Blob([mergedPdfBytes], { type: 'application/pdf' });
+                const url = URL.createObjectURL(blob);
+
+                // Prepare download link with dynamic filename update
+                document.getElementById('downloadInfo').textContent = `Merged PDF: ${(blob.size / 1024).toFixed(1)} KB`;
+                document.getElementById('downloadContainer').innerHTML = `
+                    <a href="${url}" download="merged.pdf" class="btn btn-success download-btn" id="mergePdfDownloadLink">
+                        <i data-lucide="download" width="16"></i> Download Merged PDF
+                    </a>
+                `;
+                document.getElementById('downloadArea').classList.remove('hidden');
+                lucide.createIcons();
+
+                // Attach filename input listener for merge mode
+                const downloadLink = document.getElementById('mergePdfDownloadLink');
+                const fileNameInput = document.getElementById('mergePdfFileName');
+                if (downloadLink && fileNameInput) {
+                    const updateFileName = () => {
+                        let name = fileNameInput.value.trim();
+                        if (!name) name = 'merged';
+                        name = name.replace(/[<>:"/\\|?*]/g, '_');
+                        if (!name.toLowerCase().endsWith('.pdf')) name += '.pdf';
+                        downloadLink.setAttribute('download', name);
+                    };
+                    fileNameInput.removeEventListener('input', updateFileName);
+                    fileNameInput.addEventListener('input', updateFileName);
+                    updateFileName();
+                }
             });
 
-            // PDF to Images mode
+            // ========== PDF TO IMAGES ==========
             const pdfToImageInput = document.getElementById('pdfToImageInput');
             const pdfUploadImageArea = document.getElementById('pdfUploadImageArea');
             const pdfToImageBtn = document.getElementById('pdfToImageBtn');
@@ -1345,15 +1388,52 @@
                 }
             });
 
-            pdfToImageBtn.addEventListener('click', () => {
+            pdfToImageBtn.addEventListener('click', async () => {
                 if (!pdfToImageFile) {
                     alert('Please upload a PDF file');
                     return;
                 }
-                alert('PDF to Image conversion requires pdf.js library. This is a demo version. In production, integrate pdf.js for full functionality.');
+
+                const format = document.getElementById('pdfImageFormat').value;
+                const quality = parseFloat(document.getElementById('pdfImageQuality').value);
+                const dpi = parseInt(document.getElementById('pdfImageDPI').value);
+                const scale = dpi / 72; // pdf.js default is 72 DPI
+
+                const arrayBuffer = await pdfToImageFile.arrayBuffer();
+                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+                const numPages = pdf.numPages;
+                const zip = new JSZip();
+                const imgFolder = zip.folder('images');
+
+                for (let i = 1; i <= numPages; i++) {
+                    const page = await pdf.getPage(i);
+                    const viewport = page.getViewport({ scale });
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+
+                    await page.render({ canvasContext: context, viewport }).promise;
+
+                    let mimeType = format === 'jpg' ? 'image/jpeg' : 'image/png';
+                    const blob = await new Promise(resolve => canvas.toBlob(resolve, mimeType, quality));
+                    imgFolder.file(`page_${i}.${format}`, blob);
+                }
+
+                const zipBlob = await zip.generateAsync({ type: 'blob' });
+                const url = URL.createObjectURL(zipBlob);
+
+                document.getElementById('downloadInfo').textContent = `ZIP with ${numPages} image(s) created.`;
+                document.getElementById('downloadContainer').innerHTML = `
+                    <a href="${url}" download="pdf_images.zip" class="btn btn-success download-btn">
+                        <i data-lucide="download" width="16"></i> Download ZIP
+                    </a>
+                `;
+                document.getElementById('downloadArea').classList.remove('hidden');
+                lucide.createIcons();
             });
 
-            // Helper function to load image
+            // Helper
             function loadImage(src) {
                 return new Promise((resolve, reject) => {
                     const img = new Image();
