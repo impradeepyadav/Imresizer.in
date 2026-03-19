@@ -18,7 +18,7 @@
 
     <!-- Primary SEO Tags -->
     <title>Sitemap - ImResizer</title>
-    <meta name="description" content="Complete sitemap of ImResizer website. Find all pages including image compressor, passport photo maker, signature maker, PDF converter, guides, and information pages.">
+    <meta name="description" content="Complete sitemap of ImResizer website. Find all pages including image compressor, passport photo maker, signature maker, PDF converter, guides, blog posts, and information pages.">
     <meta name="keywords" content="sitemap, website map, imresizer pages, all pages">
 
     <link rel="canonical" href="https://imresizer.in/sitemap.html" />
@@ -202,15 +202,24 @@
             text-decoration: none;
         }
 
-        /* SIMPLE SITEMAP LIST - NO HEADINGS */
+        /* SITEMAP SECTIONS */
+        .sitemap-section {
+            margin: 30px 0 20px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid var(--primary);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
         .sitemap-list {
             list-style: none;
-            margin: 30px 0;
+            margin: 0 0 30px 0;
             padding: 0;
         }
 
         .sitemap-list li {
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             padding: 5px 0;
             border-bottom: 1px dotted var(--line-color);
         }
@@ -238,6 +247,16 @@
             margin-top: 40px;
             font-size: 14px;
             color: var(--text-light);
+        }
+
+        .url-count {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-left: 10px;
         }
 
         /* FOOTER - 5 COLUMN (same as all other pages) */
@@ -361,56 +380,101 @@
         </a>
 
         <h1>Sitemap</h1>
-        <p>Complete list of all pages on ImResizer.</p>
+        <p>Complete list of all pages on ImResizer. Total pages: <strong>52</strong> <span class="url-count">including tools, guides, and blog posts</span></p>
 
+        <!-- Main Tools Section -->
+        <div class="sitemap-section">🛠️ Core Tools</div>
         <ul class="sitemap-list">
-            <!-- Main Tools -->
             <li><a href="/">Home – Image Compressor & Resizer</a></li>
+            <li><a href="image-compressor.html">Image Compressor (20KB, 50KB, 100KB)</a></li>
             <li><a href="passport-photo.html">Passport Photo Maker</a></li>
             <li><a href="signature-maker.html">Signature Maker</a></li>
-            <li><a href="pdf-converter.html">PDF Converter</a></li>
-            <li><a href="image-compressor.html">Image Compressor (Standalone)</a></li>
-            
-            <!-- Information Pages -->
+            <li><a href="pdf-converter.html">PDF Converter (JPG to PDF, Merge, PDF to JPG)</a></li>
+        </ul>
+
+        <!-- Information Pages -->
+        <div class="sitemap-section">📄 Information Pages</div>
+        <ul class="sitemap-list">
             <li><a href="about.html">About Us</a></li>
             <li><a href="contact.html">Contact Support</a></li>
             <li><a href="faq.html">Frequently Asked Questions (FAQ)</a></li>
             <li><a href="blog.html">Blog</a></li>
             <li><a href="guides.html">Guides & Tutorials</a></li>
-            
-            <!-- Legal Pages -->
+            <li><a href="sitemap.html">Sitemap (You are here)</a></li>
+        </ul>
+
+        <!-- Legal Pages -->
+        <div class="sitemap-section">⚖️ Legal Pages</div>
+        <ul class="sitemap-list">
             <li><a href="disclaimer.html">Disclaimer</a></li>
             <li><a href="privacy.html">Privacy Policy</a></li>
             <li><a href="terms.html">Terms of Use</a></li>
-            
-            <!-- Sitemap -->
-            <li><a href="sitemap.html">Sitemap (You are here)</a></li>
-            
-            <!-- All Guide Topics (20+ guides) -->
-            <li><a href="guide-image-compression.html">How to Compress Image to 20KB</a></li>
-            <li><a href="guide-passport-photo.html">How to Make a Passport Photo</a></li>
-            <li><a href="guide-digital-signature.html">How to Create a Digital Signature</a></li>
-            <li><a href="guide-jpg-to-pdf.html">How to Convert JPG to PDF</a></li>
-            <li><a href="guide-merge-pdf.html">How to Merge PDFs</a></li>
-            <li><a href="guide-pdf-to-images.html">How to Extract Images from PDF</a></li>
-            <li><a href="guide-add-name-date.html">How to Add Name & Date for SSC</a></li>
-            <li><a href="guide-change-background.html">How to Change Background Color</a></li>
-            <li><a href="guide-crop-tool.html">How to Use the Crop Tool</a></li>
-            <li><a href="guide-brightness-contrast.html">How to Adjust Brightness & Contrast</a></li>
-            <li><a href="guide-banking-signature.html">Banking Signature Requirements</a></li>
-            <li><a href="guide-pdf-to-jpg.html">How to Convert PDF to JPG</a></li>
-            <li><a href="guide-pdf-compress.html">How to Reduce PDF File Size</a></li>
-            <li><a href="guide-dpi-settings.html">How to Use DPI Settings</a></li>
-            <li><a href="guide-take-passport-photo.html">How to Take Passport Photo at Home</a></li>
-            <li><a href="guide-flip-rotate.html">How to Use Flip & Rotate</a></li>
-            <li><a href="guide-transparent-signature.html">How to Create Transparent Signature</a></li>
-            <li><a href="guide-resize-cm.html">How to Resize Image in cm or mm</a></li>
-            <li><a href="guide-print-passport.html">How to Print Passport Photos at Home</a></li>
-            <li><a href="guide-exam-photo.html">SSC, UPSC, Banking Photo Requirements</a></li>
+        </ul>
+
+        <!-- Blog Posts -->
+        <div class="sitemap-section">📝 Blog Posts (6)</div>
+        <ul class="sitemap-list">
+            <li><a href="blog/how-to-compress-image-to-20kb.html">How to Compress Image to 20KB, 50KB, or 100KB</a></li>
+            <li><a href="blog/passport-photo-requirements.html">Passport Photo Requirements: Quick Reference</a></li>
+            <li><a href="blog/how-to-create-digital-signature.html">Create a Digital Signature in 3 Simple Ways</a></li>
+            <li><a href="blog/convert-jpg-to-pdf-guide.html">Convert JPG to PDF in One Click</a></li>
+            <li><a href="blog/ssc-exam-photo-requirements.html">SSC, UPSC, IBPS: Exact Photo & Signature Sizes</a></li>
+            <li><a href="blog/print-passport-photos-at-home.html">Print Passport Photos on 4x6 Sheets</a></li>
+        </ul>
+
+        <!-- Comprehensive Guides -->
+        <div class="sitemap-section">📚 Comprehensive Guides (19)</div>
+        <ul class="sitemap-list">
+            <li><a href="guides/image-compression-guide.html">How to Compress Image to 20KB, 50KB, or 100KB</a></li>
+            <li><a href="guides/passport-photo-guide.html">How to Make a Passport Photo</a></li>
+            <li><a href="guides/digital-signature-guide.html">How to Create a Digital Signature</a></li>
+            <li><a href="guides/jpg-to-pdf-guide.html">How to Convert JPG to PDF</a></li>
+            <li><a href="guides/merge-pdf-guide.html">How to Merge Multiple PDFs</a></li>
+            <li><a href="guides/pdf-to-images-guide.html">How to Extract Images from PDF</a></li>
+            <li><a href="guides/exam-photo-requirements.html">SSC, UPSC, Banking Photo Requirements</a></li>
+            <li><a href="guides/print-passport-photos.html">How to Print Passport Photos at Home</a></li>
+            <li><a href="guides/resize-image-cm.html">How to Resize Image in cm or mm</a></li>
+            <li><a href="guides/add-name-date-photo.html">How to Add Name and Date to Photo for SSC Exams</a></li>
+            <li><a href="guides/change-background-color.html">How to Change Background Color in Passport Photo</a></li>
+            <li><a href="guides/crop-tool-guide.html">How to Use the Crop Tool Effectively</a></li>
+            <li><a href="guides/brightness-contrast-guide.html">How to Adjust Brightness and Contrast</a></li>
+            <li><a href="guides/banking-signature-guide.html">How to Create a Signature for Banking Exams</a></li>
+            <li><a href="guides/pdf-to-jpg-guide.html">How to Convert PDF to JPG</a></li>
+            <li><a href="guides/pdf-compress-guide.html">How to Reduce PDF File Size</a></li>
+            <li><a href="guides/dpi-settings-guide.html">How to Use DPI Settings for Print Quality</a></li>
+            <li><a href="guides/flip-rotate-guide.html">How to Use the Flip and Rotate Tools</a></li>
+            <li><a href="guides/transparent-signature-guide.html">How to Create a Transparent Signature (PNG)</a></li>
+        </ul>
+
+        <!-- Original Articles -->
+        <div class="sitemap-section">📰 Additional Articles (20)</div>
+        <ul class="sitemap-list">
+            <li><a href="article-what-is-image-compression.html">What is Image Compression?</a></li>
+            <li><a href="article-jpeg-vs-png-vs-webp.html">JPEG vs PNG vs WEBP: Which Format to Choose?</a></li>
+            <li><a href="article-how-to-compress-without-losing-quality.html">How to Compress Images Without Losing Quality</a></li>
+            <li><a href="article-ssc-exam-photo-requirements-2026.html">SSC Exam Photo Requirements 2026</a></li>
+            <li><a href="article-upsc-photo-signature-requirements.html">UPSC Photo & Signature Requirements</a></li>
+            <li><a href="article-ibps-banking-exam-photo-guide.html">IBPS Banking Exam Photo Guide</a></li>
+            <li><a href="article-rrb-railway-exam-photo-requirements.html">RRB Railway Exam Photo Requirements</a></li>
+            <li><a href="article-how-to-prepare-photos-for-government-exams.html">How to Prepare Photos for Government Exams</a></li>
+            <li><a href="article-why-image-compression-improves-seo.html">Why Image Compression Improves SEO</a></li>
+            <li><a href="article-how-to-optimize-images-for-pagespeed.html">How to Optimize Images for PageSpeed</a></li>
+            <li><a href="article-image-alt-text-guide.html">Image Alt Text Guide</a></li>
+            <li><a href="article-best-image-file-names-for-seo.html">Best Image File Names for SEO</a></li>
+            <li><a href="article-how-to-resize-images-in-centimeters.html">How to Resize Images in Centimeters</a></li>
+            <li><a href="article-how-to-compress-to-exact-kb-20-50-100.html">How to Compress to Exact KB (20, 50, 100)</a></li>
+            <li><a href="article-batch-image-compression-tips.html">Batch Image Compression Tips</a></li>
+            <li><a href="article-add-name-date-to-photo-ssc.html">How to Add Name & Date to SSC Photo</a></li>
+            <li><a href="article-why-exam-photo-rejected-common-reasons.html">Why Exam Photos Get Rejected: Common Reasons</a></li>
+            <li><a href="article-image-compression-faq.html">Image Compression FAQ</a></li>
+            <li><a href="article-lossy-vs-lossless-compression.html">Lossy vs Lossless Compression</a></li>
+            <li><a href="article-how-to-check-photo-meets-exam-requirements.html">How to Check if Your Photo Meets Exam Requirements</a></li>
         </ul>
 
         <div class="sitemap-note">
+            <p><strong>📊 Total Pages: 52</strong> (5 Core Tools + 6 Information Pages + 3 Legal Pages + 6 Blog Posts + 19 Guides + 20 Articles)</p>
             <p><strong>Note:</strong> This sitemap shows all public pages currently available on ImResizer. We regularly add new tools and guides. If you cannot find what you're looking for, please <a href="contact.html">contact us</a>.</p>
+            <p><strong>Last Updated:</strong> March 19, 2026</p>
         </div>
 
     </main>
