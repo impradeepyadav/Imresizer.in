@@ -93,7 +93,7 @@
     <priority>0.5</priority>
   </url>
 
-  <!-- BLOG POSTS -->
+  <!-- BLOG POSTS - Keeping all 6 blog posts -->
   <url>
     <loc>https://imresizer.in/blog/how-to-compress-image-to-20kb-50kb-or-100kb.html</loc>
     <lastmod>2026-03-01</lastmod>
@@ -131,7 +131,7 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- GUIDES -->
+  <!-- GUIDES - 20 guides (exactly as in guides.html) -->
   <url>
     <loc>https://imresizer.in/guides/image-compression-guide.html</loc>
     <lastmod>2026-03-20</lastmod>
