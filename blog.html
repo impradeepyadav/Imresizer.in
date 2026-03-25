@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" itemscope itemtype="http://schema.org/Blog">
+<html lang="en-IN" itemscope itemtype="http://schema.org/Blog">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
@@ -29,6 +29,7 @@
     <meta property="og:title" content="Blog - ImResizer | Simple Guides & Updates">
     <meta property="og:description" content="Read simple guides and updates about image tools.">
     <meta property="og:image" content="https://imresizer.in/og-image.jpg">
+    <meta property="og:locale" content="en_IN">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
@@ -50,6 +51,7 @@
       "name": "ImResizer Blog",
       "url": "https://imresizer.in/blog.html",
       "description": "Simple guides and updates about image compression, passport photos, signatures, and PDF tools.",
+      "inLanguage": "en-IN",
       "publisher": {
         "@type": "Organization",
         "name": "ImResizer",
@@ -164,7 +166,7 @@
 
         /* MAIN LAYOUT */
         .container {
-            max-width: 800px; /* narrower for better readability */
+            max-width: 800px;
             width: 100%;
             margin: 30px auto;
             padding: 0 20px;
@@ -230,6 +232,12 @@
             color: var(--primary-dark);
             gap: 10px;
             text-decoration: none;
+        }
+
+        .subtitle {
+            color: var(--text-light);
+            font-size: 18px;
+            margin-bottom: 30px;
         }
 
         /* CLEAN BLOG STYLES */
@@ -484,8 +492,6 @@
                     Read more <i data-lucide="arrow-right" width="16"></i>
                 </a>
             </article>
-
-            <!-- You can add more posts similarly -->
 
         </div>
     </main>
