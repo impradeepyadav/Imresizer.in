@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" itemscope itemtype="http://schema.org/WebApplication">
+<html lang="en-IN" itemscope itemtype="http://schema.org/WebApplication">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
@@ -21,7 +21,6 @@
     <!-- Primary SEO Tags -->
     <title>About Us - ImResizer</title>
     <meta name="description" content="Learn about ImResizer, the most trusted online image resizer and compressor tool. 100% free, secure, client-side processing for government exam forms and passport photos.">
-    <meta name="keywords" content="about imresizer, image resizer tool, online image compressor, about us, image editing tool, free image resizer, secure image compressor">
     
     <link rel="canonical" href="https://imresizer.in/about.html" />
 
@@ -31,6 +30,7 @@
     <meta property="og:title" content="About ImResizer - Trusted Image Resizer Tool">
     <meta property="og:description" content="Learn about ImResizer, the most trusted online image resizer and compressor tool for government exam forms and passport photos.">
     <meta property="og:image" content="https://imresizer.in/og-image.jpg">
+    <meta property="og:locale" content="en_IN">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
@@ -52,6 +52,7 @@
       "name": "About ImResizer",
       "url": "https://imresizer.in/about.html",
       "description": "ImResizer is a free online image resizer and compressor tool for government exam forms and passport photos.",
+      "inLanguage": "en-IN",
       "publisher": {
         "@type": "Organization",
         "name": "ImResizer",
@@ -85,7 +86,7 @@
     <link rel="preconnect" href="https://unpkg.com" crossorigin>
     
     <style>
-        /* --- CORE THEME - CLEAN & PROFESSIONAL (पहले वाले टूल पेज जैसा) --- */
+        /* --- CORE THEME - CLEAN & PROFESSIONAL --- */
         :root {
             --primary: #2563eb;
             --primary-dark: #1e40af;
@@ -158,12 +159,10 @@
             letter-spacing: -0.5px;
         }
         .logo-text span { color: var(--primary); }
-        /* --- START OF UPDATE: Make .in thin and black --- */
         .logo-text .domain {
-            font-weight: 300; /* Thin weight */
-            color: #000000;   /* Black color */
+            font-weight: 300;
+            color: #000000;
         }
-        /* --- END OF UPDATE --- */
 
         /* MAIN LAYOUT */
         .container { 
@@ -265,7 +264,7 @@
             line-height: 1.7; 
         }
 
-        /* ===== FOOTER - 5 कॉलम वाला स्टाइल (टूल पेज जैसा) ===== */
+        /* FOOTER */
         footer {
             background-color: var(--footer-bg);
             color: var(--footer-text);
@@ -326,12 +325,11 @@
         .footer-logo-text span { 
             color: var(--primary); 
         }
-        /* --- START OF UPDATE: Make footer .in thin and black (white for visibility) --- */
+        
         .footer-logo-text .domain {
-            font-weight: 300; /* Thin weight */
-            color: #ffffff;   /* White color for visibility on dark background. */
+            font-weight: 300;
+            color: #ffffff;
         }
-        /* --- END OF UPDATE --- */
 
         .footer-links {
             list-style: none;
@@ -387,7 +385,7 @@
         .hidden { display: none !important; }
     </style>
     
-    <!-- Lucide Icons (लोड करना है) -->
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
@@ -487,14 +485,13 @@
             </ul>
             <p>Have a suggestion? We'd love to hear from you!</p>
 
+            <!-- FIXED CONTACT SECTION - SINGLE EMAIL -->
             <h2>Contact Us</h2>
-            <p>Have questions, suggestions, or feedback? We're here to help:</p>
+            <p>Have questions, suggestions, or feedback? We'd love to hear from you! Here's how to reach us:</p>
             <ul>
-                <li><strong>General Inquiries:</strong> <a href="mailto:support@imresizer.in">support@imresizer.in</a> (24-48 hour response)</li>
-                <li><strong>Legal Matters:</strong> <a href="mailto:legal@imresizer.in">legal@imresizer.in</a> (5-7 business days)</li>
-                <li><strong>Business Inquiries:</strong> <a href="mailto:business@imresizer.in">business@imresizer.in</a></li>
+                <li><strong>Email:</strong> <a href="mailto:support@imresizer.in">support@imresizer.in</a> (We typically respond within 24-48 hours)</li>
             </ul>
-            <p>For the fastest response, please include relevant details about your issue or suggestion.</p>
+            <p>For the fastest response, please include relevant details about your issue, suggestion, or inquiry. We value your feedback and will get back to you as soon as possible.</p>
 
             <h2>Stay Connected</h2>
             <p>Bookmark ImResizer for your next exam application. We're constantly adding new features and exam presets based on user feedback. Follow us on social media or check back regularly for updates.</p>
@@ -503,10 +500,9 @@
         </div>
     </main>
 
-    <!-- ===== FOOTER - 5 कॉलम वाला (टूल पेज जैसा) ===== -->
+    <!-- FOOTER -->
     <footer>
         <div class="footer-container">
-            <!-- Column 1: Brand info with logo and description -->
             <div class="footer-col footer-brand">
                 <a href="/" class="footer-logo">
                     <div class="footer-logo-icon">
@@ -517,7 +513,6 @@
                 <p>Compress photo & signature to 20KB or 50KB for all Govt exams (SSC, UPSC, NEET, JEE). Fast, secure, and perfect for online forms. No sign-up required.</p>
             </div>
 
-            <!-- Column 2: Quick Links -->
             <div class="footer-col">
                 <h5>QUICK LINKS</h5>
                 <ul class="footer-links">
@@ -527,7 +522,6 @@
                 </ul>
             </div>
 
-            <!-- Column 3: Legal & Info -->
             <div class="footer-col">
                 <h5>LEGAL & INFO</h5>
                 <ul class="footer-links">
@@ -537,7 +531,6 @@
                 </ul>
             </div>
 
-            <!-- Column 4: Tools -->
             <div class="footer-col">
                 <h5>TOOLS</h5>
                 <ul class="footer-links">
@@ -548,7 +541,6 @@
                 </ul>
             </div>
 
-            <!-- Column 5: Resources -->
             <div class="footer-col">
                 <h5>RESOURCES</h5>
                 <ul class="footer-links">
@@ -560,7 +552,6 @@
             </div>
         </div>
 
-        <!-- FOOTER BOTTOM -->
         <div class="footer-bottom">
             <div>&copy; 2026 imresizer.in. All rights reserved. Made For Students</div>
             <div>Designed for Students</div>
