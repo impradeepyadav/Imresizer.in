@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" itemscope itemtype="http://schema.org/WebApplication">
+<html lang="en-IN" itemscope itemtype="http://schema.org/WebPage">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
@@ -31,6 +31,7 @@
     <meta property="og:title" content="Disclaimer - ImResizer">
     <meta property="og:description" content="Read ImResizer's disclaimer. Our tool is provided 'as is' without warranties.">
     <meta property="og:image" content="https://imresizer.in/og-image.jpg">
+    <meta property="og:locale" content="en_IN">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
@@ -52,6 +53,7 @@
       "name": "Disclaimer",
       "url": "https://imresizer.in/disclaimer.html",
       "description": "ImResizer disclaimer - Tool provided 'as is' without warranties.",
+      "inLanguage": "en-IN",
       "publisher": {
         "@type": "Organization",
         "name": "ImResizer",
@@ -158,12 +160,10 @@
             letter-spacing: -0.5px;
         }
         .logo-text span { color: var(--primary); }
-        /* --- START OF UPDATE: Make .in thin and black --- */
         .logo-text .domain {
-            font-weight: 300; /* Thin weight */
-            color: #000000;   /* Black color */
+            font-weight: 300;
+            color: #000000;
         }
-        /* --- END OF UPDATE --- */
 
         /* MAIN LAYOUT */
         .container { 
@@ -260,7 +260,7 @@
             margin-bottom: 40px; 
         }
 
-        /* ===== FOOTER - 5 कॉलम वाला स्टाइल (टूल पेज जैसा) ===== */
+        /* ===== FOOTER - 5 कॉलम वाला स्टाइल ===== */
         footer {
             background-color: var(--footer-bg);
             color: var(--footer-text);
@@ -321,12 +321,11 @@
         .footer-logo-text span { 
             color: var(--primary); 
         }
-        /* --- START OF UPDATE: Make footer .in thin and black (white for visibility) --- */
+        
         .footer-logo-text .domain {
-            font-weight: 300; /* Thin weight */
-            color: #ffffff;   /* White color for visibility on dark background. */
+            font-weight: 300;
+            color: #ffffff;
         }
-        /* --- END OF UPDATE --- */
 
         .footer-links {
             list-style: none;
@@ -411,8 +410,6 @@
         <div class="content-block">
             <p><strong>Last Updated: February 28, 2026</strong></p>
 
-            <!-- Important Notice box has been removed as requested -->
-
             <h2>1. General Information</h2>
             <p>The information provided by ImResizer on <strong>https://imresizer.in/</strong> is for general informational and utility purposes only. All content on this website is provided in good faith; however, we make no representations or warranties of any kind, express or implied, regarding the accuracy, adequacy, reliability, availability, or completeness of any information or output generated using this tool.</p>
 
@@ -495,17 +492,16 @@
             <h2>16. Contact Information</h2>
             <p>If you have any questions about this Disclaimer or our practices, please contact us at:</p>
             <ul>
-                <li>Email: <strong><a href="mailto:legal@imresizer.in">legal@imresizer.in</a></strong></li>
-                <li>Response Time: Within 7-10 business days</li>
+                <li>Email: <strong><a href="mailto:support@imresizer.in">support@imresizer.in</a></strong></li>
+                <li>Response Time: Within 24-48 business hours</li>
             </ul>
             <p>For general inquiries, please visit our <a href="contact.html">Contact page</a>.</p>
         </div>
     </main>
 
-    <!-- ===== FOOTER - 5 कॉलम वाला (टूल पेज जैसा) ===== -->
+    <!-- FOOTER - 5 COLUMN -->
     <footer>
         <div class="footer-container">
-            <!-- Column 1: Brand info with logo and description -->
             <div class="footer-col footer-brand">
                 <a href="/" class="footer-logo">
                     <div class="footer-logo-icon">
@@ -516,7 +512,6 @@
                 <p>Compress photo & signature to 20KB or 50KB for all Govt exams (SSC, UPSC, NEET, JEE). Fast, secure, and perfect for online forms. No sign-up required.</p>
             </div>
 
-            <!-- Column 2: Quick Links -->
             <div class="footer-col">
                 <h5>QUICK LINKS</h5>
                 <ul class="footer-links">
@@ -526,7 +521,6 @@
                 </ul>
             </div>
 
-            <!-- Column 3: Legal & Info -->
             <div class="footer-col">
                 <h5>LEGAL & INFO</h5>
                 <ul class="footer-links">
@@ -536,7 +530,6 @@
                 </ul>
             </div>
 
-            <!-- Column 4: Tools -->
             <div class="footer-col">
                 <h5>TOOLS</h5>
                 <ul class="footer-links">
@@ -547,7 +540,6 @@
                 </ul>
             </div>
 
-            <!-- Column 5: Resources -->
             <div class="footer-col">
                 <h5>RESOURCES</h5>
                 <ul class="footer-links">
@@ -559,7 +551,6 @@
             </div>
         </div>
 
-        <!-- FOOTER BOTTOM -->
         <div class="footer-bottom">
             <div>&copy; 2026 imresizer.in. All rights reserved. Made For Students</div>
             <div>Designed for Students</div>
