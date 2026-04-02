@@ -120,7 +120,7 @@
             line-height: 1.5;
         }
 
-        /* HEADER - FIXED / STICKY (same as contact page) */
+        /* HEADER - FIXED / STICKY */
         header { 
             padding: 12px 0;
             border-bottom: 1px solid var(--line-color); 
@@ -185,15 +185,9 @@
             color: #000000;
         }
         
-        /* Free Tool badge - keep as is */
+        /* Free Tool badge - removed completely */
         .free-badge {
-            font-size: 12px;
-            color: var(--text-light);
-            font-weight: 500;
-            background: #f3f4f6;
-            padding: 6px 10px;
-            border-radius: 6px;
-            border: 1px solid #e5e7eb;
+            display: none !important;
         }
         
         /* Desktop Navigation Menu */
@@ -307,10 +301,6 @@
                 align-items: center;
                 justify-content: center;
                 order: 2;
-            }
-            /* Hide free badge on mobile for cleaner look */
-            .free-badge {
-                display: none;
             }
             /* The nav-menu becomes a full-width dropdown panel */
             .nav-menu {
@@ -607,7 +597,6 @@
                     </div>
                     <div class="logo-text">Im<span>Resizer<span class="domain">.in</span></span></div>
                 </a>
-                <span class="free-badge">Free Tool</span>
             </div>
             
             <!-- Mobile menu toggle -->
