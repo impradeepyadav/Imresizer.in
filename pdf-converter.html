@@ -17,7 +17,7 @@
     </script>
 
     <!-- Primary SEO Tags -->
-    <title>Free online PDF Converter</title>
+    <title>Free online PDF Converter - ImResizer</title>
     <meta name="description" content="Free online PDF converter. Convert images (JPG, PNG) to PDF, merge multiple PDFs, extract images from PDF. No uploads, 100% private client-side processing.">
     <meta name="keywords" content="pdf converter, image to pdf, jpg to pdf, png to pdf, merge pdf, combine pdf, pdf to image, pdf editor, online pdf tool">
 
@@ -107,7 +107,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
     <style>
-        /* --- CORE THEME - Same as other pages --- */
+        /* --- CORE THEME - SAME AS BLOG PAGE (FIXED HEADER) --- */
         :root {
             --primary: #2563eb;
             --primary-dark: #1e40af;
@@ -139,22 +139,38 @@
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
             line-height: 1.5;
+            padding-top: 78px;
         }
 
-        /* HEADER */
+        /* HEADER - FIXED / STICKY */
         header {
-            padding: 15px 0;
+            padding: 12px 0;
             border-bottom: 1px solid var(--line-color);
             background: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
         }
 
         .navbar {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
         }
 
         .brand-logo {
@@ -185,11 +201,170 @@
             color: #000000;
         }
 
+        /* Desktop Navigation Menu */
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-btn {
+            background: none;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: inherit;
+        }
+
+        .nav-dropdown-btn:hover {
+            background-color: #f1f5f9;
+            color: var(--primary);
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 40px;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.02);
+            border-radius: 12px;
+            border: 1px solid var(--line-color);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: all 0.2s ease;
+            z-index: 200;
+        }
+
+        .nav-dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px 18px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.15s;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f8fafc;
+            color: var(--primary);
+            padding-left: 22px;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 900px) {
+            body {
+                padding-top: 70px;
+            }
+            header {
+                padding: 10px 0;
+            }
+            .navbar {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: nowrap;
+            }
+            .nav-left {
+                flex: 1;
+                justify-content: flex-start;
+            }
+            .mobile-menu-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                order: 2;
+            }
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: white;
+                padding: 16px 0 12px;
+                gap: 8px;
+                border-top: 1px solid var(--line-color);
+                order: 3;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+                z-index: 150;
+                max-height: calc(100vh - 70px);
+                overflow-y: auto;
+            }
+            .nav-menu.active {
+                display: flex;
+            }
+            .nav-dropdown {
+                width: 100%;
+            }
+            .nav-dropdown-btn {
+                width: 100%;
+                justify-content: space-between;
+                padding: 12px 16px;
+                background: #f9fafb;
+                border-radius: 10px;
+            }
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                border: none;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+                margin-top: 5px;
+                margin-left: 16px;
+                border-left: 2px solid var(--line-color);
+            }
+            .nav-dropdown.active .dropdown-content {
+                display: block;
+            }
+            .navbar {
+                flex-wrap: wrap;
+                position: relative;
+            }
+        }
+
         /* MAIN LAYOUT */
         .container {
             max-width: 1000px;
             width: 100%;
-            margin: 30px auto;
+            margin: 20px auto 30px;
             padding: 0 20px;
             flex: 1;
         }
@@ -373,14 +548,6 @@
             color: var(--text-light);
         }
 
-        .file-preview {
-            width: 40px;
-            height: 40px;
-            object-fit: cover;
-            border-radius: 4px;
-            border: 1px solid var(--line-color);
-        }
-
         .remove-file {
             color: var(--error);
             cursor: pointer;
@@ -543,6 +710,56 @@
             min-width: 200px;
         }
 
+        /* Tip Card */
+        .tip-card {
+            background: var(--highlight);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+
+        /* Table Styles */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 30px 0;
+            border: 1px solid var(--line-color);
+            border-radius: 8px;
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 500px;
+        }
+
+        .info-table th {
+            background: var(--accent-bg);
+            font-weight: 700;
+            color: var(--text-main);
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--line-color);
+        }
+
+        .info-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--line-color);
+            color: var(--text-light);
+        }
+
+        /* SEO Content */
+        .seo-content {
+            margin-top: 60px;
+            border-top: 1px solid var(--line-color);
+            padding-top: 40px;
+        }
+
+        .content-block {
+            margin-bottom: 40px;
+        }
+
         /* FOOTER - 5 COLUMN */
         footer {
             background-color: var(--footer-bg);
@@ -634,9 +851,10 @@
             .footer-container { grid-template-columns: 1fr; gap: 40px; }
             .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
             .mode-tabs { flex-direction: column; }
-            .mode-btn { width: 100%; }
+            .mode-btn { width: 100%; justify-content: center; }
             .control-row { flex-direction: column; }
             .control-item { width: 100%; }
+            h1 { font-size: 28px; }
         }
 
         .hidden { display: none !important; }
@@ -649,13 +867,42 @@
 
     <header>
         <div class="navbar">
-            <a href="/" class="brand-logo">
-                <div class="logo-icon-box">
-                    <i data-lucide="crop" width="28" height="28"></i>
+            <div class="nav-left">
+                <a href="/" class="brand-logo">
+                    <div class="logo-icon-box"><i data-lucide="crop" width="28" height="28"></i></div>
+                    <div class="logo-text">Im<span>Resizer<span class="domain">.in</span></span></div>
+                </a>
+            </div>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menu">
+                <i data-lucide="menu" width="26" height="26"></i>
+            </button>
+            <div class="nav-menu" id="navMenu">
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">QUICK LINKS <i data-lucide="chevron-down" width="14" height="14"></i></button>
+                    <div class="dropdown-content">
+                        <a href="/">Home</a><a href="about.html">About Us</a><a href="contact.html">Contact Support</a>
+                    </div>
                 </div>
-                <div class="logo-text">Im<span>Resizer<span class="domain">.in</span></span></div>
-            </a>
-            <span style="font-size:12px; color:var(--text-light); font-weight:500; background: #f3f4f6; padding: 6px 10px; border-radius: 6px; border: 1px solid #e5e7eb;">Free Tool</span>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">LEGAL & INFO <i data-lucide="chevron-down" width="14" height="14"></i></button>
+                    <div class="dropdown-content">
+                        <a href="disclaimer.html">Disclaimer</a><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">TOOLS <i data-lucide="chevron-down" width="14" height="14"></i></button>
+                    <div class="dropdown-content">
+                        <a href="image-compressor.html">Image Compressor</a><a href="pdf-converter.html">PDF Converter</a>
+                        <a href="signature-maker.html">Signature Maker</a><a href="passport-photo.html">Passport Photo</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">RESOURCES <i data-lucide="chevron-down" width="14" height="14"></i></button>
+                    <div class="dropdown-content">
+                        <a href="blog.html">Blog</a><a href="guides.html">Guides</a><a href="faq.html">FAQ</a><a href="sitemap.html">Sitemap</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -686,7 +933,6 @@
 
             <!-- Image to PDF Mode -->
             <div id="imageToPdfMode" class="mode-content">
-                <!-- Upload Area -->
                 <div id="imageUploadArea" class="upload-area">
                     <i data-lucide="upload-cloud" class="upload-icon"></i>
                     <div style="font-weight: 700; font-size: 20px; margin-bottom: 8px;">Upload Images</div>
@@ -694,10 +940,8 @@
                     <input type="file" id="imageFileInput" class="file-input" accept="image/*" multiple>
                 </div>
 
-                <!-- File List -->
                 <div id="imageFileList" class="file-list"></div>
 
-                <!-- PDF Settings -->
                 <div class="controls-section">
                     <div class="control-group">
                         <h4><i data-lucide="settings" width="18"></i> PDF Settings</h4>
@@ -746,7 +990,6 @@
                     </div>
                 </div>
 
-                <!-- Action Buttons -->
                 <div class="action-buttons">
                     <button class="btn btn-primary" id="convertToPdfBtn">
                         <i data-lucide="file-text" width="16"></i> Convert to PDF
@@ -759,7 +1002,6 @@
 
             <!-- Merge PDF Mode -->
             <div id="mergePdfMode" class="mode-content hidden">
-                <!-- Upload Area -->
                 <div id="pdfUploadArea" class="upload-area">
                     <i data-lucide="upload-cloud" class="upload-icon"></i>
                     <div style="font-weight: 700; font-size: 20px; margin-bottom: 8px;">Upload PDFs</div>
@@ -767,17 +1009,14 @@
                     <input type="file" id="pdfFileInput" class="file-input" accept=".pdf" multiple>
                 </div>
 
-                <!-- File List -->
                 <div id="pdfFileList" class="file-list"></div>
 
-                <!-- Filename input for merge -->
                 <div style="margin: 15px 0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
                     <label for="mergePdfFileName" style="font-weight: 600; color: var(--text-main);">Output file name:</label>
                     <input type="text" id="mergePdfFileName" value="merged" style="flex: 1; padding: 10px; border: 1px solid var(--line-color); border-radius: 6px; font-size: 14px; min-width: 200px;">
                     <span style="font-size: 13px; color: var(--text-light);">.pdf will be added</span>
                 </div>
 
-                <!-- Action Buttons -->
                 <div class="action-buttons">
                     <button class="btn btn-primary" id="mergePdfBtn">
                         <i data-lucide="combine" width="16"></i> Merge PDFs
@@ -790,7 +1029,6 @@
 
             <!-- PDF to Images Mode -->
             <div id="pdfToImageMode" class="mode-content hidden">
-                <!-- Upload Area -->
                 <div id="pdfUploadImageArea" class="upload-area">
                     <i data-lucide="upload-cloud" class="upload-icon"></i>
                     <div style="font-weight: 700; font-size: 20px; margin-bottom: 8px;">Upload PDF</div>
@@ -798,7 +1036,6 @@
                     <input type="file" id="pdfToImageInput" class="file-input" accept=".pdf">
                 </div>
 
-                <!-- Settings -->
                 <div class="controls-section">
                     <div class="control-group">
                         <h4><i data-lucide="settings" width="18"></i> Image Settings</h4>
@@ -831,7 +1068,6 @@
                     </div>
                 </div>
 
-                <!-- Action Buttons -->
                 <div class="action-buttons">
                     <button class="btn btn-primary" id="pdfToImageBtn">
                         <i data-lucide="image" width="16"></i> Extract Images
@@ -847,7 +1083,6 @@
                     <div id="downloadInfo" style="font-size: 14px; color: #15803d;"></div>
                 </div>
 
-                <!-- Filename input for Image to PDF (only used in that mode) -->
                 <div id="imagePdfFilenameContainer" style="margin: 15px 0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
                     <label for="pdfFileName" style="font-weight: 600; color: var(--text-main);">File name:</label>
                     <input type="text" id="pdfFileName" value="converted" style="flex: 1; padding: 10px; border: 1px solid var(--line-color); border-radius: 6px; font-size: 14px; min-width: 200px;">
@@ -858,7 +1093,7 @@
             </div>
         </div>
 
-        <!-- SEO Content Section - Comprehensive Articles (unchanged) -->
+        <!-- SEO Content Section - Comprehensive Articles -->
         <div class="seo-content">
             <div class="content-block">
                 <h2>Complete Guide: Convert Images to PDF Online Free</h2>
@@ -867,7 +1102,7 @@
 
             <div class="content-block">
                 <h2>How to Convert JPG to PDF</h2>
-                <ol>
+                <ol style="margin-left: 20px; color: var(--text-light);">
                     <li><strong>Select Mode:</strong> Choose "Image to PDF" from the tabs.</li>
                     <li><strong>Upload Images:</strong> Click upload or drag & drop your JPG, PNG, or WEBP files. You can select multiple images.</li>
                     <li><strong>Adjust Settings:</strong> Choose page size (A4, Letter, etc.), orientation, margin, DPI and image quality.</li>
@@ -882,7 +1117,7 @@
 
             <div class="content-block">
                 <h2>How to Merge Multiple PDFs</h2>
-                <ol>
+                <ol style="margin-left: 20px; color: var(--text-light);">
                     <li><strong>Select Mode:</strong> Choose "Merge PDF" from the tabs.</li>
                     <li><strong>Upload PDFs:</strong> Upload two or more PDF files. They will be merged in the order you add them.</li>
                     <li><strong>Merge:</strong> Click "Merge PDFs" – the tool combines all pages into a single document.</li>
@@ -892,7 +1127,7 @@
 
             <div class="content-block">
                 <h2>How to Extract Images from PDF</h2>
-                <ol>
+                <ol style="margin-left: 20px; color: var(--text-light);">
                     <li><strong>Select Mode:</strong> Choose "PDF to Images" from the tabs.</li>
                     <li><strong>Upload PDF:</strong> Upload your PDF file.</li>
                     <li><strong>Adjust Settings:</strong> Choose output format (JPG or PNG), quality, and DPI (72 for web, 300 for print).</li>
@@ -903,22 +1138,14 @@
 
             <div class="content-block">
                 <h2>PDF Page Size Reference</h2>
-                <div style="overflow-x: auto; margin: 20px 0;">
-                    <table style="width:100%; border-collapse:collapse; border:1px solid var(--line-color);">
-                        <thead>
-                            <tr style="background:var(--accent-bg);">
-                                <th style="padding:12px; text-align:left;">Size</th>
-                                <th style="padding:12px; text-align:left;">Dimensions (mm)</th>
-                                <th style="padding:12px; text-align:left;">Dimensions (inches)</th>
-                                <th style="padding:12px; text-align:left;">Common Use</th>
-                            </tr>
-                        </thead>
+                <div class="table-wrapper">
+                    <table class="info-table">
+                        <thead><tr><th>Size</th><th>Dimensions (mm)</th><th>Dimensions (inches)</th><th>Common Use</th></tr></thead>
                         <tbody>
                             <tr><td>A4</td><td>210 x 297 mm</td><td>8.27 x 11.69 in</td><td>Standard documents, letters, forms</td></tr>
                             <tr><td>Letter</td><td>216 x 279 mm</td><td>8.5 x 11 in</td><td>US standard documents</td></tr>
                             <tr><td>Legal</td><td>216 x 356 mm</td><td>8.5 x 14 in</td><td>Legal documents, contracts</td></tr>
-                            <tr><td>A5</td><td>148 x 210 mm</td><td>5.83 x 8.27 in</td><td>Booklets, flyers</td></tr>
-                            <tr><td>A3</td><td>297 x 420 mm</td><td>11.69 x 16.54 in</td><td>Posters, large documents</td></tr>
+                            <tr><td>Fit to Image</td><td>Custom</td><td>Custom</td><td>Exact image dimensions</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -948,7 +1175,7 @@
 
             <div class="content-block">
                 <h2>Common Use Cases</h2>
-                <ul>
+                <ul style="margin-left: 20px; color: var(--text-light);">
                     <li><strong>Create PDF from scanned documents:</strong> Convert multiple scanned JPGs into a single PDF file.</li>
                     <li><strong>Combine multiple contracts:</strong> Merge several PDF contracts into one document for easy sharing.</li>
                     <li><strong>Extract images from PDF reports:</strong> Save charts, diagrams, or photos from PDF reports as separate image files.</li>
@@ -963,65 +1190,67 @@
         </div>
     </main>
 
-    <!-- FOOTER - 5 COLUMN (exactly same as other pages) -->
+    <!-- FOOTER - 5 COLUMN -->
     <footer>
         <div class="footer-container">
             <div class="footer-col footer-brand">
-                <a href="/" class="footer-logo">
-                    <div class="footer-logo-icon">
-                        <i data-lucide="crop" width="18" height="18"></i>
-                    </div>
-                    <div class="footer-logo-text">Im<span>Resizer<span class="domain">.in</span></span></div>
-                </a>
+                <a href="/" class="footer-logo"><div class="footer-logo-icon"><i data-lucide="crop" width="18" height="18"></i></div><div class="footer-logo-text">Im<span>Resizer<span class="domain">.in</span></span></div></a>
                 <p>Compress photo & signature to 20KB or 50KB for all Govt exams (SSC, UPSC, NEET, JEE). Fast, secure, and perfect for online forms. No sign-up required.</p>
             </div>
-
-            <div class="footer-col">
-                <h5>QUICK LINKS</h5>
-                <ul class="footer-links">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact Support</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h5>LEGAL & INFO</h5>
-                <ul class="footer-links">
-                    <li><a href="disclaimer.html">Disclaimer</a></li>
-                    <li><a href="privacy.html">Privacy Policy</a></li>
-                    <li><a href="terms.html">Terms of Use</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h5>TOOLS</h5>
-                <ul class="footer-links">
-                    <li><a href="image-compressor.html">Image Compressor</a></li>
-                    <li><a href="pdf-converter.html">PDF Converter</a></li>
-                    <li><a href="signature-maker.html">Signature Maker</a></li>
-                    <li><a href="passport-photo.html">Passport Photo</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h5>RESOURCES</h5>
-                <ul class="footer-links">
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="guides.html">Guides</a></li>
-                    <li><a href="faq.html">FAQ</a></li>
-                    <li><a href="sitemap.html">Sitemap</a></li>
-                </ul>
-            </div>
+            <div class="footer-col"><h5>QUICK LINKS</h5><ul class="footer-links"><li><a href="/">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact Support</a></li></ul></div>
+            <div class="footer-col"><h5>LEGAL & INFO</h5><ul class="footer-links"><li><a href="disclaimer.html">Disclaimer</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Use</a></li></ul></div>
+            <div class="footer-col"><h5>TOOLS</h5><ul class="footer-links"><li><a href="image-compressor.html">Image Compressor</a></li><li><a href="pdf-converter.html">PDF Converter</a></li><li><a href="signature-maker.html">Signature Maker</a></li><li><a href="passport-photo.html">Passport Photo</a></li></ul></div>
+            <div class="footer-col"><h5>RESOURCES</h5><ul class="footer-links"><li><a href="blog.html">Blog</a></li><li><a href="guides.html">Guides</a></li><li><a href="faq.html">FAQ</a></li><li><a href="sitemap.html">Sitemap</a></li></ul></div>
         </div>
-
-        <div class="footer-bottom">
-            <div>&copy; 2026 imresizer.in. All rights reserved. Made For Students</div>
-            <div>Designed for Students</div>
-        </div>
+        <div class="footer-bottom"><div>&copy; 2026 imresizer.in. All rights reserved. Made For Students</div><div>Designed for Students</div></div>
     </footer>
 
     <script>
+        // Mobile menu logic (same as blog)
+        (function(){
+            const toggleBtn = document.getElementById('mobileMenuToggle');
+            const navMenu = document.getElementById('navMenu');
+            if(toggleBtn && navMenu){
+                toggleBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    navMenu.classList.toggle('active');
+                    const icon = toggleBtn.querySelector('i');
+                    if(icon){
+                        icon.setAttribute('data-lucide', navMenu.classList.contains('active') ? 'x' : 'menu');
+                        if(window.lucide) lucide.createIcons();
+                    }
+                });
+            }
+            const dropdowns = document.querySelectorAll('.nav-dropdown');
+            dropdowns.forEach(dd => {
+                const btn = dd.querySelector('.nav-dropdown-btn');
+                if(btn){
+                    btn.addEventListener('click', (e) => {
+                        if(window.innerWidth <= 900){
+                            e.preventDefault();
+                            dd.classList.toggle('active');
+                        }
+                    });
+                }
+            });
+            document.addEventListener('click', function(e){
+                if(navMenu && navMenu.classList.contains('active') && window.innerWidth <= 900){
+                    if(!toggleBtn.contains(e.target) && !navMenu.contains(e.target)){
+                        navMenu.classList.remove('active');
+                        const icon = toggleBtn.querySelector('i');
+                        if(icon) icon.setAttribute('data-lucide','menu');
+                        if(window.lucide) lucide.createIcons();
+                    }
+                }
+            });
+            window.addEventListener('resize', () => {
+                if(window.innerWidth > 900){
+                    dropdowns.forEach(d => d.classList.remove('active'));
+                    if(navMenu) navMenu.classList.remove('active');
+                }
+            });
+        })();
+
         // Lucide icons initialization
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
@@ -1128,7 +1357,7 @@
                     html += `
                         <div class="file-item">
                             <div class="file-info">
-                                <span class="file-name">${file.name}</span>
+                                <span class="file-name">${escapeHtml(file.name)}</span>
                                 <span class="file-size">${size} KB</span>
                             </div>
                             <span class="remove-file" data-index="${index}">
@@ -1209,7 +1438,6 @@
                 const pdfBlob = pdf.output('blob');
                 const url = URL.createObjectURL(pdfBlob);
 
-                // Prepare download link with dynamic filename update
                 document.getElementById('downloadInfo').textContent = `PDF created: ${(pdfBlob.size / 1024).toFixed(1)} KB`;
                 document.getElementById('downloadContainer').innerHTML = `
                     <a href="${url}" download="converted.pdf" class="btn btn-success download-btn" id="imagePdfDownloadLink">
@@ -1219,7 +1447,6 @@
                 document.getElementById('downloadArea').classList.remove('hidden');
                 lucide.createIcons();
 
-                // Attach filename input listener
                 const downloadLink = document.getElementById('imagePdfDownloadLink');
                 const fileNameInput = document.getElementById('pdfFileName');
                 if (downloadLink && fileNameInput) {
@@ -1230,9 +1457,9 @@
                         if (!name.toLowerCase().endsWith('.pdf')) name += '.pdf';
                         downloadLink.setAttribute('download', name);
                     };
-                    fileNameInput.removeEventListener('input', updateFileName); // avoid duplicates
+                    fileNameInput.removeEventListener('input', updateFileName);
                     fileNameInput.addEventListener('input', updateFileName);
-                    updateFileName(); // set initial
+                    updateFileName();
                 }
             });
 
@@ -1287,7 +1514,7 @@
                     html += `
                         <div class="file-item">
                             <div class="file-info">
-                                <span class="file-name">${file.name}</span>
+                                <span class="file-name">${escapeHtml(file.name)}</span>
                                 <span class="file-size">${size} KB</span>
                             </div>
                             <span class="remove-pdf" data-index="${index}">
@@ -1333,7 +1560,6 @@
                 const blob = new Blob([mergedPdfBytes], { type: 'application/pdf' });
                 const url = URL.createObjectURL(blob);
 
-                // Prepare download link with dynamic filename update
                 document.getElementById('downloadInfo').textContent = `Merged PDF: ${(blob.size / 1024).toFixed(1)} KB`;
                 document.getElementById('downloadContainer').innerHTML = `
                     <a href="${url}" download="merged.pdf" class="btn btn-success download-btn" id="mergePdfDownloadLink">
@@ -1343,19 +1569,17 @@
                 document.getElementById('downloadArea').classList.remove('hidden');
                 lucide.createIcons();
 
-                // Attach filename input listener for merge mode
                 const downloadLink = document.getElementById('mergePdfDownloadLink');
-                const fileNameInput = document.getElementById('mergePdfFileName');
-                if (downloadLink && fileNameInput) {
+                if (downloadLink && mergePdfFileName) {
                     const updateFileName = () => {
-                        let name = fileNameInput.value.trim();
+                        let name = mergePdfFileName.value.trim();
                         if (!name) name = 'merged';
                         name = name.replace(/[<>:"/\\|?*]/g, '_');
                         if (!name.toLowerCase().endsWith('.pdf')) name += '.pdf';
                         downloadLink.setAttribute('download', name);
                     };
-                    fileNameInput.removeEventListener('input', updateFileName);
-                    fileNameInput.addEventListener('input', updateFileName);
+                    mergePdfFileName.removeEventListener('input', updateFileName);
+                    mergePdfFileName.addEventListener('input', updateFileName);
                     updateFileName();
                 }
             });
@@ -1398,7 +1622,7 @@
                 const format = document.getElementById('pdfImageFormat').value;
                 const quality = parseFloat(document.getElementById('pdfImageQuality').value);
                 const dpi = parseInt(document.getElementById('pdfImageDPI').value);
-                const scale = dpi / 72; // pdf.js default is 72 DPI
+                const scale = dpi / 72;
 
                 const arrayBuffer = await pdfToImageFile.arrayBuffer();
                 const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
@@ -1434,13 +1658,22 @@
                 lucide.createIcons();
             });
 
-            // Helper
+            // Helper functions
             function loadImage(src) {
                 return new Promise((resolve, reject) => {
                     const img = new Image();
                     img.onload = () => resolve(img);
                     img.onerror = reject;
                     img.src = src;
+                });
+            }
+
+            function escapeHtml(str) {
+                return str.replace(/[&<>]/g, function(m) {
+                    if (m === '&') return '&amp;';
+                    if (m === '<') return '&lt;';
+                    if (m === '>') return '&gt;';
+                    return m;
                 });
             }
         }
