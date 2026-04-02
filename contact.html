@@ -88,7 +88,7 @@
     <link rel="preconnect" href="https://unpkg.com" crossorigin>
     
     <style>
-        /* --- CORE THEME - TOOL PAGE वाला स्टाइल (बिल्कुल वैसा) --- */
+        /* --- CORE THEME - TOOL PAGE STYLE --- */
         :root {
             --primary: #2563eb;
             --primary-dark: #1e40af;
@@ -122,20 +122,42 @@
             line-height: 1.5;
         }
 
-        /* HEADER */
+        /* HEADER - FIXED / STICKY */
         header { 
-            padding: 15px 0;
+            padding: 12px 0;
             border-bottom: 1px solid var(--line-color); 
-            background: white; 
+            background: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            backdrop-filter: blur(0px);
+        }
+        
+        /* Add padding to main content to prevent header overlap */
+        body {
+            padding-top: 78px;
         }
         
         .navbar { 
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto; 
             padding: 0 20px; 
             display: flex; 
             justify-content: space-between; 
             align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        /* Left side: Logo only - header-domain badge removed completely */
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
         }
         
         .brand-logo { 
@@ -165,17 +187,191 @@
             font-weight: 300;
             color: #000000;
         }
-
-        /* MAIN LAYOUT */
+        
+        /* Header domain pill - COMPLETELY REMOVED (hidden on all devices) */
+        .header-domain {
+            display: none !important;
+        }
+        
+        /* Desktop Navigation Menu */
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .nav-dropdown {
+            position: relative;
+        }
+        
+        .nav-dropdown-btn {
+            background: none;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: inherit;
+        }
+        
+        .nav-dropdown-btn:hover {
+            background-color: #f1f5f9;
+            color: var(--primary);
+        }
+        
+        .dropdown-content {
+            position: absolute;
+            top: 40px;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.02);
+            border-radius: 12px;
+            border: 1px solid var(--line-color);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: all 0.2s ease;
+            z-index: 200;
+        }
+        
+        .nav-dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-content a {
+            display: block;
+            padding: 10px 18px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.15s;
+        }
+        
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #f8fafc;
+            color: var(--primary);
+            padding-left: 22px;
+        }
+        
+        /* Mobile menu toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+        }
+        
+        /* Responsive header - badge already hidden globally */
+        @media (max-width: 900px) {
+            body {
+                padding-top: 70px;
+            }
+            
+            header {
+                padding: 10px 0;
+            }
+            
+            .navbar {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: nowrap;
+            }
+            .nav-left {
+                flex: 1;
+                justify-content: flex-start;
+            }
+            /* Show mobile menu toggle button on right side */
+            .mobile-menu-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                order: 2;
+            }
+            /* The nav-menu becomes a full-width dropdown panel */
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: white;
+                padding: 16px 0 12px;
+                gap: 8px;
+                border-top: 1px solid var(--line-color);
+                margin-top: 0px;
+                order: 3;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+                z-index: 150;
+                max-height: calc(100vh - 70px);
+                overflow-y: auto;
+            }
+            .nav-menu.active {
+                display: flex;
+            }
+            .nav-dropdown {
+                width: 100%;
+            }
+            .nav-dropdown-btn {
+                width: 100%;
+                justify-content: space-between;
+                padding: 12px 16px;
+                background: #f9fafb;
+                border-radius: 10px;
+            }
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                border: none;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+                margin-top: 5px;
+                margin-left: 16px;
+                border-left: 2px solid var(--line-color);
+            }
+            .nav-dropdown.active .dropdown-content {
+                display: block;
+            }
+            .dropdown-content a {
+                padding: 10px 20px;
+            }
+            /* ensure navbar doesn't wrap weirdly */
+            .navbar {
+                flex-wrap: wrap;
+                position: relative;
+            }
+        }
+        
+        /* MAIN LAYOUT - adjust spacing for fixed header */
         .container { 
             max-width: 900px;
             width: 100%; 
-            margin: 30px auto; 
+            margin: 20px auto 30px; 
             padding: 0 20px; 
             flex: 1;
         }
-
-        /* TYPOGRAPHY */
+        
         h1 { 
             font-size: 34px;
             font-weight: 800; 
@@ -219,7 +415,6 @@
             text-decoration: underline; 
         }
         
-        /* BACK BUTTON */
         .back-link {
             color: var(--primary); 
             font-weight: 600; 
@@ -237,8 +432,7 @@
             gap: 10px;
             text-decoration: none;
         }
-
-        /* CONTACT CARD */
+        
         .contact-card { 
             background: var(--accent-bg); 
             padding: 30px; 
@@ -288,17 +482,7 @@
             color: var(--text-light);
         }
         
-        .contact-details a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-        }
-        
-        .contact-details a:hover {
-            text-decoration: underline;
-        }
-
-        /* ===== FOOTER ===== */
+        /* FOOTER (unchanged but fully functional) */
         footer {
             background-color: var(--footer-bg);
             color: var(--footer-text);
@@ -306,7 +490,7 @@
             margin-top: 80px;
             font-size: 14px;
         }
-
+        
         .footer-container {
             max-width: 1000px;
             margin: 0 auto;
@@ -315,7 +499,7 @@
             grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
             gap: 30px;
         }
-
+        
         .footer-col h5 {
             color: white;
             font-size: 16px;
@@ -323,7 +507,7 @@
             margin-bottom: 20px;
             letter-spacing: 0.5px;
         }
-
+        
         .footer-brand p {
             font-size: 14px;
             color: #94a3b8;
@@ -331,7 +515,7 @@
             margin-top: 15px;
             max-width: 320px;
         }
-
+        
         .footer-logo {
             display: inline-flex;
             align-items: center;
@@ -364,17 +548,17 @@
             font-weight: 300;
             color: #ffffff;
         }
-
+        
         .footer-links {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-
+        
         .footer-links li {
             margin-bottom: 12px;
         }
-
+        
         .footer-links a {
             color: #cbd5e1;
             text-decoration: none;
@@ -382,13 +566,13 @@
             display: inline-block;
             cursor: pointer;
         }
-
+        
         .footer-links a:hover {
             color: var(--primary);
             padding-left: 5px;
             text-decoration: none;
         }
-
+        
         .footer-bottom {
             max-width: 1000px;
             margin: 50px auto 0;
@@ -402,7 +586,7 @@
             color: #64748b;
             font-size: 13px;
         }
-
+        
         @media (max-width: 768px) {
             .footer-container {
                 grid-template-columns: 1fr;
@@ -417,10 +601,19 @@
                 flex-direction: column;
                 text-align: center;
             }
+            h1 {
+                font-size: 28px;
+            }
+            body {
+                padding-top: 66px;
+            }
         }
-
-        /* UTILS */
-        .hidden { display: none !important; }
+        
+        ul {
+            margin-left: 20px;
+            margin-bottom: 25px;
+            color: var(--text-light);
+        }
     </style>
     
     <!-- Lucide Icons -->
@@ -430,18 +623,76 @@
 
     <header>
         <div class="navbar">
-            <a href="/" class="brand-logo">
-                <div class="logo-icon-box">
-                    <i data-lucide="crop" width="28" height="28"></i>
+            <div class="nav-left">
+                <a href="/" class="brand-logo">
+                    <div class="logo-icon-box">
+                        <i data-lucide="crop" width="28" height="28"></i>
+                    </div>
+                    <div class="logo-text">Im<span>Resizer<span class="domain">.in</span></span></div>
+                </a>
+                <!-- Header domain badge removed completely from desktop and mobile -->
+            </div>
+            
+            <!-- Mobile menu toggle appears on right side -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menu">
+                <i data-lucide="menu" width="26" height="26"></i>
+            </button>
+            
+            <div class="nav-menu" id="navMenu">
+                <!-- QUICK LINKS Dropdown -->
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">
+                        QUICK LINKS <i data-lucide="chevron-down" width="14" height="14"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="/">Home</a>
+                        <a href="about.html">About Us</a>
+                        <a href="contact.html">Contact Support</a>
+                    </div>
                 </div>
-                <div class="logo-text">Im<span>Resizer<span class="domain">.in</span></span></div>
-            </a>
-            <span style="font-size:12px; color:var(--text-light); font-weight:500; background: #f3f4f6; padding: 6px 10px; border-radius: 6px; border: 1px solid #e5e7eb;">Free Tool</span>
+                
+                <!-- LEGAL & INFO Dropdown -->
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">
+                        LEGAL & INFO <i data-lucide="chevron-down" width="14" height="14"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="disclaimer.html">Disclaimer</a>
+                        <a href="privacy.html">Privacy Policy</a>
+                        <a href="terms.html">Terms of Use</a>
+                    </div>
+                </div>
+                
+                <!-- TOOLS Dropdown -->
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">
+                        TOOLS <i data-lucide="chevron-down" width="14" height="14"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="image-compressor.html">Image Compressor</a>
+                        <a href="pdf-converter.html">PDF Converter</a>
+                        <a href="signature-maker.html">Signature Maker</a>
+                        <a href="passport-photo.html">Passport Photo</a>
+                    </div>
+                </div>
+                
+                <!-- RESOURCES Dropdown -->
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">
+                        RESOURCES <i data-lucide="chevron-down" width="14" height="14"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="blog.html">Blog</a>
+                        <a href="guides.html">Guides</a>
+                        <a href="faq.html">FAQ</a>
+                        <a href="sitemap.html">Sitemap</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
     <main class="container">
-        
         <a href="/" class="back-link">
             <i data-lucide="arrow-left" width="16" height="16"></i>
             Back to Tool
@@ -461,9 +712,7 @@
                     </div>
                     <div class="contact-details">
                         <h4>Email Support</h4>
-                        <p><a href="mailto:contact.pandacybercafe@gmail.com
-">contact.pandacybercafe@gmail.com
-</a></p>
+                        <p><a href="mailto:contact.pandacybercafe@gmail.com">contact.pandacybercafe@gmail.com</a></p>
                         <p style="font-size:14px; margin-top:4px;">(We typically respond within 24-48 hours)</p>
                     </div>
                 </div>
@@ -501,13 +750,11 @@
             </ul>
 
             <h2>Business Inquiries</h2>
-            <p>For partnership opportunities, advertising, or other business inquiries, please email us at <a href="mailto:contact.pandacybercafe@gmail.com
-">contact.pandacybercafe@gmail.com
-</a> with "Business" in the subject line.</p>
+            <p>For partnership opportunities, advertising, or other business inquiries, please email us at <a href="mailto:contact.pandacybercafe@gmail.com">contact.pandacybercafe@gmail.com</a> with "Business" in the subject line.</p>
         </div>
     </main>
 
-    <!-- FOOTER -->
+    <!-- FOOTER (unchanged) -->
     <footer>
         <div class="footer-container">
             <div class="footer-col footer-brand">
@@ -568,9 +815,90 @@
     <script>
         // Lucide icons initialization
         document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
+            if (typeof lucide !== 'undefined' && lucide.createIcons) {
+                lucide.createIcons();
+            } else {
+                setTimeout(() => {
+                    if (window.lucide && lucide.createIcons) lucide.createIcons();
+                }, 300);
+            }
+            
+            // Mobile menu toggle: opens/closes the dropdown menu panel
+            const toggleBtn = document.getElementById('mobileMenuToggle');
+            const navMenu = document.getElementById('navMenu');
+            if (toggleBtn && navMenu) {
+                toggleBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    navMenu.classList.toggle('active');
+                    // change icon between menu and X for better UX
+                    const iconElem = toggleBtn.querySelector('i');
+                    if (navMenu.classList.contains('active')) {
+                        if (iconElem) iconElem.setAttribute('data-lucide', 'x');
+                    } else {
+                        if (iconElem) iconElem.setAttribute('data-lucide', 'menu');
+                    }
+                    if (window.lucide) lucide.createIcons();
+                });
+            }
+            
+            // For mobile: handle dropdown toggles (expand/collapse within menu)
+            const dropdowns = document.querySelectorAll('.nav-dropdown');
+            function handleMobileDropdowns() {
+                dropdowns.forEach(dropdown => {
+                    const btn = dropdown.querySelector('.nav-dropdown-btn');
+                    if (!btn) return;
+                    // remove old listeners to avoid duplicates
+                    if (dropdown._listener) {
+                        btn.removeEventListener('click', dropdown._listener);
+                    }
+                    const clickHandler = (e) => {
+                        if (window.innerWidth <= 900) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            dropdown.classList.toggle('active');
+                        }
+                    };
+                    btn.addEventListener('click', clickHandler);
+                    dropdown._listener = clickHandler;
+                });
+            }
+            handleMobileDropdowns();
+            
+            // close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                const isToggle = toggleBtn && toggleBtn.contains(event.target);
+                const isNavMenu = navMenu && navMenu.contains(event.target);
+                if (navMenu && navMenu.classList.contains('active') && !isToggle && !isNavMenu && window.innerWidth <= 900) {
+                    navMenu.classList.remove('active');
+                    const toggleIcon = toggleBtn?.querySelector('i');
+                    if (toggleIcon) toggleIcon.setAttribute('data-lucide', 'menu');
+                    if (window.lucide) lucide.createIcons();
+                }
+            });
+            
+            // On resize: if screen becomes >900px, reset any active classes
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 900) {
+                    dropdowns.forEach(d => d.classList.remove('active'));
+                    if (navMenu) navMenu.classList.remove('active');
+                    const toggleIcon = toggleBtn?.querySelector('i');
+                    if (toggleIcon && toggleIcon.getAttribute('data-lucide') !== 'menu') {
+                        toggleIcon.setAttribute('data-lucide', 'menu');
+                        if (window.lucide) lucide.createIcons();
+                    }
+                } else {
+                    handleMobileDropdowns();
+                }
+            });
+            
+            // Ensure body padding adjusts if header height changes dynamically
+            const updateBodyPadding = () => {
+                const headerHeight = document.querySelector('header')?.offsetHeight || 78;
+                document.body.style.paddingTop = headerHeight + 'px';
+            };
+            updateBodyPadding();
+            window.addEventListener('resize', () => setTimeout(updateBodyPadding, 50));
         });
     </script>
-
 </body>
 </html>
