@@ -105,7 +105,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
-        /* --- CORE THEME - Same as other pages --- */
+        /* --- CORE THEME - SAME AS BLOG PAGE (FIXED HEADER) --- */
         :root {
             --primary: #2563eb;
             --primary-dark: #1e40af;
@@ -137,22 +137,38 @@
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
             line-height: 1.5;
+            padding-top: 78px;
         }
 
-        /* HEADER */
+        /* HEADER - FIXED / STICKY */
         header {
-            padding: 15px 0;
+            padding: 12px 0;
             border-bottom: 1px solid var(--line-color);
             background: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
         }
 
         .navbar {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
         }
 
         .brand-logo {
@@ -183,11 +199,170 @@
             color: #000000;
         }
 
+        /* Desktop Navigation Menu */
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-btn {
+            background: none;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: inherit;
+        }
+
+        .nav-dropdown-btn:hover {
+            background-color: #f1f5f9;
+            color: var(--primary);
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 40px;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.02);
+            border-radius: 12px;
+            border: 1px solid var(--line-color);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: all 0.2s ease;
+            z-index: 200;
+        }
+
+        .nav-dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px 18px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.15s;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f8fafc;
+            color: var(--primary);
+            padding-left: 22px;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 900px) {
+            body {
+                padding-top: 70px;
+            }
+            header {
+                padding: 10px 0;
+            }
+            .navbar {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: nowrap;
+            }
+            .nav-left {
+                flex: 1;
+                justify-content: flex-start;
+            }
+            .mobile-menu-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                order: 2;
+            }
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: white;
+                padding: 16px 0 12px;
+                gap: 8px;
+                border-top: 1px solid var(--line-color);
+                order: 3;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+                z-index: 150;
+                max-height: calc(100vh - 70px);
+                overflow-y: auto;
+            }
+            .nav-menu.active {
+                display: flex;
+            }
+            .nav-dropdown {
+                width: 100%;
+            }
+            .nav-dropdown-btn {
+                width: 100%;
+                justify-content: space-between;
+                padding: 12px 16px;
+                background: #f9fafb;
+                border-radius: 10px;
+            }
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                border: none;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+                margin-top: 5px;
+                margin-left: 16px;
+                border-left: 2px solid var(--line-color);
+            }
+            .nav-dropdown.active .dropdown-content {
+                display: block;
+            }
+            .navbar {
+                flex-wrap: wrap;
+                position: relative;
+            }
+        }
+
         /* MAIN LAYOUT */
         .container {
             max-width: 1000px;
             width: 100%;
-            margin: 30px auto;
+            margin: 20px auto 30px;
             padding: 0 20px;
             flex: 1;
         }
@@ -553,7 +728,7 @@
             margin-bottom: 10px;
         }
 
-        /* FOOTER - 5 COLUMN (exactly same as other pages) */
+        /* FOOTER - 5 COLUMN */
         footer {
             background-color: var(--footer-bg);
             color: var(--footer-text);
@@ -643,6 +818,7 @@
         @media (max-width: 768px) {
             .footer-container { grid-template-columns: 1fr; gap: 40px; }
             .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+            h1 { font-size: 28px; }
         }
 
         .hidden { display: none !important; }
@@ -658,13 +834,42 @@
 
     <header>
         <div class="navbar">
-            <a href="/" class="brand-logo">
-                <div class="logo-icon-box">
-                    <i data-lucide="crop" width="28" height="28"></i>
+            <div class="nav-left">
+                <a href="/" class="brand-logo">
+                    <div class="logo-icon-box"><i data-lucide="crop" width="28" height="28"></i></div>
+                    <div class="logo-text">Im<span>Resizer<span class="domain">.in</span></span></div>
+                </a>
+            </div>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menu">
+                <i data-lucide="menu" width="26" height="26"></i>
+            </button>
+            <div class="nav-menu" id="navMenu">
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">QUICK LINKS <i data-lucide="chevron-down" width="14" height="14"></i></button>
+                    <div class="dropdown-content">
+                        <a href="/">Home</a><a href="about.html">About Us</a><a href="contact.html">Contact Support</a>
+                    </div>
                 </div>
-                <div class="logo-text">Im<span>Resizer<span class="domain">.in</span></span></div>
-            </a>
-            <span style="font-size:12px; color:var(--text-light); font-weight:500; background: #f3f4f6; padding: 6px 10px; border-radius: 6px; border: 1px solid #e5e7eb;">Free Tool</span>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">LEGAL & INFO <i data-lucide="chevron-down" width="14" height="14"></i></button>
+                    <div class="dropdown-content">
+                        <a href="disclaimer.html">Disclaimer</a><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">TOOLS <i data-lucide="chevron-down" width="14" height="14"></i></button>
+                    <div class="dropdown-content">
+                        <a href="image-compressor.html">Image Compressor</a><a href="pdf-converter.html">PDF Converter</a>
+                        <a href="signature-maker.html">Signature Maker</a><a href="passport-photo.html">Passport Photo</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">RESOURCES <i data-lucide="chevron-down" width="14" height="14"></i></button>
+                    <div class="dropdown-content">
+                        <a href="blog.html">Blog</a><a href="guides.html">Guides</a><a href="faq.html">FAQ</a><a href="sitemap.html">Sitemap</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -830,85 +1035,143 @@
             </div>
         </div>
 
-        <!-- SEO Content Section - Comprehensive Articles (same as before) -->
+        <!-- SEO Content Section - Comprehensive Articles -->
         <div class="seo-content">
-            <!-- ... (same SEO content) ... -->
             <div class="content-block">
                 <h2>Complete Guide: How to Make a Passport Photo Online</h2>
                 <p>Welcome to ImResizer's <strong>Passport Photo Maker</strong> – your all-in-one solution for creating compliant passport, visa, and ID photos. Whether you need a US visa photo, UK passport, Indian passport, or any other country's requirements, our tool ensures your photo meets official specifications. All processing happens <strong>100% client-side</strong> in your browser – your photos never leave your device, ensuring complete privacy.</p>
             </div>
-            <!-- ... rest of SEO content ... (truncated for brevity) -->
+
+            <div class="content-block">
+                <h2>How to Use This Tool</h2>
+                <ol style="margin-left: 20px; color: var(--text-light);">
+                    <li><strong>Upload your photo:</strong> Click or drag & drop your image (JPG or PNG, max 10MB).</li>
+                    <li><strong>Select your country:</strong> Choose from 50+ passport/visa presets – sizes update automatically.</li>
+                    <li><strong>Adjust head position:</strong> Use the face guide to center your face properly.</li>
+                    <li><strong>Change background:</strong> Click white, light blue, or use custom color picker.</li>
+                    <li><strong>Fine-tune:</strong> Adjust brightness, contrast, saturation, rotate, or flip if needed.</li>
+                    <li><strong>Download:</strong> Click "Create Photo" then download as JPG, PNG, or PDF.</li>
+                    <li><strong>Print multiple copies:</strong> Use the print sheet generator to arrange multiple photos on one page.</li>
+                </ol>
+                <div class="tip-card">
+                    <h4>📸 Photo Tips for Best Results</h4>
+                    <p>Use a well-lit photo with plain background. Face should be centered, eyes open, and expression neutral. Remove glasses if they cause glare. The head should occupy 70-80% of the frame – our head guide helps with positioning.</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2>Country Specifications</h2>
+                <div style="overflow-x: auto; margin: 20px 0;">
+                    <table class="info-table" style="width:100%; border-collapse:collapse;">
+                        <thead><tr style="background:var(--accent-bg);"><th style="padding:10px;">Country</th><th style="padding:10px;">Photo Size</th><th style="padding:10px;">Head Size</th></tr></thead>
+                        <tbody>
+                            <tr><td style="padding:8px; border-bottom:1px solid var(--line-color);">USA</td><td style="padding:8px;">2x2 inch (51x51 mm)</td><td style="padding:8px;">1-1.4 inches</td></tr>
+                            <tr><td style="padding:8px; border-bottom:1px solid var(--line-color);">UK / India / Schengen</td><td style="padding:8px;">35x45 mm</td><td style="padding:8px;">29-34 mm</td></tr>
+                            <tr><td style="padding:8px; border-bottom:1px solid var(--line-color);">China</td><td style="padding:8px;">33x48 mm</td><td style="padding:8px;">28-33 mm</td></tr>
+                            <tr><td style="padding:8px; border-bottom:1px solid var(--line-color);">Japan</td><td style="padding:8px;">35x45 mm</td><td style="padding:8px;">32-36 mm</td></tr>
+                            <tr><td style="padding:8px;">Australia</td><td style="padding:8px;">35x45 mm</td><td style="padding:8px;">32-36 mm</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2>Frequently Asked Questions</h2>
+                <h3>Q: What are the requirements for passport photos?</h3>
+                <p><strong>A:</strong> Requirements vary by country but generally include: neutral expression, eyes open, plain white/light background, no shadows, no glasses or accessories, head centered and properly sized.</p>
+                <h3>Q: Can I use this for visa applications?</h3>
+                <p><strong>A:</strong> Yes, our tool includes presets for US visa, Schengen visa, UK visa, and many others. Always verify with official requirements before submitting.</p>
+                <h3>Q: How do I print passport photos at home?</h3>
+                <p><strong>A:</strong> Use our "Generate Print Sheet" button to arrange multiple copies on 4x6 or A4 paper. Save the sheet and print on photo paper.</p>
+                <h3>Q: Is this tool really free?</h3>
+                <p><strong>A:</strong> Yes, completely free with no watermarks, no registration, and no hidden fees.</p>
+                <h3>Q: Can I change background color?</h3>
+                <p><strong>A:</strong> Yes, choose from white, light blue, light gray, or any custom color using the color picker.</p>
+            </div>
+
+            <div class="content-block">
+                <h2>Common Use Cases</h2>
+                <ul style="margin-left: 20px; color: var(--text-light);">
+                    <li><strong>Passport Application:</strong> Create compliant photos for passport renewal or new applications.</li>
+                    <li><strong>Visa Applications:</strong> US, UK, Schengen, China, Japan, and other visas.</li>
+                    <li><strong>Government Exam Forms:</strong> SSC, UPSC, IBPS, RRB, and other competitive exams.</li>
+                    <li><strong>Driving License:</strong> Create ID photos for driver's license applications.</li>
+                    <li><strong>Student ID Cards:</strong> Make professional ID photos for school or college.</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <h2>Conclusion</h2>
+                <p><strong>ImResizer's Passport Photo Maker</strong> is the complete solution for all your ID photo needs. With 50+ country presets, background changer, head guide, and print sheet generator, you can create professional passport photos at home for free. <strong>Bookmark this page</strong> for quick access whenever you need passport, visa, or ID photos!</p>
+            </div>
         </div>
     </main>
 
-    <!-- FOOTER - 5 COLUMN (exactly same as other pages) -->
+    <!-- FOOTER - 5 COLUMN -->
     <footer>
         <div class="footer-container">
             <div class="footer-col footer-brand">
-                <a href="/" class="footer-logo">
-                    <div class="footer-logo-icon">
-                        <i data-lucide="crop" width="18" height="18"></i>
-                    </div>
-                    <div class="footer-logo-text">Im<span>Resizer<span class="domain">.in</span></span></div>
-                </a>
+                <a href="/" class="footer-logo"><div class="footer-logo-icon"><i data-lucide="crop" width="18" height="18"></i></div><div class="footer-logo-text">Im<span>Resizer<span class="domain">.in</span></span></div></a>
                 <p>Compress photo & signature to 20KB or 50KB for all Govt exams (SSC, UPSC, NEET, JEE). Fast, secure, and perfect for online forms. No sign-up required.</p>
             </div>
-
-            <div class="footer-col">
-                <h5>QUICK LINKS</h5>
-                <ul class="footer-links">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact Support</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h5>LEGAL & INFO</h5>
-                <ul class="footer-links">
-                    <li><a href="disclaimer.html">Disclaimer</a></li>
-                    <li><a href="privacy.html">Privacy Policy</a></li>
-                    <li><a href="terms.html">Terms of Use</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h5>TOOLS</h5>
-                <ul class="footer-links">
-                    <li><a href="image-compressor.html">Image Compressor</a></li>
-                    <li><a href="pdf-converter.html">PDF Converter</a></li>
-                    <li><a href="signature-maker.html">Signature Maker</a></li>
-                    <li><a href="passport-photo.html">Passport Photo</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h5>RESOURCES</h5>
-                <ul class="footer-links">
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="guides.html">Guides</a></li>
-                    <li><a href="faq.html">FAQ</a></li>
-                    <li><a href="sitemap.html">Sitemap</a></li>
-                </ul>
-            </div>
+            <div class="footer-col"><h5>QUICK LINKS</h5><ul class="footer-links"><li><a href="/">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact Support</a></li></ul></div>
+            <div class="footer-col"><h5>LEGAL & INFO</h5><ul class="footer-links"><li><a href="disclaimer.html">Disclaimer</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Use</a></li></ul></div>
+            <div class="footer-col"><h5>TOOLS</h5><ul class="footer-links"><li><a href="image-compressor.html">Image Compressor</a></li><li><a href="pdf-converter.html">PDF Converter</a></li><li><a href="signature-maker.html">Signature Maker</a></li><li><a href="passport-photo.html">Passport Photo</a></li></ul></div>
+            <div class="footer-col"><h5>RESOURCES</h5><ul class="footer-links"><li><a href="blog.html">Blog</a></li><li><a href="guides.html">Guides</a></li><li><a href="faq.html">FAQ</a></li><li><a href="sitemap.html">Sitemap</a></li></ul></div>
         </div>
-
-        <div class="footer-bottom">
-            <div>&copy; 2026 imresizer.in. All rights reserved. Made For Students</div>
-            <div>Designed for Students</div>
-        </div>
+        <div class="footer-bottom"><div>&copy; 2026 imresizer.in. All rights reserved. Made For Students</div><div>Designed for Students</div></div>
     </footer>
 
     <script>
-        // Lucide icons
+        // Mobile menu logic (same as blog)
+        (function(){
+            const toggleBtn = document.getElementById('mobileMenuToggle');
+            const navMenu = document.getElementById('navMenu');
+            if(toggleBtn && navMenu){
+                toggleBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    navMenu.classList.toggle('active');
+                    const icon = toggleBtn.querySelector('i');
+                    if(icon){
+                        icon.setAttribute('data-lucide', navMenu.classList.contains('active') ? 'x' : 'menu');
+                        if(window.lucide) lucide.createIcons();
+                    }
+                });
+            }
+            const dropdowns = document.querySelectorAll('.nav-dropdown');
+            dropdowns.forEach(dd => {
+                const btn = dd.querySelector('.nav-dropdown-btn');
+                if(btn){
+                    btn.addEventListener('click', (e) => {
+                        if(window.innerWidth <= 900){
+                            e.preventDefault();
+                            dd.classList.toggle('active');
+                        }
+                    });
+                }
+            });
+            document.addEventListener('click', function(e){
+                if(navMenu && navMenu.classList.contains('active') && window.innerWidth <= 900){
+                    if(!toggleBtn.contains(e.target) && !navMenu.contains(e.target)){
+                        navMenu.classList.remove('active');
+                        const icon = toggleBtn.querySelector('i');
+                        if(icon) icon.setAttribute('data-lucide','menu');
+                        if(window.lucide) lucide.createIcons();
+                    }
+                }
+            });
+            window.addEventListener('resize', () => {
+                if(window.innerWidth > 900){
+                    dropdowns.forEach(d => d.classList.remove('active'));
+                    if(navMenu) navMenu.classList.remove('active');
+                }
+            });
+        })();
+
+        // Passport Photo Maker Script
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
-            initTool();
-        });
-
-        // Fast, optimised tool with print option and PDF download
-        function initTool() {
-            // DOM elements
+            
             const uploadArea = document.getElementById('uploadArea');
             const fileInput = document.getElementById('fileInput');
             const editorArea = document.getElementById('editorArea');
@@ -975,11 +1238,10 @@
                 saturation.value = 100;
                 rotation = 0; flipX = 1; flipY = 1;
                 bgColor = '#ffffff';
-                if (cropper) { cropper.destroy(); cropper = null; cropBtn.innerHTML = '<i data-lucide="crop" width="18"></i>'; }
+                if (cropper) { cropper.destroy(); cropper = null; cropBtn.innerHTML = '<i data-lucide="crop" width="18"></i>'; lucide.createIcons(); }
                 updatePreview();
             }
 
-            // Update preview with current settings (debounced for performance)
             let updateTimer;
             function updatePreview() {
                 if (!originalImg) return;
@@ -987,7 +1249,6 @@
                 updateTimer = requestAnimationFrame(() => {
                     const canvas = document.createElement('canvas');
                     const ctx = canvas.getContext('2d');
-                    // Set size based on preset (simplified, using fixed ratio)
                     canvas.width = 400; canvas.height = 500;
                     ctx.fillStyle = bgColor;
                     ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -1003,10 +1264,8 @@
                 });
             }
 
-            // Slider listeners with debounce
             [brightness, contrast, saturation].forEach(s => s.addEventListener('input', updatePreview));
 
-            // Rotate/flip (global functions for onclick)
             window.rotateImage = (deg) => {
                 if (cropper) { cropper.rotate(deg); return; }
                 rotation = (rotation + deg) % 360;
@@ -1021,8 +1280,6 @@
                 if (dir==='h') flipX *= -1; else flipY *= -1;
                 updatePreview();
             };
-
-            // Background (global functions)
             window.setBackground = (color) => {
                 if (color === 'white') bgColor = '#ffffff';
                 else if (color === 'lightblue') bgColor = '#add8e6';
@@ -1034,7 +1291,6 @@
                 updatePreview();
             };
 
-            // Crop
             cropBtn.addEventListener('click', () => {
                 if (cropper) {
                     cropper.destroy();
@@ -1058,13 +1314,9 @@
                 lucide.createIcons();
             });
 
-            // Process button (single download) - generate JPG, PNG, PDF
             processBtn.addEventListener('click', () => {
-                // Create canvas with final image (including all adjustments)
                 const canvas = document.createElement('canvas');
-                // Use standard passport size at 300 DPI: ~ 413x531 px for 35x45 mm
-                canvas.width = 413;
-                canvas.height = 531;
+                canvas.width = 413; canvas.height = 531;
                 const ctx = canvas.getContext('2d');
                 ctx.fillStyle = bgColor;
                 ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -1074,45 +1326,31 @@
                     ctx.rotate(rotation * Math.PI/180);
                     ctx.scale(flipX, flipY);
                     ctx.filter = `brightness(${brightness.value}%) contrast(${contrast.value}%) saturate(${saturation.value}%)`;
-                    // Scale image to fit canvas with proper head size (approx 70-80%)
                     const scale = Math.min(canvas.width/originalImg.width, canvas.height/originalImg.height) * 0.8;
                     ctx.drawImage(originalImg, -originalImg.width*scale/2, -originalImg.height*scale/2, originalImg.width*scale, originalImg.height*scale);
                     ctx.restore();
                 }
-
-                // Generate PNG
                 canvas.toBlob((pngBlob) => {
                     const pngUrl = URL.createObjectURL(pngBlob);
                     pngLink.href = pngUrl;
                     pngLink.download = 'passport-photo.png';
-
-                    // Generate JPG
                     canvas.toBlob((jpgBlob) => {
                         const jpgUrl = URL.createObjectURL(jpgBlob);
                         jpgLink.href = jpgUrl;
                         jpgLink.download = 'passport-photo.jpg';
-
-                        // Generate PDF using jsPDF
                         const { jsPDF } = window.jspdf;
-                        const pdf = new jsPDF({
-                            orientation: 'portrait',
-                            unit: 'mm',
-                            format: [35, 45] // exact passport size
-                        });
-                        // Add image to PDF (fit to page)
+                        const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: [35, 45] });
                         pdf.addImage(pngUrl, 'PNG', 0, 0, 35, 45);
                         const pdfBlob = pdf.output('blob');
                         const pdfUrl = URL.createObjectURL(pdfBlob);
                         pdfLink.href = pdfUrl;
                         pdfLink.download = 'passport-photo.pdf';
-
                         finalSize.innerText = `PNG: ${(pngBlob.size/1024).toFixed(1)}KB, JPG: ${(jpgBlob.size/1024).toFixed(1)}KB, PDF: ${(pdfBlob.size/1024).toFixed(1)}KB`;
                         downloadOpts.style.display = 'block';
                     }, 'image/jpeg', 0.9);
                 }, 'image/png');
             });
 
-            // Print Sheet Generator (same as before)
             printSheetBtn.addEventListener('click', () => {
                 if (!originalImg) return alert('Please upload a photo first');
                 const paper = document.getElementById('printPaper').value;
@@ -1126,18 +1364,13 @@
                 const ctx = canvas.getContext('2d');
                 ctx.fillStyle = '#ffffff';
                 ctx.fillRect(0,0,sheetW,sheetH);
-
                 const imgW = 413, imgH = 531;
                 const gapPx = gap * 11.8;
                 const cols = Math.floor((sheetW + gapPx) / (imgW + gapPx));
                 const rows = Math.floor((sheetH + gapPx) / (imgH + gapPx));
-                if (cols === 0 || rows === 0) {
-                    alert('Image too large for this paper size. Try a larger paper or reduce gap.');
-                    return;
-                }
+                if (cols === 0 || rows === 0) { alert('Image too large for this paper size.'); return; }
                 const startX = (sheetW - (cols*imgW + (cols-1)*gapPx)) / 2;
                 const startY = (sheetH - (rows*imgH + (rows-1)*gapPx)) / 2;
-
                 for (let r=0; r<rows; r++) {
                     for (let c=0; c<cols; c++) {
                         const x = startX + c*(imgW+gapPx);
@@ -1147,7 +1380,6 @@
                         ctx.strokeRect(x-1, y-1, imgW+2, imgH+2);
                     }
                 }
-
                 canvas.toBlob((blob) => {
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
@@ -1157,7 +1389,7 @@
                     URL.revokeObjectURL(url);
                 }, 'image/jpeg', 0.95);
             });
-        }
+        });
     </script>
 </body>
 </html>
