@@ -7,7 +7,6 @@
     <meta name="google-site-verification" content="adRkeSd13WOOtl240N_RB8FWfNn_FAz9JG2DhWapRFE" />
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5757459170037186" crossorigin="anonymous"></script>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-EN650KEM8H"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -16,13 +15,11 @@
         gtag('config', 'G-EN650KEM8H');
     </script>
     
-    <!-- Primary SEO Tags -->
     <title>Compress Image to 20KB, 50KB, 100KB Online - ImResizer.in</title>
     <meta name="description" content="Compress photo & signature to 20KB or 50KB for all Govt exams (SSC, UPSC, NEET, JEE). Fast, secure, and perfect for online forms. No sign-up required.">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <link rel="canonical" href="https://imresizer.in/" />
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://imresizer.in/">
     <meta property="og:title" content="ImResizer.in">
@@ -31,12 +28,10 @@
     <meta property="og:site_name" content="ImResizer.in">
     <meta property="og:locale" content="en-IN">
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:title" content="ImResizer: Compress Image to 20KB, 50KB Online">
     <meta property="twitter:description" content="Resize and compress images instantly for any official requirement. Supports JPG, PNG, WEBP & PDF.">
   
-    <!-- Favicons -->
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -119,11 +114,9 @@
 }
 </script>
     
-    <!-- Preload critical resources -->
     <link rel="preconnect" href="https://unpkg.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     
-    <!-- Load CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
     
     <style>
@@ -159,22 +152,39 @@
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
             line-height: 1.5;
+            padding-top: 78px; /* For fixed header */
         }
 
-        /* HEADER */
+        /* HEADER - FIXED / STICKY & DROPDOWN */
         header { 
-            padding: 15px 0;
+            padding: 12px 0;
             border-bottom: 1px solid var(--line-color); 
-            background: white; 
+            background: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            backdrop-filter: blur(0px);
         }
         
         .navbar { 
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto; 
             padding: 0 20px; 
             display: flex; 
             justify-content: space-between; 
             align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
         }
         
         .brand-logo { 
@@ -200,9 +210,125 @@
             letter-spacing: -0.5px;
         }
         .logo-text span { color: var(--primary); }
-        .logo-text .domain {
-            font-weight: 300;
-            color: #000000;
+        .logo-text .domain { font-weight: 300; color: #000000; }
+
+        /* Desktop Navigation Menu */
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .nav-dropdown { position: relative; }
+        
+        .nav-dropdown-btn {
+            background: none;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: inherit;
+        }
+        
+        .nav-dropdown-btn:hover {
+            background-color: #f1f5f9;
+            color: var(--primary);
+        }
+        
+        .dropdown-content {
+            position: absolute;
+            top: 40px;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.02);
+            border-radius: 12px;
+            border: 1px solid var(--line-color);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: all 0.2s ease;
+            z-index: 200;
+        }
+        
+        .nav-dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-content a {
+            display: block;
+            padding: 10px 18px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.15s;
+        }
+        
+        .dropdown-content a:last-child { border-bottom: none; }
+        
+        .dropdown-content a:hover {
+            background-color: #f8fafc;
+            color: var(--primary);
+            padding-left: 22px;
+        }
+        
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+        }
+        
+        /* Responsive Mobile Menu */
+        @media (max-width: 900px) {
+            body { padding-top: 70px; }
+            header { padding: 10px 0; }
+            .navbar { flex-wrap: nowrap; flex-direction: row; justify-content: space-between; }
+            .nav-left { flex: 1; justify-content: flex-start; }
+            .mobile-menu-toggle { display: flex; order: 2; align-items: center; justify-content: center; }
+            
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: white;
+                padding: 16px 0 12px;
+                gap: 8px;
+                border-top: 1px solid var(--line-color);
+                position: absolute;
+                top: 100%; left: 0; right: 0;
+                box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+                z-index: 150;
+                max-height: calc(100vh - 70px);
+                overflow-y: auto;
+                order: 3;
+            }
+            .nav-menu.active { display: flex; }
+            .nav-dropdown { width: 100%; }
+            .nav-dropdown-btn { width: 100%; justify-content: space-between; background: #f9fafb; padding: 12px 16px; border-radius: 10px; }
+            
+            .dropdown-content {
+                position: static; box-shadow: none; border: none;
+                opacity: 1; visibility: visible; transform: none; display: none;
+                margin-top: 5px; margin-left: 16px; border-left: 2px solid var(--line-color);
+            }
+            .nav-dropdown.active .dropdown-content { display: block; }
+            .dropdown-content a { padding: 10px 20px; }
+            
+            .navbar { position: relative; }
         }
 
         /* MAIN LAYOUT */
@@ -738,13 +864,66 @@
 
     <header>
         <div class="navbar">
-            <a href="/" class="brand-logo">
-                <div class="logo-icon-box">
-                    <i data-lucide="crop" width="28" height="28"></i>
+            <div class="nav-left">
+                <a href="/" class="brand-logo">
+                    <div class="logo-icon-box">
+                        <i data-lucide="crop" width="28" height="28"></i>
+                    </div>
+                    <div class="logo-text">Im<span>Resizer<span class="domain">.in</span></span></div>
+                </a>
+            </div>
+            
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menu">
+                <i data-lucide="menu" width="26" height="26"></i>
+            </button>
+            
+            <div class="nav-menu" id="navMenu">
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">
+                        QUICK LINKS <i data-lucide="chevron-down" width="14" height="14"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="/">Home</a>
+                        <a href="about.html">About Us</a>
+                        <a href="contact.html">Contact Support</a>
+                    </div>
                 </div>
-                <div class="logo-text">Im<span>Resizer<span class="domain">.in</span></span></div>
-            </a>
-            <span style="font-size:12px; color:var(--text-light); font-weight:600; background: #f3f4f6; padding: 6px 10px; border-radius: 6px; border: 1px solid #e5e7eb;">Free Tool</span>
+                
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">
+                        LEGAL & INFO <i data-lucide="chevron-down" width="14" height="14"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="disclaimer.html">Disclaimer</a>
+                        <a href="privacy.html">Privacy Policy</a>
+                        <a href="terms.html">Terms of Use</a>
+                    </div>
+                </div>
+                
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">
+                        TOOLS <i data-lucide="chevron-down" width="14" height="14"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="image-compressor.html">Image Compressor</a>
+                        <a href="pdf-converter.html">PDF Converter</a>
+                        <a href="signature-maker.html">Signature Maker</a>
+                        <a href="passport-photo.html">Passport Photo</a>
+                    </div>
+                </div>
+                
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">
+                        RESOURCES <i data-lucide="chevron-down" width="14" height="14"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="blog.html">Blog</a>
+                        <a href="guides.html">Guides</a>
+                        <a href="faq.html">FAQ</a>
+                        <a href="sitemap.html">Sitemap</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -761,7 +940,6 @@
                     <input type="file" id="fileInput" accept="image/*">
                 </div>
 
-                <!-- PREVIEW AREA -->
                 <div id="previewContainer" class="preview-container">
                     <div class="preview-wrapper">
                         <img id="previewImage" src="" alt="Preview" loading="lazy">
@@ -784,7 +962,6 @@
                             <i data-lucide="flip-vertical"></i> Flip V
                         </button>
                         
-                        <!-- CROP CONTROLS -->
                         <button class="btn-sm hidden" id="btnApplyCrop" onclick="applyCrop()" style="background:#f0fdf4; border-color:#22c55e; color:#15803d;">
                             <i data-lucide="check"></i> Apply
                         </button>
@@ -802,7 +979,6 @@
                 </div>
 
                 <div id="controlsSection" class="controls-section">
-                    <!-- PRESETS DROPDOWN -->
                     <div class="input-group" style="margin-bottom: 25px;">
                         <label for="presetSelect" style="color:var(--primary);">Choose Preset (Optional)</label>
                         <div class="input-wrapper">
@@ -862,7 +1038,6 @@
                         </div>
                     </div>
 
-                    <!-- Unit selector -->
                     <div style="display: flex; gap: 10px; align-items: center; margin: -15px 0 15px 0; padding-left: 5px;">
                         <div style="display: flex; align-items: center; gap: 5px;">
                             <label style="font-size:13px;">Unit:</label>
@@ -899,7 +1074,6 @@
                         </div>
                     </div>
 
-                    <!-- PDF PAGE SIZE SETTINGS -->
                     <div id="pdfSettings" class="hidden" style="margin-top: 15px; margin-bottom: 25px; background: #fff7ed; padding: 10px; border-radius: 6px; border: 1px solid #ffedd5;">
                         <label style="font-size:12px; font-weight:700; color:#c2410c; margin-bottom:5px; display:block;">📄 PDF Page Size</label>
                         <select id="pdfPageSize" class="input-wrapper" style="width:100%; padding:8px; border:1px solid #fdba74; border-radius:4px; font-size:14px;">
@@ -910,7 +1084,6 @@
                         </select>
                     </div>
 
-                    <!-- NAME & DATE SECTION -->
                     <div style="background: #f0fdfa; padding: 15px; border-radius: 8px; margin-bottom: 25px; border: 1px solid #ccfbf1;">
                         <label style="font-size:14px; font-weight:700; margin-bottom:10px; display:flex; align-items:center; gap:8px; color:var(--text-main); cursor:pointer;">
                             <input type="checkbox" id="addTextParams" onchange="document.getElementById('textInputs').classList.toggle('hidden', !this.checked)" style="width:16px; height:16px;">
@@ -927,7 +1100,6 @@
                         </div>
                     </div>
 
-                    <!-- FILTERS SECTION -->
                     <div style="background: #f9fafb; padding: 15px; border-radius: 8px; margin-bottom: 25px; border: 1px solid #e5e7eb;">
                         <label style="font-size:14px; font-weight:700; margin-bottom:15px; display:block; color:var(--text-main);">✨ Enhancements</label>
                         
@@ -993,7 +1165,6 @@
                             </button>
                         </a>
                         
-                        <!-- PRINTABLE SHEET SECTION -->
                         <div style="margin-top: 25px; border-top: 1px solid #e5e7eb; padding-top: 20px;">
                             <h4 style="font-size: 16px; margin-bottom: 12px; color: var(--text-main);">🖨️ Make Printable Sheet</h4>
                             
@@ -1021,7 +1192,6 @@
                 </div>
             </div>
 
-            <!-- SEO CONTENT -->
             <div class="seo-content">
                 <div class="content-block">
                     <h2>How to Resize and Compress Photo & Signature to 20KB, 50KB, 100KB Online</h2>
@@ -1254,10 +1424,8 @@
         </div>
     </main>
 
-    <!-- FOOTER -->
     <footer>
         <div class="footer-container">
-            <!-- Column 1: Brand info -->
             <div class="footer-col footer-brand">
                 <a href="/" class="footer-logo">
                     <div class="footer-logo-icon">
@@ -1268,7 +1436,6 @@
                 <p>Compress photo & signature to 20KB or 50KB for all Govt exams (SSC, UPSC, NEET, JEE). Fast, secure, and perfect for online forms. No sign-up required.</p>
             </div>
 
-            <!-- Column 2: Quick Links -->
             <div class="footer-col">
                 <h5>QUICK LINKS</h5>
                 <ul class="footer-links">
@@ -1278,7 +1445,6 @@
                 </ul>
             </div>
 
-            <!-- Column 3: Legal & Info -->
             <div class="footer-col">
                 <h5>LEGAL & INFO</h5>
                 <ul class="footer-links">
@@ -1288,7 +1454,6 @@
                 </ul>
             </div>
 
-            <!-- Column 4: Tools -->
             <div class="footer-col">
                 <h5>TOOLS</h5>
                 <ul class="footer-links">
@@ -1299,7 +1464,6 @@
                 </ul>
             </div>
 
-            <!-- Column 5: Resources -->
             <div class="footer-col">
                 <h5>RESOURCES</h5>
                 <ul class="footer-links">
@@ -1311,14 +1475,12 @@
             </div>
         </div>
 
-        <!-- FOOTER BOTTOM -->
         <div class="footer-bottom">
             <div>&copy; 2026 imresizer.in. All rights reserved. Made For Students</div>
             <div>Designed for Students</div>
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -2202,7 +2364,6 @@
 
         // ==================== INITIALIZATION ====================
         function initializeElements() {
-            // Get all DOM elements
             fileInput = document.getElementById('fileInput');
             dropZone = document.getElementById('dropZone');
             previewImage = document.getElementById('previewImage');
@@ -2261,7 +2422,6 @@
                 });
             }
 
-            // Set DPI minimum to 300
             if (dpiInput) {
                 dpiInput.addEventListener('change', function() {
                     if (this.value < 300) {
@@ -2287,29 +2447,80 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            // Initialize all DOM elements
             initializeElements();
             
-            // Set initial values
             if (unitSelect && heightUnitBadge) {
                 lastUnit = unitSelect.value;
                 heightUnitBadge.innerText = lastUnit;
             }
             
-            // Initialize Lucide icons
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
             }
             
-            // Handle format change initially
             handleFormatChange();
-            
-            // Setup all event listeners
             setupEventListeners();
             
-            // Add window resize handler for responsive adjustments
+            // =========================================================
+            // MOBILE MENU TOGGLE LOGIC
+            // =========================================================
+            const toggleBtn = document.getElementById('mobileMenuToggle');
+            const navMenu = document.getElementById('navMenu');
+            if (toggleBtn && navMenu) {
+                toggleBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    navMenu.classList.toggle('active');
+                    const iconElem = toggleBtn.querySelector('i');
+                    if (navMenu.classList.contains('active')) {
+                        if (iconElem) iconElem.setAttribute('data-lucide', 'x');
+                    } else {
+                        if (iconElem) iconElem.setAttribute('data-lucide', 'menu');
+                    }
+                    if (window.lucide) lucide.createIcons();
+                });
+            }
+            
+            const dropdowns = document.querySelectorAll('.nav-dropdown');
+            function handleMobileDropdowns() {
+                dropdowns.forEach(dropdown => {
+                    const btn = dropdown.querySelector('.nav-dropdown-btn');
+                    if (!btn) return;
+                    if (dropdown._listener) btn.removeEventListener('click', dropdown._listener);
+                    const clickHandler = (e) => {
+                        if (window.innerWidth <= 900) {
+                            e.preventDefault(); e.stopPropagation();
+                            dropdown.classList.toggle('active');
+                        }
+                    };
+                    btn.addEventListener('click', clickHandler);
+                    dropdown._listener = clickHandler;
+                });
+            }
+            handleMobileDropdowns();
+            
+            document.addEventListener('click', function(event) {
+                const isToggle = toggleBtn && toggleBtn.contains(event.target);
+                const isNavMenu = navMenu && navMenu.contains(event.target);
+                if (navMenu && navMenu.classList.contains('active') && !isToggle && !isNavMenu && window.innerWidth <= 900) {
+                    navMenu.classList.remove('active');
+                    const toggleIcon = toggleBtn?.querySelector('i');
+                    if (toggleIcon) toggleIcon.setAttribute('data-lucide', 'menu');
+                    if (window.lucide) lucide.createIcons();
+                }
+            });
+            
             window.addEventListener('resize', () => {
-                // Recalculate if needed
+                if (window.innerWidth > 900) {
+                    dropdowns.forEach(d => d.classList.remove('active'));
+                    if (navMenu) navMenu.classList.remove('active');
+                    const toggleIcon = toggleBtn?.querySelector('i');
+                    if (toggleIcon && toggleIcon.getAttribute('data-lucide') !== 'menu') {
+                        toggleIcon.setAttribute('data-lucide', 'menu');
+                        if (window.lucide) lucide.createIcons();
+                    }
+                } else {
+                    handleMobileDropdowns();
+                }
             });
         });
 
