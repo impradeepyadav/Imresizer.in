@@ -952,6 +952,7 @@
                                     <option value="a4">A4 (210x297 mm)</option>
                                     <option value="letter">Letter (8.5x11 in)</option>
                                     <option value="legal">Legal (8.5x14 in)</option>
+                                    <option value="4x6">4x6 inch (102x152 mm)</option>
                                     <option value="fit">Fit to Image</option>
                                 </select>
                             </div>
@@ -1105,7 +1106,7 @@
                 <ol style="margin-left: 20px; color: var(--text-light);">
                     <li><strong>Select Mode:</strong> Choose "Image to PDF" from the tabs.</li>
                     <li><strong>Upload Images:</strong> Click upload or drag & drop your JPG, PNG, or WEBP files. You can select multiple images.</li>
-                    <li><strong>Adjust Settings:</strong> Choose page size (A4, Letter, etc.), orientation, margin, DPI and image quality.</li>
+                    <li><strong>Adjust Settings:</strong> Choose page size (A4, Letter, 4x6 inch, etc.), orientation, margin, DPI and image quality.</li>
                     <li><strong>Convert:</strong> Click "Convert to PDF" – the tool processes your images and creates a PDF.</li>
                     <li><strong>Download:</strong> Download your PDF instantly. All images are combined in the order you uploaded them.</li>
                 </ol>
@@ -1145,6 +1146,7 @@
                             <tr><td>A4</td><td>210 x 297 mm</td><td>8.27 x 11.69 in</td><td>Standard documents, letters, forms</td></tr>
                             <tr><td>Letter</td><td>216 x 279 mm</td><td>8.5 x 11 in</td><td>US standard documents</td></tr>
                             <tr><td>Legal</td><td>216 x 356 mm</td><td>8.5 x 14 in</td><td>Legal documents, contracts</td></tr>
+                            <tr><td><strong>4x6 inch</strong></td><td>102 x 152 mm</td><td>4 x 6 in</td><td>Photo prints, postcards</td></tr>
                             <tr><td>Fit to Image</td><td>Custom</td><td>Custom</td><td>Exact image dimensions</td></tr>
                         </tbody>
                     </table>
@@ -1180,6 +1182,7 @@
                     <li><strong>Combine multiple contracts:</strong> Merge several PDF contracts into one document for easy sharing.</li>
                     <li><strong>Extract images from PDF reports:</strong> Save charts, diagrams, or photos from PDF reports as separate image files.</li>
                     <li><strong>Prepare documents for printing:</strong> Convert images to PDF with proper page sizes for professional printing.</li>
+                    <li><strong>Photo album printing:</strong> Use the new 4x6 inch size to create print-ready photo sheets.</li>
                 </ul>
             </div>
 
@@ -1390,7 +1393,7 @@
                 }
 
                 const { jsPDF } = window.jspdf;
-                const pageSize = document.getElementById('pdfPageSize').value;
+                let pageSize = document.getElementById('pdfPageSize').value;
                 const orientation = document.getElementById('pdfOrientation').value;
                 const margin = parseFloat(document.getElementById('pdfMargin').value);
                 const dpi = parseInt(document.getElementById('imageDpi').value);
@@ -1398,7 +1401,18 @@
 
                 let pdf;
 
-                if (pageSize === 'fit') {
+                // Handle 4x6 inch size (102mm x 152mm)
+                if (pageSize === '4x6') {
+                    const widthMm = 102;  // 4 inches = 101.6 mm, using 102 for precise
+                    const heightMm = 152; // 6 inches = 152.4 mm
+                    const finalWidth = orientation === 'portrait' ? widthMm : heightMm;
+                    const finalHeight = orientation === 'portrait' ? heightMm : widthMm;
+                    pdf = new jsPDF({
+                        orientation: orientation,
+                        unit: 'mm',
+                        format: [finalWidth, finalHeight]
+                    });
+                } else if (pageSize === 'fit') {
                     const firstImg = await loadImage(URL.createObjectURL(imageFiles[0]));
                     pdf = new jsPDF({
                         orientation: firstImg.width > firstImg.height ? 'landscape' : 'portrait',
