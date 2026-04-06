@@ -96,7 +96,7 @@
     <link rel="preconnect" href="https://unpkg.com" crossorigin>
 
     <style>
-        /* --- CORE THEME - Same as all other pages --- */
+        /* --- CORE THEME - SAME AS BLOG PAGE (FIXED HEADER) --- */
         :root {
             --primary: #2563eb;
             --primary-dark: #1e40af;
@@ -128,22 +128,38 @@
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
             line-height: 1.5;
+            padding-top: 78px;
         }
 
-        /* HEADER */
+        /* HEADER - FIXED / STICKY */
         header {
-            padding: 15px 0;
+            padding: 12px 0;
             border-bottom: 1px solid var(--line-color);
             background: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
         }
 
         .navbar {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
         }
 
         .brand-logo {
@@ -174,11 +190,154 @@
             color: #000000;
         }
 
+        /* Desktop Navigation Menu */
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-btn {
+            background: none;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: inherit;
+        }
+
+        .nav-dropdown-btn:hover {
+            background-color: #f1f5f9;
+            color: var(--primary);
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 40px;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.02);
+            border-radius: 12px;
+            border: 1px solid var(--line-color);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: all 0.2s ease;
+            z-index: 200;
+        }
+
+        .nav-dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px 18px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.15s;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f8fafc;
+            color: var(--primary);
+            padding-left: 22px;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 900px) {
+            body { padding-top: 70px; }
+            header { padding: 10px 0; }
+            .navbar {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: nowrap;
+            }
+            .nav-left { flex: 1; justify-content: flex-start; }
+            .mobile-menu-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                order: 2;
+            }
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: white;
+                padding: 16px 0 12px;
+                gap: 8px;
+                border-top: 1px solid var(--line-color);
+                order: 3;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+                z-index: 150;
+                max-height: calc(100vh - 70px);
+                overflow-y: auto;
+            }
+            .nav-menu.active { display: flex; }
+            .nav-dropdown { width: 100%; }
+            .nav-dropdown-btn {
+                width: 100%;
+                justify-content: space-between;
+                padding: 12px 16px;
+                background: #f9fafb;
+                border-radius: 10px;
+            }
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                border: none;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+                margin-top: 5px;
+                margin-left: 16px;
+                border-left: 2px solid var(--line-color);
+            }
+            .nav-dropdown.active .dropdown-content { display: block; }
+            .navbar { flex-wrap: wrap; position: relative; }
+        }
+
         /* MAIN LAYOUT */
         .container {
             max-width: 800px;
             width: 100%;
-            margin: 30px auto;
+            margin: 20px auto 30px;
             padding: 0 20px;
             flex: 1;
         }
@@ -225,7 +384,6 @@
             text-decoration: underline;
         }
 
-        /* BACK BUTTON */
         .back-link {
             color: var(--primary);
             font-weight: 600;
@@ -244,7 +402,6 @@
             text-decoration: none;
         }
 
-        /* BLOG CONTENT STYLES */
         .post-meta {
             font-size: 14px;
             color: var(--text-light);
@@ -378,7 +535,6 @@
             color: var(--text-main);
         }
 
-        /* TABLE STYLES */
         .master-table {
             width: 100%;
             border-collapse: collapse;
@@ -442,19 +598,12 @@
         }
 
         @media (max-width: 600px) {
-            .master-table {
-                font-size: 14px;
-            }
-            .master-table th,
-            .master-table td {
-                padding: 10px;
-            }
-            .requirement-grid {
-                grid-template-columns: 1fr;
-            }
+            .master-table { font-size: 14px; }
+            .master-table th, .master-table td { padding: 10px; }
+            .requirement-grid { grid-template-columns: 1fr; }
         }
 
-        /* FOOTER - 5 COLUMN */
+        /* FOOTER */
         footer {
             background-color: var(--footer-bg);
             color: var(--footer-text);
@@ -550,25 +699,52 @@
         .hidden { display: none !important; }
     </style>
 
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
     <header>
         <div class="navbar">
-            <a href="/" class="brand-logo">
-                <div class="logo-icon-box">
-                    <i data-lucide="crop" width="28" height="28"></i>
+            <div class="nav-left">
+                <a href="/" class="brand-logo">
+                    <div class="logo-icon-box"><i data-lucide="crop" width="28" height="28"></i></div>
+                    <div class="logo-text">Im<span>Resizer<span class="domain">.in</span></span></div>
+                </a>
+            </div>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menu">
+                <i data-lucide="menu" width="26" height="26"></i>
+            </button>
+            <div class="nav-menu" id="navMenu">
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">QUICK LINKS <i data-lucide="chevron-down" width="14" height="14"></i></button>
+                    <div class="dropdown-content">
+                        <a href="/">Home</a><a href="/about.html">About Us</a><a href="/contact.html">Contact Support</a>
+                    </div>
                 </div>
-                <div class="logo-text">Im<span>Resizer<span class="domain">.in</span></span></div>
-            </a>
-            <span style="font-size:12px; color:var(--text-light); font-weight:500; background: #f3f4f6; padding: 6px 10px; border-radius: 6px; border: 1px solid #e5e7eb;">Free Tool</span>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">LEGAL & INFO <i data-lucide="chevron-down" width="14" height="14"></i></button>
+                    <div class="dropdown-content">
+                        <a href="/disclaimer.html">Disclaimer</a><a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms of Use</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">TOOLS <i data-lucide="chevron-down" width="14" height="14"></i></button>
+                    <div class="dropdown-content">
+                        <a href="/image-compressor.html">Image Compressor</a><a href="/pdf-converter.html">PDF Converter</a>
+                        <a href="/signature-maker.html">Signature Maker</a><a href="/passport-photo.html">Passport Photo</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">RESOURCES <i data-lucide="chevron-down" width="14" height="14"></i></button>
+                    <div class="dropdown-content">
+                        <a href="/blog.html">Blog</a><a href="/guides.html">Guides</a><a href="/faq.html">FAQ</a><a href="/sitemap.html">Sitemap</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
     <main class="container">
-
         <a href="/blog.html" class="back-link">
             <i data-lucide="arrow-left" width="16" height="16"></i>
             Back to Blog
@@ -583,96 +759,25 @@
             <p>A cheat sheet for exam photo requirements. No searching through notifications – we've compiled the latest dimensions and file size limits for all major Indian exams.</p>
             
             <div class="important-note">
-                <h4>
-                    <i data-lucide="alert-triangle"></i>
-                    Important Note
-                </h4>
+                <h4><i data-lucide="alert-triangle"></i> Important Note</h4>
                 <p>These requirements are based on the latest exam notifications. However, always check your specific exam's information brochure as requirements may change. Last updated: February 2026.</p>
             </div>
 
             <h2>📊 Complete Reference Table: All Major Exams</h2>
             
             <table class="master-table">
-                <thead>
-                    <tr>
-                        <th>Exam / Organization</th>
-                        <th>Photo Size</th>
-                        <th>Photo File Size</th>
-                        <th>Signature Size</th>
-                        <th>Signature File Size</th>
-                    </tr>
-                </thead>
+                <thead><tr><th>Exam / Organization</th><th>Photo Size</th><th>Photo File Size</th><th>Signature Size</th><th>Signature File Size</th></tr></thead>
                 <tbody>
-                    <tr>
-                        <td class="exam-name">SSC CGL / CHSL / MTS</td>
-                        <td>4.0 x 2.0 cm<br><small>(520 x 260 pixels)</small></td>
-                        <td>20-50 KB</td>
-                        <td>4.0 x 2.0 cm<br><small>(520 x 260 pixels)</small></td>
-                        <td>10-20 KB</td>
-                    </tr>
-                    <tr>
-                        <td class="exam-name">UPSC Civil Services</td>
-                        <td>2.0 x 2.0 inches<br><small>(350 x 350 pixels)</small></td>
-                        <td>20-300 KB</td>
-                        <td>3.5 x 1.5 cm<br><small>(280 x 120 pixels)</small></td>
-                        <td>20-100 KB</td>
-                    </tr>
-                    <tr>
-                        <td class="exam-name">IBPS PO / Clerk / SO</td>
-                        <td>4.0 x 2.0 cm<br><small>(520 x 260 pixels)</small></td>
-                        <td>20-50 KB</td>
-                        <td>4.0 x 2.0 cm<br><small>(520 x 260 pixels)</small></td>
-                        <td>10-20 KB</td>
-                    </tr>
-                    <tr>
-                        <td class="exam-name">RRB (Railways) NTPC</td>
-                        <td>3.5 x 4.5 cm<br><small>(420 x 540 pixels)</small></td>
-                        <td>20-50 KB</td>
-                        <td>3.5 x 1.5 cm<br><small>(420 x 180 pixels)</small></td>
-                        <td>10-20 KB</td>
-                    </tr>
-                    <tr>
-                        <td class="exam-name">GATE</td>
-                        <td>2.0 x 2.0 inches<br><small>(600 x 600 pixels)</small></td>
-                        <td>5-200 KB</td>
-                        <td>2.0 x 2.0 cm<br><small>(240 x 240 pixels)</small></td>
-                        <td>5-200 KB</td>
-                    </tr>
-                    <tr>
-                        <td class="exam-name">NEET (UG)</td>
-                        <td>4.0 x 3.0 cm<br><small>(480 x 360 pixels)</small></td>
-                        <td>10-200 KB</td>
-                        <td>4.0 x 2.0 cm<br><small>(480 x 240 pixels)</small></td>
-                        <td>10-200 KB</td>
-                    </tr>
-                    <tr>
-                        <td class="exam-name">JEE Main / Advanced</td>
-                        <td>3.5 x 4.5 cm<br><small>(420 x 540 pixels)</small></td>
-                        <td>10-100 KB</td>
-                        <td>3.5 x 1.5 cm<br><small>(420 x 180 pixels)</small></td>
-                        <td>10-100 KB</td>
-                    </tr>
-                    <tr>
-                        <td class="exam-name">CTET</td>
-                        <td>4.0 x 3.0 cm<br><small>(480 x 360 pixels)</small></td>
-                        <td>10-100 KB</td>
-                        <td>4.0 x 2.0 cm<br><small>(480 x 240 pixels)</small></td>
-                        <td>10-100 KB</td>
-                    </tr>
-                    <tr>
-                        <td class="exam-name">Bank (SBI PO/Clerk)</td>
-                        <td>4.0 x 2.0 cm<br><small>(520 x 260 pixels)</small></td>
-                        <td>20-50 KB</td>
-                        <td>4.0 x 2.0 cm<br><small>(520 x 260 pixels)</small></td>
-                        <td>10-20 KB</td>
-                    </tr>
-                    <tr>
-                        <td class="exam-name">Indian Navy / Army</td>
-                        <td>3.5 x 4.5 cm<br><small>(420 x 540 pixels)</small></td>
-                        <td>20-50 KB</td>
-                        <td>3.5 x 1.5 cm<br><small>(420 x 180 pixels)</small></td>
-                        <td>10-20 KB</td>
-                    </tr>
+                    <tr><td class="exam-name">SSC CGL / CHSL / MTS</td><td>4.0 x 2.0 cm<br><small>(520 x 260 pixels)</small></td><td>20-50 KB</td><td>4.0 x 2.0 cm<br><small>(520 x 260 pixels)</small></td><td>10-20 KB</td></tr>
+                    <tr><td class="exam-name">UPSC Civil Services</td><td>2.0 x 2.0 inches<br><small>(350 x 350 pixels)</small></td><td>20-300 KB</td><td>3.5 x 1.5 cm<br><small>(280 x 120 pixels)</small></td><td>20-100 KB</td></tr>
+                    <tr><td class="exam-name">IBPS PO / Clerk / SO</td><td>4.0 x 2.0 cm<br><small>(520 x 260 pixels)</small></td><td>20-50 KB</td><td>4.0 x 2.0 cm<br><small>(520 x 260 pixels)</small></td><td>10-20 KB</td></tr>
+                    <tr><td class="exam-name">RRB (Railways) NTPC</td><td>3.5 x 4.5 cm<br><small>(420 x 540 pixels)</small></td><td>20-50 KB</td><td>3.5 x 1.5 cm<br><small>(420 x 180 pixels)</small></td><td>10-20 KB</td></tr>
+                    <tr><td class="exam-name">GATE</td><td>2.0 x 2.0 inches<br><small>(600 x 600 pixels)</small></td><td>5-200 KB</td><td>2.0 x 2.0 cm<br><small>(240 x 240 pixels)</small></td><td>5-200 KB</td></tr>
+                    <tr><td class="exam-name">NEET (UG)</td><td>4.0 x 3.0 cm<br><small>(480 x 360 pixels)</small></td><td>10-200 KB</td><td>4.0 x 2.0 cm<br><small>(480 x 240 pixels)</small></td><td>10-200 KB</td></tr>
+                    <tr><td class="exam-name">JEE Main / Advanced</td><td>3.5 x 4.5 cm<br><small>(420 x 540 pixels)</small></td><td>10-100 KB</td><td>3.5 x 1.5 cm<br><small>(420 x 180 pixels)</small></td><td>10-100 KB</td></tr>
+                    <tr><td class="exam-name">CTET</td><td>4.0 x 3.0 cm<br><small>(480 x 360 pixels)</small></td><td>10-100 KB</td><td>4.0 x 2.0 cm<br><small>(480 x 240 pixels)</small></td><td>10-100 KB</td></tr>
+                    <tr><td class="exam-name">Bank (SBI PO/Clerk)</td><td>4.0 x 2.0 cm<br><small>(520 x 260 pixels)</small></td><td>20-50 KB</td><td>4.0 x 2.0 cm<br><small>(520 x 260 pixels)</small></td><td>10-20 KB</td></tr>
+                    <tr><td class="exam-name">Indian Navy / Army</td><td>3.5 x 4.5 cm<br><small>(420 x 540 pixels)</small></td><td>20-50 KB</td><td>3.5 x 1.5 cm<br><small>(420 x 180 pixels)</small></td><td>10-20 KB</td></tr>
                 </tbody>
             </table>
             <p class="table-caption">* Pixel dimensions calculated at 300 DPI for reference. Always verify with official notification.</p>
@@ -681,198 +786,102 @@
 
             <!-- SSC Card -->
             <div class="exam-card">
-                <h3>
-                    <i data-lucide="file-text"></i>
-                    Staff Selection Commission (SSC)
-                    <span class="badge">CGL, CHSL, MTS, JE</span>
-                </h3>
+                <h3><i data-lucide="file-text"></i> Staff Selection Commission (SSC) <span class="badge">CGL, CHSL, MTS, JE</span></h3>
                 <div class="requirement-grid">
-                    <div class="requirement-item">
-                        <h4><i data-lucide="camera"></i> Photograph</h4>
-                        <p><strong>Dimensions:</strong> 4.0 cm x 2.0 cm</p>
-                        <p><strong>Pixels:</strong> 520 x 260 (approx)</p>
-                        <p><strong>File Size:</strong> 20 KB to 50 KB</p>
-                        <p><strong>Format:</strong> JPG only</p>
-                        <small>Background: White / Light color</small>
-                    </div>
-                    <div class="requirement-item">
-                        <h4><i data-lucide="pen-tool"></i> Signature</h4>
-                        <p><strong>Dimensions:</strong> 4.0 cm x 2.0 cm</p>
-                        <p><strong>Pixels:</strong> 520 x 260 (approx)</p>
-                        <p><strong>File Size:</strong> 10 KB to 20 KB</p>
-                        <p><strong>Format:</strong> JPG only</p>
-                        <small>Use black ink on white paper</small>
-                    </div>
+                    <div class="requirement-item"><h4><i data-lucide="camera"></i> Photograph</h4><p><strong>Dimensions:</strong> 4.0 cm x 2.0 cm</p><p><strong>Pixels:</strong> 520 x 260 (approx)</p><p><strong>File Size:</strong> 20 KB to 50 KB</p><p><strong>Format:</strong> JPG only</p><small>Background: White / Light color</small></div>
+                    <div class="requirement-item"><h4><i data-lucide="pen-tool"></i> Signature</h4><p><strong>Dimensions:</strong> 4.0 cm x 2.0 cm</p><p><strong>Pixels:</strong> 520 x 260 (approx)</p><p><strong>File Size:</strong> 10 KB to 20 KB</p><p><strong>Format:</strong> JPG only</p><small>Use black ink on white paper</small></div>
                 </div>
                 <p><strong>📝 Note:</strong> For SSC exams, both photo and signature must be in JPG format. Name and date should be written below the photo for some posts.</p>
             </div>
 
             <!-- UPSC Card -->
             <div class="exam-card">
-                <h3>
-                    <i data-lucide="file-text"></i>
-                    UPSC Civil Services
-                    <span class="badge">IAS, IPS, IFS</span>
-                </h3>
+                <h3><i data-lucide="file-text"></i> UPSC Civil Services <span class="badge">IAS, IPS, IFS</span></h3>
                 <div class="requirement-grid">
-                    <div class="requirement-item">
-                        <h4><i data-lucide="camera"></i> Photograph</h4>
-                        <p><strong>Dimensions:</strong> 2.0 x 2.0 inches</p>
-                        <p><strong>Pixels:</strong> 350 x 350 (exact)</p>
-                        <p><strong>File Size:</strong> 20 KB to 300 KB</p>
-                        <p><strong>Format:</strong> JPG/JPEG</p>
-                        <small>Background: White / Light grey</small>
-                    </div>
-                    <div class="requirement-item">
-                        <h4><i data-lucide="pen-tool"></i> Signature</h4>
-                        <p><strong>Dimensions:</strong> 3.5 cm x 1.5 cm</p>
-                        <p><strong>Pixels:</strong> 280 x 120 (approx)</p>
-                        <p><strong>File Size:</strong> 20 KB to 100 KB</p>
-                        <p><strong>Format:</strong> JPG/JPEG</p>
-                        <small>Full signature (not initials)</small>
-                    </div>
+                    <div class="requirement-item"><h4><i data-lucide="camera"></i> Photograph</h4><p><strong>Dimensions:</strong> 2.0 x 2.0 inches</p><p><strong>Pixels:</strong> 350 x 350 (exact)</p><p><strong>File Size:</strong> 20 KB to 300 KB</p><p><strong>Format:</strong> JPG/JPEG</p><small>Background: White / Light grey</small></div>
+                    <div class="requirement-item"><h4><i data-lucide="pen-tool"></i> Signature</h4><p><strong>Dimensions:</strong> 3.5 cm x 1.5 cm</p><p><strong>Pixels:</strong> 280 x 120 (approx)</p><p><strong>File Size:</strong> 20 KB to 100 KB</p><p><strong>Format:</strong> JPG/JPEG</p><small>Full signature (not initials)</small></div>
                 </div>
                 <p><strong>📝 Note:</strong> UPSC allows slightly larger file sizes compared to other exams. Photo should be recent (within 30 days).</p>
             </div>
 
             <!-- IBPS/Banking Card -->
             <div class="exam-card">
-                <h3>
-                    <i data-lucide="file-text"></i>
-                    IBPS & Banking Exams
-                    <span class="badge">PO, Clerk, SO, RRB</span>
-                </h3>
+                <h3><i data-lucide="file-text"></i> IBPS & Banking Exams <span class="badge">PO, Clerk, SO, RRB</span></h3>
                 <div class="requirement-grid">
-                    <div class="requirement-item">
-                        <h4><i data-lucide="camera"></i> Photograph</h4>
-                        <p><strong>Dimensions:</strong> 4.0 cm x 2.0 cm</p>
-                        <p><strong>Pixels:</strong> 520 x 260 (approx)</p>
-                        <p><strong>File Size:</strong> 20 KB to 50 KB</p>
-                        <p><strong>Format:</strong> JPG only</p>
-                        <small>Background: White</small>
-                    </div>
-                    <div class="requirement-item">
-                        <h4><i data-lucide="pen-tool"></i> Signature</h4>
-                        <p><strong>Dimensions:</strong> 4.0 cm x 2.0 cm</p>
-                        <p><strong>Pixels:</strong> 520 x 260 (approx)</p>
-                        <p><strong>File Size:</strong> 10 KB to 20 KB</p>
-                        <p><strong>Format:</strong> JPG only</p>
-                        <small>Between 1-20 KB exactly</small>
-                    </div>
+                    <div class="requirement-item"><h4><i data-lucide="camera"></i> Photograph</h4><p><strong>Dimensions:</strong> 4.0 cm x 2.0 cm</p><p><strong>Pixels:</strong> 520 x 260 (approx)</p><p><strong>File Size:</strong> 20 KB to 50 KB</p><p><strong>Format:</strong> JPG only</p><small>Background: White</small></div>
+                    <div class="requirement-item"><h4><i data-lucide="pen-tool"></i> Signature</h4><p><strong>Dimensions:</strong> 4.0 cm x 2.0 cm</p><p><strong>Pixels:</strong> 520 x 260 (approx)</p><p><strong>File Size:</strong> 10 KB to 20 KB</p><p><strong>Format:</strong> JPG only</p><small>Between 1-20 KB exactly</small></div>
                 </div>
                 <p><strong>📝 Note:</strong> Banking exams are strict about file size limits. Use our <a href="/image-compressor.html">Image Compressor</a> to hit exact 20KB target.</p>
             </div>
 
             <!-- RRB Railways Card -->
             <div class="exam-card">
-                <h3>
-                    <i data-lucide="file-text"></i>
-                    RRB (Railways)
-                    <span class="badge">NTPC, Group D, ALP</span>
-                </h3>
+                <h3><i data-lucide="file-text"></i> RRB (Railways) <span class="badge">NTPC, Group D, ALP</span></h3>
                 <div class="requirement-grid">
-                    <div class="requirement-item">
-                        <h4><i data-lucide="camera"></i> Photograph</h4>
-                        <p><strong>Dimensions:</strong> 3.5 cm x 4.5 cm</p>
-                        <p><strong>Pixels:</strong> 420 x 540 (approx)</p>
-                        <p><strong>File Size:</strong> 20 KB to 50 KB</p>
-                        <p><strong>Format:</strong> JPG</p>
-                        <small>Background: White / Light</small>
-                    </div>
-                    <div class="requirement-item">
-                        <h4><i data-lucide="pen-tool"></i> Signature</h4>
-                        <p><strong>Dimensions:</strong> 3.5 cm x 1.5 cm</p>
-                        <p><strong>Pixels:</strong> 420 x 180 (approx)</p>
-                        <p><strong>File Size:</strong> 10 KB to 20 KB</p>
-                        <p><strong>Format:</strong> JPG</p>
-                        <small>Black ink only</small>
-                    </div>
+                    <div class="requirement-item"><h4><i data-lucide="camera"></i> Photograph</h4><p><strong>Dimensions:</strong> 3.5 cm x 4.5 cm</p><p><strong>Pixels:</strong> 420 x 540 (approx)</p><p><strong>File Size:</strong> 20 KB to 50 KB</p><p><strong>Format:</strong> JPG</p><small>Background: White / Light</small></div>
+                    <div class="requirement-item"><h4><i data-lucide="pen-tool"></i> Signature</h4><p><strong>Dimensions:</strong> 3.5 cm x 1.5 cm</p><p><strong>Pixels:</strong> 420 x 180 (approx)</p><p><strong>File Size:</strong> 10 KB to 20 KB</p><p><strong>Format:</strong> JPG</p><small>Black ink only</small></div>
                 </div>
                 <p><strong>📝 Note:</strong> For Railways, photo should be without spectacles if possible. Signature must be in running hand.</p>
             </div>
 
             <!-- GATE Card -->
             <div class="exam-card">
-                <h3>
-                    <i data-lucide="file-text"></i>
-                    GATE
-                    <span class="badge">Engineering PG</span>
-                </h3>
+                <h3><i data-lucide="file-text"></i> GATE <span class="badge">Engineering PG</span></h3>
                 <div class="requirement-grid">
-                    <div class="requirement-item">
-                        <h4><i data-lucide="camera"></i> Photograph</h4>
-                        <p><strong>Dimensions:</strong> 2.0 x 2.0 inches</p>
-                        <p><strong>Pixels:</strong> 600 x 600 (exact)</p>
-                        <p><strong>File Size:</strong> 5 KB to 200 KB</p>
-                        <p><strong>Format:</strong> JPG/PNG</p>
-                        <small>Background: White / Light</small>
-                    </div>
-                    <div class="requirement-item">
-                        <h4><i data-lucide="pen-tool"></i> Signature</h4>
-                        <p><strong>Dimensions:</strong> 2.0 cm x 2.0 cm</p>
-                        <p><strong>Pixels:</strong> 240 x 240 (approx)</p>
-                        <p><strong>File Size:</strong> 5 KB to 200 KB</p>
-                        <p><strong>Format:</strong> JPG/PNG</p>
-                        <small>Square format signature</small>
-                    </div>
+                    <div class="requirement-item"><h4><i data-lucide="camera"></i> Photograph</h4><p><strong>Dimensions:</strong> 2.0 x 2.0 inches</p><p><strong>Pixels:</strong> 600 x 600 (exact)</p><p><strong>File Size:</strong> 5 KB to 200 KB</p><p><strong>Format:</strong> JPG/PNG</p><small>Background: White / Light</small></div>
+                    <div class="requirement-item"><h4><i data-lucide="pen-tool"></i> Signature</h4><p><strong>Dimensions:</strong> 2.0 cm x 2.0 cm</p><p><strong>Pixels:</strong> 240 x 240 (approx)</p><p><strong>File Size:</strong> 5 KB to 200 KB</p><p><strong>Format:</strong> JPG/PNG</p><small>Square format signature</small></div>
                 </div>
                 <p><strong>📝 Note:</strong> GATE accepts both JPG and PNG. Signature should be in a square format – unique among exams.</p>
             </div>
 
             <!-- NEET Card -->
             <div class="exam-card">
-                <h3>
-                    <i data-lucide="file-text"></i>
-                    NEET (UG)
-                    <span class="badge">Medical</span>
-                </h3>
+                <h3><i data-lucide="file-text"></i> NEET (UG) <span class="badge">Medical</span></h3>
                 <div class="requirement-grid">
-                    <div class="requirement-item">
-                        <h4><i data-lucide="camera"></i> Photograph</h4>
-                        <p><strong>Dimensions:</strong> 4.0 cm x 3.0 cm</p>
-                        <p><strong>Pixels:</strong> 480 x 360 (approx)</p>
-                        <p><strong>File Size:</strong> 10 KB to 200 KB</p>
-                        <p><strong>Format:</strong> JPG</p>
-                        <small>Background: White</small>
-                    </div>
-                    <div class="requirement-item">
-                        <h4><i data-lucide="pen-tool"></i> Signature</h4>
-                        <p><strong>Dimensions:</strong> 4.0 cm x 2.0 cm</p>
-                        <p><strong>Pixels:</strong> 480 x 240 (approx)</p>
-                        <p><strong>File Size:</strong> 10 KB to 200 KB</p>
-                        <p><strong>Format:</strong> JPG</p>
-                        <small>Full signature</small>
-                    </div>
+                    <div class="requirement-item"><h4><i data-lucide="camera"></i> Photograph</h4><p><strong>Dimensions:</strong> 4.0 cm x 3.0 cm</p><p><strong>Pixels:</strong> 480 x 360 (approx)</p><p><strong>File Size:</strong> 10 KB to 200 KB</p><p><strong>Format:</strong> JPG</p><small>Background: White</small></div>
+                    <div class="requirement-item"><h4><i data-lucide="pen-tool"></i> Signature</h4><p><strong>Dimensions:</strong> 4.0 cm x 2.0 cm</p><p><strong>Pixels:</strong> 480 x 240 (approx)</p><p><strong>File Size:</strong> 10 KB to 200 KB</p><p><strong>Format:</strong> JPG</p><small>Full signature</small></div>
                 </div>
                 <p><strong>📝 Note:</strong> NEET has a wide file size range. However, aim for 20-50 KB for best compatibility.</p>
             </div>
 
             <!-- JEE Card -->
             <div class="exam-card">
-                <h3>
-                    <i data-lucide="file-text"></i>
-                    JEE Main / Advanced
-                    <span class="badge">Engineering UG</span>
-                </h3>
+                <h3><i data-lucide="file-text"></i> JEE Main / Advanced <span class="badge">Engineering UG</span></h3>
                 <div class="requirement-grid">
-                    <div class="requirement-item">
-                        <h4><i data-lucide="camera"></i> Photograph</h4>
-                        <p><strong>Dimensions:</strong> 3.5 cm x 4.5 cm</p>
-                        <p><strong>Pixels:</strong> 420 x 540 (approx)</p>
-                        <p><strong>File Size:</strong> 10 KB to 100 KB</p>
-                        <p><strong>Format:</strong> JPG/JPEG</p>
-                        <small>Background: White / Light</small>
-                    </div>
-                    <div class="requirement-item">
-                        <h4><i data-lucide="pen-tool"></i> Signature</h4>
-                        <p><strong>Dimensions:</strong> 3.5 cm x 1.5 cm</p>
-                        <p><strong>Pixels:</strong> 420 x 180 (approx)</p>
-                        <p><strong>File Size:</strong> 10 KB to 100 KB</p>
-                        <p><strong>Format:</strong> JPG/JPEG</p>
-                        <small>Black ink</small>
-                    </div>
+                    <div class="requirement-item"><h4><i data-lucide="camera"></i> Photograph</h4><p><strong>Dimensions:</strong> 3.5 cm x 4.5 cm</p><p><strong>Pixels:</strong> 420 x 540 (approx)</p><p><strong>File Size:</strong> 10 KB to 100 KB</p><p><strong>Format:</strong> JPG/JPEG</p><small>Background: White / Light</small></div>
+                    <div class="requirement-item"><h4><i data-lucide="pen-tool"></i> Signature</h4><p><strong>Dimensions:</strong> 3.5 cm x 1.5 cm</p><p><strong>Pixels:</strong> 420 x 180 (approx)</p><p><strong>File Size:</strong> 10 KB to 100 KB</p><p><strong>Format:</strong> JPG/JPEG</p><small>Black ink</small></div>
                 </div>
                 <p><strong>📝 Note:</strong> JEE often requires photo with name and date written below. Check specific year's instructions.</p>
+            </div>
+
+            <!-- CTET Card -->
+            <div class="exam-card">
+                <h3><i data-lucide="file-text"></i> CTET <span class="badge">Teaching Exam</span></h3>
+                <div class="requirement-grid">
+                    <div class="requirement-item"><h4><i data-lucide="camera"></i> Photograph</h4><p><strong>Dimensions:</strong> 4.0 x 3.0 cm</p><p><strong>Pixels:</strong> 480 x 360 (approx)</p><p><strong>File Size:</strong> 10 KB to 100 KB</p><p><strong>Format:</strong> JPG</p><small>Background: White</small></div>
+                    <div class="requirement-item"><h4><i data-lucide="pen-tool"></i> Signature</h4><p><strong>Dimensions:</strong> 4.0 x 2.0 cm</p><p><strong>Pixels:</strong> 480 x 240 (approx)</p><p><strong>File Size:</strong> 10 KB to 100 KB</p><p><strong>Format:</strong> JPG</p><small>Black ink on white paper</small></div>
+                </div>
+                <p><strong>📝 Note:</strong> CTET requires recent photograph (within 3 months). Signature must match your official documents.</p>
+            </div>
+
+            <!-- SBI Card -->
+            <div class="exam-card">
+                <h3><i data-lucide="file-text"></i> SBI PO / Clerk <span class="badge">Banking</span></h3>
+                <div class="requirement-grid">
+                    <div class="requirement-item"><h4><i data-lucide="camera"></i> Photograph</h4><p><strong>Dimensions:</strong> 4.0 x 2.0 cm</p><p><strong>Pixels:</strong> 520 x 260 (approx)</p><p><strong>File Size:</strong> 20 KB to 50 KB</p><p><strong>Format:</strong> JPG only</p><small>Background: White</small></div>
+                    <div class="requirement-item"><h4><i data-lucide="pen-tool"></i> Signature</h4><p><strong>Dimensions:</strong> 4.0 x 2.0 cm</p><p><strong>Pixels:</strong> 520 x 260 (approx)</p><p><strong>File Size:</strong> 10 KB to 20 KB</p><p><strong>Format:</strong> JPG only</p><small>Running hand signature</small></div>
+                </div>
+                <p><strong>📝 Note:</strong> SBI is very strict about the 20KB limit for both photo and signature. Use our compressor to get exact size.</p>
+            </div>
+
+            <!-- Indian Navy / Army Card -->
+            <div class="exam-card">
+                <h3><i data-lucide="file-text"></i> Indian Navy / Army <span class="badge">Defense Exams</span></h3>
+                <div class="requirement-grid">
+                    <div class="requirement-item"><h4><i data-lucide="camera"></i> Photograph</h4><p><strong>Dimensions:</strong> 3.5 x 4.5 cm</p><p><strong>Pixels:</strong> 420 x 540 (approx)</p><p><strong>File Size:</strong> 20 KB to 50 KB</p><p><strong>Format:</strong> JPG</p><small>Background: Light / White</small></div>
+                    <div class="requirement-item"><h4><i data-lucide="pen-tool"></i> Signature</h4><p><strong>Dimensions:</strong> 3.5 x 1.5 cm</p><p><strong>Pixels:</strong> 420 x 180 (approx)</p><p><strong>File Size:</strong> 10 KB to 20 KB</p><p><strong>Format:</strong> JPG</p><small>Black ink only</small></div>
+                </div>
+                <p><strong>📝 Note:</strong> Defense exams have strict appearance guidelines. No beard (unless religious reasons), no glasses, and proper uniform attire.</p>
             </div>
 
             <h2>✅ Common Requirements Across All Exams</h2>
@@ -889,10 +898,7 @@
 
             <h2>❌ Top Reasons for Photo Rejection</h2>
             <div class="important-note">
-                <h4>
-                    <i data-lucide="x-circle"></i>
-                    Avoid These Mistakes
-                </h4>
+                <h4><i data-lucide="x-circle"></i> Avoid These Mistakes</h4>
                 <ol>
                     <li><strong>Wrong file size:</strong> Photo over 50KB or under 10KB when specific limit is 20KB</li>
                     <li><strong>Incorrect dimensions:</strong> Not following exact cm or pixel requirements</li>
@@ -932,6 +938,20 @@
                 </ul>
             </div>
 
+            <h2>📅 2026 Exam Calendar: Plan Ahead</h2>
+            <div class="tip-box">
+                <p>Major exams and their typical application months:</p>
+                <ul>
+                    <li><strong>SSC CGL:</strong> April-May 2026</li>
+                    <li><strong>UPSC Prelims:</strong> March 2026</li>
+                    <li><strong>IBPS PO:</strong> August-September 2026</li>
+                    <li><strong>RRB NTPC:</strong> Throughout year</li>
+                    <li><strong>NEET:</strong> February-March 2026</li>
+                    <li><strong>JEE Main:</strong> January & April 2026</li>
+                    <li><strong>GATE:</strong> September-October 2026</li>
+                </ul>
+            </div>
+
             <h2>📱 Mobile-Friendly: Do It All on Phone</h2>
             <p>All ImResizer tools work perfectly on mobile phones. You can:</p>
             <ul>
@@ -943,47 +963,12 @@
 
             <h2>📝 Frequently Asked Questions</h2>
             
-            <div class="faq-item">
-                <h4>Q: Can I use the same photo for multiple exams?</h4>
-                <p>A: Yes, but you may need to resize it differently for each exam's requirements. Save the original and create copies as needed.</p>
-            </div>
-
-            <div class="faq-item">
-                <h4>Q: What if my photo is exactly 50KB but requirement says 20KB?</h4>
-                <p>A: Use our <a href="/image-compressor.html">Image Compressor</a> with target 20KB. The tool will reduce size while maintaining quality.</p>
-            </div>
-
-            <div class="faq-item">
-                <h4>Q: Is PNG accepted for government exams?</h4>
-                <p>A: Most government exams specify JPG/JPEG only. Some like GATE accept PNG. Always check your exam's notification.</p>
-            </div>
-
-            <div class="faq-item">
-                <h4>Q: How recent should my photo be?</h4>
-                <p>A: Most exams require photos taken within the last 3-6 months. UPSC specifically mentions "within 30 days" for some applications.</p>
-            </div>
-
-            <div class="faq-item">
-                <h4>Q: Can I wear spectacles in exam photos?</h4>
-                <p>A: It's better to avoid if possible. If necessary, ensure no glare and frames don't cover eyes. Some exams explicitly prohibit glasses.</p>
-            </div>
-
-            <div class="faq-item">
-                <h4>Q: What if my signature is rejected?</h4>
-                <p>A: Common issues: too small, too large, or not matching name. Create a fresh signature using our <a href="/signature-maker.html">Signature Maker</a> with proper dimensions.</p>
-            </div>
-
-            <h2>📅 2026 Exam Calendar: Plan Ahead</h2>
-            <p>Major exams and their typical application months:</p>
-            <ul>
-                <li><strong>SSC CGL:</strong> April-May 2026</li>
-                <li><strong>UPSC Prelims:</strong> March 2026</li>
-                <li><strong>IBPS PO:</strong> August-September 2026</li>
-                <li><strong>RRB NTPC:</strong> Throughout year</li>
-                <li><strong>NEET:</strong> February-March 2026</li>
-                <li><strong>JEE Main:</strong> January & April 2026</li>
-                <li><strong>GATE:</strong> September-October 2026</li>
-            </ul>
+            <div class="faq-item"><h4>Q: Can I use the same photo for multiple exams?</h4><p>A: Yes, but you may need to resize it differently for each exam's requirements. Save the original and create copies as needed.</p></div>
+            <div class="faq-item"><h4>Q: What if my photo is exactly 50KB but requirement says 20KB?</h4><p>A: Use our <a href="/image-compressor.html">Image Compressor</a> with target 20KB. The tool will reduce size while maintaining quality.</p></div>
+            <div class="faq-item"><h4>Q: Is PNG accepted for government exams?</h4><p>A: Most government exams specify JPG/JPEG only. Some like GATE accept PNG. Always check your exam's notification.</p></div>
+            <div class="faq-item"><h4>Q: How recent should my photo be?</h4><p>A: Most exams require photos taken within the last 3-6 months. UPSC specifically mentions "within 30 days" for some applications.</p></div>
+            <div class="faq-item"><h4>Q: Can I wear spectacles in exam photos?</h4><p>A: It's better to avoid if possible. If necessary, ensure no glare and frames don't cover eyes. Some exams explicitly prohibit glasses.</p></div>
+            <div class="faq-item"><h4>Q: What if my signature is rejected?</h4><p>A: Common issues: too small, too large, or not matching name. Create a fresh signature using our <a href="/signature-maker.html">Signature Maker</a> with proper dimensions.</p></div>
 
             <h2>🎯 Ready to Prepare Your Documents?</h2>
             
@@ -1004,68 +989,94 @@
         </div>
     </main>
 
-    <!-- FOOTER - 5 COLUMN with .html extensions -->
+    <!-- FOOTER -->
     <footer>
         <div class="footer-container">
             <div class="footer-col footer-brand">
                 <a href="/" class="footer-logo">
-                    <div class="footer-logo-icon">
-                        <i data-lucide="crop" width="18" height="18"></i>
-                    </div>
+                    <div class="footer-logo-icon"><i data-lucide="crop" width="18" height="18"></i></div>
                     <div class="footer-logo-text">Im<span>Resizer<span class="domain">.in</span></span></div>
                 </a>
                 <p>Compress photo & signature to 20KB or 50KB for all Govt exams (SSC, UPSC, NEET, JEE). Fast, secure, and perfect for online forms. No sign-up required.</p>
             </div>
-
-            <div class="footer-col">
-                <h5>QUICK LINKS</h5>
-                <ul class="footer-links">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/about.html">About Us</a></li>
-                    <li><a href="/contact.html">Contact Support</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h5>LEGAL & INFO</h5>
-                <ul class="footer-links">
-                    <li><a href="/disclaimer.html">Disclaimer</a></li>
-                    <li><a href="/privacy.html">Privacy Policy</a></li>
-                    <li><a href="/terms.html">Terms of Use</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h5>TOOLS</h5>
-                <ul class="footer-links">
-                    <li><a href="/image-compressor.html">Image Compressor</a></li>
-                    <li><a href="/pdf-converter.html">PDF Converter</a></li>
-                    <li><a href="/signature-maker.html">Signature Maker</a></li>
-                    <li><a href="/passport-photo.html">Passport Photo</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h5>RESOURCES</h5>
-                <ul class="footer-links">
-                    <li><a href="/blog.html">Blog</a></li>
-                    <li><a href="/guides.html">Guides</a></li>
-                    <li><a href="/faq.html">FAQ</a></li>
-                    <li><a href="/sitemap.html">Sitemap</a></li>
-                </ul>
-            </div>
+            <div class="footer-col"><h5>QUICK LINKS</h5><ul class="footer-links"><li><a href="/">Home</a></li><li><a href="/about.html">About Us</a></li><li><a href="/contact.html">Contact Support</a></li></ul></div>
+            <div class="footer-col"><h5>LEGAL & INFO</h5><ul class="footer-links"><li><a href="/disclaimer.html">Disclaimer</a></li><li><a href="/privacy.html">Privacy Policy</a></li><li><a href="/terms.html">Terms of Use</a></li></ul></div>
+            <div class="footer-col"><h5>TOOLS</h5><ul class="footer-links"><li><a href="/image-compressor.html">Image Compressor</a></li><li><a href="/pdf-converter.html">PDF Converter</a></li><li><a href="/signature-maker.html">Signature Maker</a></li><li><a href="/passport-photo.html">Passport Photo</a></li></ul></div>
+            <div class="footer-col"><h5>RESOURCES</h5><ul class="footer-links"><li><a href="/blog.html">Blog</a></li><li><a href="/guides.html">Guides</a></li><li><a href="/faq.html">FAQ</a></li><li><a href="/sitemap.html">Sitemap</a></li></ul></div>
         </div>
-
-        <div class="footer-bottom">
-            <div>&copy; 2026 imresizer.in. All rights reserved. Made For Students</div>
-            <div>Designed for Students</div>
-        </div>
+        <div class="footer-bottom"><div>&copy; 2026 imresizer.in. All rights reserved. Made For Students</div><div>Designed for Students</div></div>
     </footer>
 
     <script>
-        // Lucide icons initialization
         document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
+            if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+
+            const toggleBtn = document.getElementById('mobileMenuToggle');
+            const navMenu = document.getElementById('navMenu');
+            if (toggleBtn && navMenu) {
+                toggleBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    navMenu.classList.toggle('active');
+                    const iconElem = toggleBtn.querySelector('i');
+                    if (navMenu.classList.contains('active')) {
+                        if (iconElem) iconElem.setAttribute('data-lucide', 'x');
+                    } else {
+                        if (iconElem) iconElem.setAttribute('data-lucide', 'menu');
+                    }
+                    if (window.lucide) lucide.createIcons();
+                });
+            }
+
+            const dropdowns = document.querySelectorAll('.nav-dropdown');
+            function handleMobileDropdowns() {
+                dropdowns.forEach(dropdown => {
+                    const btn = dropdown.querySelector('.nav-dropdown-btn');
+                    if (!btn) return;
+                    if (dropdown._listener) btn.removeEventListener('click', dropdown._listener);
+                    const clickHandler = (e) => {
+                        if (window.innerWidth <= 900) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            dropdown.classList.toggle('active');
+                        }
+                    };
+                    btn.addEventListener('click', clickHandler);
+                    dropdown._listener = clickHandler;
+                });
+            }
+            handleMobileDropdowns();
+
+            document.addEventListener('click', function(event) {
+                const isToggle = toggleBtn && toggleBtn.contains(event.target);
+                const isNavMenu = navMenu && navMenu.contains(event.target);
+                if (navMenu && navMenu.classList.contains('active') && !isToggle && !isNavMenu && window.innerWidth <= 900) {
+                    navMenu.classList.remove('active');
+                    const toggleIcon = toggleBtn?.querySelector('i');
+                    if (toggleIcon) toggleIcon.setAttribute('data-lucide', 'menu');
+                    if (window.lucide) lucide.createIcons();
+                }
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 900) {
+                    dropdowns.forEach(d => d.classList.remove('active'));
+                    if (navMenu) navMenu.classList.remove('active');
+                    const toggleIcon = toggleBtn?.querySelector('i');
+                    if (toggleIcon && toggleIcon.getAttribute('data-lucide') !== 'menu') {
+                        toggleIcon.setAttribute('data-lucide', 'menu');
+                        if (window.lucide) lucide.createIcons();
+                    }
+                } else {
+                    handleMobileDropdowns();
+                }
+            });
+
+            const updateBodyPadding = () => {
+                const headerHeight = document.querySelector('header')?.offsetHeight || 78;
+                document.body.style.paddingTop = headerHeight + 'px';
+            };
+            updateBodyPadding();
+            window.addEventListener('resize', () => setTimeout(updateBodyPadding, 50));
         });
     </script>
 </body>
