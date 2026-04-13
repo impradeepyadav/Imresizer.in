@@ -547,7 +547,7 @@
             color: var(--text-light);
         }
 
-        .remove-file {
+        .remove-file, .remove-pdf, .remove-pdf-image {
             color: var(--error);
             cursor: pointer;
             padding: 5px;
@@ -555,7 +555,7 @@
             transition: background 0.2s;
         }
 
-        .remove-file:hover {
+        .remove-file:hover, .remove-pdf:hover, .remove-pdf-image:hover {
             background: #fee2e2;
         }
 
@@ -673,6 +673,11 @@
 
         .btn-success:hover {
             background: #16a34a;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
 
         .action-buttons {
@@ -1038,6 +1043,8 @@ Fast, free, and works directly in your browser with no uploads required. 100% se
                     <input type="file" id="pdfToImageInput" class="file-input" accept=".pdf">
                 </div>
 
+                <div id="pdfToImageFileDisplay" class="file-list" style="margin-top: 15px;"></div>
+
                 <div class="controls-section">
                     <div class="control-group">
                         <h4><i data-lucide="settings" width="18"></i> Image Settings</h4>
@@ -1210,7 +1217,7 @@ Fast, free, and works directly in your browser with no uploads required. 100% se
     </footer>
 
     <script>
-        // Mobile menu logic (same as blog)
+        // Mobile menu logic
         (function(){
             const toggleBtn = document.getElementById('mobileMenuToggle');
             const navMenu = document.getElementById('navMenu');
@@ -1255,14 +1262,17 @@ Fast, free, and works directly in your browser with no uploads required. 100% se
             });
         })();
 
-        // Lucide icons initialization
+        // Initialize Lucide icons and PDF tool
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
+            
+            // Set up PDF.js worker
+            if (typeof pdfjsLib !== 'undefined') {
+                pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+            }
+            
             initPDFTool();
         });
-
-        // Set up pdf.js worker
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
         function initPDFTool() {
             // Mode switching
@@ -1296,15 +1306,19 @@ Fast, free, and works directly in your browser with no uploads required. 100% se
             // Quality slider display
             const pdfQuality = document.getElementById('pdfQuality');
             const qualityValue = document.getElementById('qualityValue');
-            pdfQuality.addEventListener('input', () => {
-                qualityValue.textContent = Math.round(pdfQuality.value * 100) + '%';
-            });
+            if (pdfQuality && qualityValue) {
+                pdfQuality.addEventListener('input', () => {
+                    qualityValue.textContent = Math.round(pdfQuality.value * 100) + '%';
+                });
+            }
 
             const pdfImageQuality = document.getElementById('pdfImageQuality');
             const pdfImageQualityValue = document.getElementById('pdfImageQualityValue');
-            pdfImageQuality.addEventListener('input', () => {
-                pdfImageQualityValue.textContent = Math.round(pdfImageQuality.value * 100) + '%';
-            });
+            if (pdfImageQuality && pdfImageQualityValue) {
+                pdfImageQuality.addEventListener('input', () => {
+                    pdfImageQualityValue.textContent = Math.round(pdfImageQuality.value * 100) + '%';
+                });
+            }
 
             // File lists and state
             let imageFiles = [];
@@ -1318,27 +1332,29 @@ Fast, free, and works directly in your browser with no uploads required. 100% se
             const clearImagesBtn = document.getElementById('clearImagesBtn');
             const convertToPdfBtn = document.getElementById('convertToPdfBtn');
 
-            imageUploadArea.addEventListener('click', () => imageFileInput.click());
-            imageUploadArea.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                imageUploadArea.classList.add('dragover');
-            });
-            imageUploadArea.addEventListener('dragleave', () => {
-                imageUploadArea.classList.remove('dragover');
-            });
-            imageUploadArea.addEventListener('drop', (e) => {
-                e.preventDefault();
-                imageUploadArea.classList.remove('dragover');
-                if (e.dataTransfer.files.length) {
-                    handleImageFiles(e.dataTransfer.files);
-                }
-            });
+            if (imageUploadArea && imageFileInput) {
+                imageUploadArea.addEventListener('click', () => imageFileInput.click());
+                imageUploadArea.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    imageUploadArea.classList.add('dragover');
+                });
+                imageUploadArea.addEventListener('dragleave', () => {
+                    imageUploadArea.classList.remove('dragover');
+                });
+                imageUploadArea.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    imageUploadArea.classList.remove('dragover');
+                    if (e.dataTransfer.files.length) {
+                        handleImageFiles(e.dataTransfer.files);
+                    }
+                });
 
-            imageFileInput.addEventListener('change', (e) => {
-                if (e.target.files.length) {
-                    handleImageFiles(e.target.files);
-                }
-            });
+                imageFileInput.addEventListener('change', (e) => {
+                    if (e.target.files.length) {
+                        handleImageFiles(e.target.files);
+                    }
+                });
+            }
 
             function handleImageFiles(files) {
                 for (let file of files) {
@@ -1350,6 +1366,8 @@ Fast, free, and works directly in your browser with no uploads required. 100% se
             }
 
             function updateImageFileList() {
+                if (!imageFileList) return;
+                
                 if (imageFiles.length === 0) {
                     imageFileList.innerHTML = '';
                     return;
@@ -1382,101 +1400,104 @@ Fast, free, and works directly in your browser with no uploads required. 100% se
                 });
             }
 
-            clearImagesBtn.addEventListener('click', () => {
-                imageFiles = [];
-                updateImageFileList();
-            });
+            if (clearImagesBtn) {
+                clearImagesBtn.addEventListener('click', () => {
+                    imageFiles = [];
+                    updateImageFileList();
+                });
+            }
 
-            convertToPdfBtn.addEventListener('click', async () => {
-                if (imageFiles.length === 0) {
-                    alert('Please upload at least one image');
-                    return;
-                }
+            if (convertToPdfBtn) {
+                convertToPdfBtn.addEventListener('click', async () => {
+                    if (imageFiles.length === 0) {
+                        alert('Please upload at least one image');
+                        return;
+                    }
 
-                const { jsPDF } = window.jspdf;
-                let pageSize = document.getElementById('pdfPageSize').value;
-                const orientation = document.getElementById('pdfOrientation').value;
-                const margin = parseFloat(document.getElementById('pdfMargin').value);
-                const dpi = parseInt(document.getElementById('imageDpi').value);
-                const pxToMm = (px) => px * 25.4 / dpi;
+                    const { jsPDF } = window.jspdf;
+                    let pageSize = document.getElementById('pdfPageSize').value;
+                    const orientation = document.getElementById('pdfOrientation').value;
+                    const margin = parseFloat(document.getElementById('pdfMargin').value);
+                    const dpi = parseInt(document.getElementById('imageDpi').value);
+                    const pxToMm = (px) => px * 25.4 / dpi;
 
-                let pdf;
+                    let pdf;
 
-                // Handle 4x6 inch size (102mm x 152mm)
-                if (pageSize === '4x6') {
-                    const widthMm = 102;  // 4 inches = 101.6 mm, using 102 for precise
-                    const heightMm = 152; // 6 inches = 152.4 mm
-                    const finalWidth = orientation === 'portrait' ? widthMm : heightMm;
-                    const finalHeight = orientation === 'portrait' ? heightMm : widthMm;
-                    pdf = new jsPDF({
-                        orientation: orientation,
-                        unit: 'mm',
-                        format: [finalWidth, finalHeight]
-                    });
-                } else if (pageSize === 'fit') {
-                    const firstImg = await loadImage(URL.createObjectURL(imageFiles[0]));
-                    pdf = new jsPDF({
-                        orientation: firstImg.width > firstImg.height ? 'landscape' : 'portrait',
-                        unit: 'mm',
-                        format: [pxToMm(firstImg.width) + 2*margin, pxToMm(firstImg.height) + 2*margin]
-                    });
-                    URL.revokeObjectURL(firstImg.src);
-                } else {
-                    pdf = new jsPDF({
-                        orientation: orientation,
-                        unit: 'mm',
-                        format: pageSize
-                    });
-                }
+                    if (pageSize === '4x6') {
+                        const widthMm = 102;
+                        const heightMm = 152;
+                        const finalWidth = orientation === 'portrait' ? widthMm : heightMm;
+                        const finalHeight = orientation === 'portrait' ? heightMm : widthMm;
+                        pdf = new jsPDF({
+                            orientation: orientation,
+                            unit: 'mm',
+                            format: [finalWidth, finalHeight]
+                        });
+                    } else if (pageSize === 'fit') {
+                        const firstImg = await loadImage(URL.createObjectURL(imageFiles[0]));
+                        pdf = new jsPDF({
+                            orientation: firstImg.width > firstImg.height ? 'landscape' : 'portrait',
+                            unit: 'mm',
+                            format: [pxToMm(firstImg.width) + 2*margin, pxToMm(firstImg.height) + 2*margin]
+                        });
+                        URL.revokeObjectURL(firstImg.src);
+                    } else {
+                        pdf = new jsPDF({
+                            orientation: orientation,
+                            unit: 'mm',
+                            format: pageSize
+                        });
+                    }
 
-                for (let i = 0; i < imageFiles.length; i++) {
-                    if (i > 0) pdf.addPage();
+                    for (let i = 0; i < imageFiles.length; i++) {
+                        if (i > 0) pdf.addPage();
 
-                    const img = await loadImage(URL.createObjectURL(imageFiles[i]));
-                    const imgWidthMm = pxToMm(img.width);
-                    const imgHeightMm = pxToMm(img.height);
-                    const pageWidth = pdf.internal.pageSize.getWidth();
-                    const pageHeight = pdf.internal.pageSize.getHeight();
+                        const img = await loadImage(URL.createObjectURL(imageFiles[i]));
+                        const imgWidthMm = pxToMm(img.width);
+                        const imgHeightMm = pxToMm(img.height);
+                        const pageWidth = pdf.internal.pageSize.getWidth();
+                        const pageHeight = pdf.internal.pageSize.getHeight();
 
-                    const maxWidth = pageWidth - 2 * margin;
-                    const maxHeight = pageHeight - 2 * margin;
-                    const scale = Math.min(maxWidth / imgWidthMm, maxHeight / imgHeightMm);
-                    const w = imgWidthMm * scale;
-                    const h = imgHeightMm * scale;
-                    const x = (pageWidth - w) / 2;
-                    const y = (pageHeight - h) / 2;
+                        const maxWidth = pageWidth - 2 * margin;
+                        const maxHeight = pageHeight - 2 * margin;
+                        const scale = Math.min(maxWidth / imgWidthMm, maxHeight / imgHeightMm);
+                        const w = imgWidthMm * scale;
+                        const h = imgHeightMm * scale;
+                        const x = (pageWidth - w) / 2;
+                        const y = (pageHeight - h) / 2;
 
-                    pdf.addImage(img, 'JPEG', x, y, w, h);
-                    URL.revokeObjectURL(img.src);
-                }
+                        pdf.addImage(img, 'JPEG', x, y, w, h);
+                        URL.revokeObjectURL(img.src);
+                    }
 
-                const pdfBlob = pdf.output('blob');
-                const url = URL.createObjectURL(pdfBlob);
+                    const pdfBlob = pdf.output('blob');
+                    const url = URL.createObjectURL(pdfBlob);
 
-                document.getElementById('downloadInfo').textContent = `PDF created: ${(pdfBlob.size / 1024).toFixed(1)} KB`;
-                document.getElementById('downloadContainer').innerHTML = `
-                    <a href="${url}" download="converted.pdf" class="btn btn-success download-btn" id="imagePdfDownloadLink">
-                        <i data-lucide="download" width="16"></i> Download PDF
-                    </a>
-                `;
-                document.getElementById('downloadArea').classList.remove('hidden');
-                lucide.createIcons();
+                    document.getElementById('downloadInfo').textContent = `PDF created: ${(pdfBlob.size / 1024).toFixed(1)} KB`;
+                    document.getElementById('downloadContainer').innerHTML = `
+                        <a href="${url}" download="converted.pdf" class="btn btn-success download-btn" id="imagePdfDownloadLink">
+                            <i data-lucide="download" width="16"></i> Download PDF
+                        </a>
+                    `;
+                    document.getElementById('downloadArea').classList.remove('hidden');
+                    lucide.createIcons();
 
-                const downloadLink = document.getElementById('imagePdfDownloadLink');
-                const fileNameInput = document.getElementById('pdfFileName');
-                if (downloadLink && fileNameInput) {
-                    const updateFileName = () => {
-                        let name = fileNameInput.value.trim();
-                        if (!name) name = 'converted';
-                        name = name.replace(/[<>:"/\\|?*]/g, '_');
-                        if (!name.toLowerCase().endsWith('.pdf')) name += '.pdf';
-                        downloadLink.setAttribute('download', name);
-                    };
-                    fileNameInput.removeEventListener('input', updateFileName);
-                    fileNameInput.addEventListener('input', updateFileName);
-                    updateFileName();
-                }
-            });
+                    const downloadLink = document.getElementById('imagePdfDownloadLink');
+                    const fileNameInput = document.getElementById('pdfFileName');
+                    if (downloadLink && fileNameInput) {
+                        const updateFileName = () => {
+                            let name = fileNameInput.value.trim();
+                            if (!name) name = 'converted';
+                            name = name.replace(/[<>:"/\\|?*]/g, '_');
+                            if (!name.toLowerCase().endsWith('.pdf')) name += '.pdf';
+                            downloadLink.setAttribute('download', name);
+                        };
+                        fileNameInput.removeEventListener('input', updateFileName);
+                        fileNameInput.addEventListener('input', updateFileName);
+                        updateFileName();
+                    }
+                });
+            }
 
             // ========== MERGE PDF ==========
             const pdfUploadArea = document.getElementById('pdfUploadArea');
@@ -1486,27 +1507,29 @@ Fast, free, and works directly in your browser with no uploads required. 100% se
             const mergePdfBtn = document.getElementById('mergePdfBtn');
             const mergePdfFileName = document.getElementById('mergePdfFileName');
 
-            pdfUploadArea.addEventListener('click', () => pdfFileInput.click());
-            pdfUploadArea.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                pdfUploadArea.classList.add('dragover');
-            });
-            pdfUploadArea.addEventListener('dragleave', () => {
-                pdfUploadArea.classList.remove('dragover');
-            });
-            pdfUploadArea.addEventListener('drop', (e) => {
-                e.preventDefault();
-                pdfUploadArea.classList.remove('dragover');
-                if (e.dataTransfer.files.length) {
-                    handlePdfFiles(e.dataTransfer.files);
-                }
-            });
+            if (pdfUploadArea && pdfFileInput) {
+                pdfUploadArea.addEventListener('click', () => pdfFileInput.click());
+                pdfUploadArea.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    pdfUploadArea.classList.add('dragover');
+                });
+                pdfUploadArea.addEventListener('dragleave', () => {
+                    pdfUploadArea.classList.remove('dragover');
+                });
+                pdfUploadArea.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    pdfUploadArea.classList.remove('dragover');
+                    if (e.dataTransfer.files.length) {
+                        handlePdfFiles(e.dataTransfer.files);
+                    }
+                });
 
-            pdfFileInput.addEventListener('change', (e) => {
-                if (e.target.files.length) {
-                    handlePdfFiles(e.target.files);
-                }
-            });
+                pdfFileInput.addEventListener('change', (e) => {
+                    if (e.target.files.length) {
+                        handlePdfFiles(e.target.files);
+                    }
+                });
+            }
 
             function handlePdfFiles(files) {
                 for (let file of files) {
@@ -1518,6 +1541,8 @@ Fast, free, and works directly in your browser with no uploads required. 100% se
             }
 
             function updatePdfFileList() {
+                if (!pdfFileList) return;
+                
                 if (pdfFiles.length === 0) {
                     pdfFileList.innerHTML = '';
                     return;
@@ -1550,128 +1575,286 @@ Fast, free, and works directly in your browser with no uploads required. 100% se
                 });
             }
 
-            clearPdfsBtn.addEventListener('click', () => {
-                pdfFiles = [];
-                updatePdfFileList();
-            });
+            if (clearPdfsBtn) {
+                clearPdfsBtn.addEventListener('click', () => {
+                    pdfFiles = [];
+                    updatePdfFileList();
+                });
+            }
 
-            mergePdfBtn.addEventListener('click', async () => {
-                if (pdfFiles.length < 2) {
-                    alert('Please upload at least 2 PDF files to merge');
-                    return;
-                }
+            if (mergePdfBtn) {
+                mergePdfBtn.addEventListener('click', async () => {
+                    if (pdfFiles.length < 2) {
+                        alert('Please upload at least 2 PDF files to merge');
+                        return;
+                    }
 
-                const { PDFDocument } = PDFLib;
-                const mergedPdf = await PDFDocument.create();
+                    const { PDFDocument } = PDFLib;
+                    const mergedPdf = await PDFDocument.create();
 
-                for (let file of pdfFiles) {
-                    const arrayBuffer = await file.arrayBuffer();
-                    const pdf = await PDFDocument.load(arrayBuffer);
-                    const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-                    copiedPages.forEach(page => mergedPdf.addPage(page));
-                }
+                    for (let file of pdfFiles) {
+                        const arrayBuffer = await file.arrayBuffer();
+                        const pdf = await PDFDocument.load(arrayBuffer);
+                        const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+                        copiedPages.forEach(page => mergedPdf.addPage(page));
+                    }
 
-                const mergedPdfBytes = await mergedPdf.save();
-                const blob = new Blob([mergedPdfBytes], { type: 'application/pdf' });
-                const url = URL.createObjectURL(blob);
+                    const mergedPdfBytes = await mergedPdf.save();
+                    const blob = new Blob([mergedPdfBytes], { type: 'application/pdf' });
+                    const url = URL.createObjectURL(blob);
 
-                document.getElementById('downloadInfo').textContent = `Merged PDF: ${(blob.size / 1024).toFixed(1)} KB`;
-                document.getElementById('downloadContainer').innerHTML = `
-                    <a href="${url}" download="merged.pdf" class="btn btn-success download-btn" id="mergePdfDownloadLink">
-                        <i data-lucide="download" width="16"></i> Download Merged PDF
-                    </a>
-                `;
-                document.getElementById('downloadArea').classList.remove('hidden');
-                lucide.createIcons();
+                    document.getElementById('downloadInfo').textContent = `Merged PDF: ${(blob.size / 1024).toFixed(1)} KB`;
+                    document.getElementById('downloadContainer').innerHTML = `
+                        <a href="${url}" download="merged.pdf" class="btn btn-success download-btn" id="mergePdfDownloadLink">
+                            <i data-lucide="download" width="16"></i> Download Merged PDF
+                        </a>
+                    `;
+                    document.getElementById('downloadArea').classList.remove('hidden');
+                    lucide.createIcons();
 
-                const downloadLink = document.getElementById('mergePdfDownloadLink');
-                if (downloadLink && mergePdfFileName) {
-                    const updateFileName = () => {
-                        let name = mergePdfFileName.value.trim();
-                        if (!name) name = 'merged';
-                        name = name.replace(/[<>:"/\\|?*]/g, '_');
-                        if (!name.toLowerCase().endsWith('.pdf')) name += '.pdf';
-                        downloadLink.setAttribute('download', name);
-                    };
-                    mergePdfFileName.removeEventListener('input', updateFileName);
-                    mergePdfFileName.addEventListener('input', updateFileName);
-                    updateFileName();
-                }
-            });
+                    const downloadLink = document.getElementById('mergePdfDownloadLink');
+                    if (downloadLink && mergePdfFileName) {
+                        const updateFileName = () => {
+                            let name = mergePdfFileName.value.trim();
+                            if (!name) name = 'merged';
+                            name = name.replace(/[<>:"/\\|?*]/g, '_');
+                            if (!name.toLowerCase().endsWith('.pdf')) name += '.pdf';
+                            downloadLink.setAttribute('download', name);
+                        };
+                        mergePdfFileName.removeEventListener('input', updateFileName);
+                        mergePdfFileName.addEventListener('input', updateFileName);
+                        updateFileName();
+                    }
+                });
+            }
 
-            // ========== PDF TO IMAGES ==========
+            // ========== PDF TO IMAGES (FIXED WITH AUTO ZIP/SINGLE) ==========
             const pdfToImageInput = document.getElementById('pdfToImageInput');
             const pdfUploadImageArea = document.getElementById('pdfUploadImageArea');
             const pdfToImageBtn = document.getElementById('pdfToImageBtn');
+            const pdfToImageFileDisplay = document.getElementById('pdfToImageFileDisplay');
 
-            pdfUploadImageArea.addEventListener('click', () => pdfToImageInput.click());
-            pdfUploadImageArea.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                pdfUploadImageArea.classList.add('dragover');
-            });
-            pdfUploadImageArea.addEventListener('dragleave', () => {
-                pdfUploadImageArea.classList.remove('dragover');
-            });
-            pdfUploadImageArea.addEventListener('drop', (e) => {
-                e.preventDefault();
-                pdfUploadImageArea.classList.remove('dragover');
-                if (e.dataTransfer.files.length) {
-                    pdfToImageFile = e.dataTransfer.files[0];
-                    alert(`Selected: ${pdfToImageFile.name}`);
-                }
-            });
+            if (pdfUploadImageArea && pdfToImageInput) {
+                pdfUploadImageArea.addEventListener('click', () => pdfToImageInput.click());
+                pdfUploadImageArea.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    pdfUploadImageArea.classList.add('dragover');
+                });
+                pdfUploadImageArea.addEventListener('dragleave', () => {
+                    pdfUploadImageArea.classList.remove('dragover');
+                });
+                pdfUploadImageArea.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    pdfUploadImageArea.classList.remove('dragover');
+                    if (e.dataTransfer.files.length) {
+                        const file = e.dataTransfer.files[0];
+                        if (file.type === 'application/pdf') {
+                            pdfToImageFile = file;
+                            updatePdfToImageDisplay();
+                        } else {
+                            alert('Please upload a PDF file');
+                        }
+                    }
+                });
 
-            pdfToImageInput.addEventListener('change', (e) => {
-                if (e.target.files.length) {
-                    pdfToImageFile = e.target.files[0];
-                    alert(`Selected: ${pdfToImageFile.name}`);
-                }
-            });
+                pdfToImageInput.addEventListener('change', (e) => {
+                    if (e.target.files.length) {
+                        const file = e.target.files[0];
+                        if (file.type === 'application/pdf') {
+                            pdfToImageFile = file;
+                            updatePdfToImageDisplay();
+                        } else {
+                            alert('Please upload a PDF file');
+                        }
+                    }
+                });
+            }
 
-            pdfToImageBtn.addEventListener('click', async () => {
+            function updatePdfToImageDisplay() {
+                if (!pdfToImageFileDisplay) return;
+                
                 if (!pdfToImageFile) {
-                    alert('Please upload a PDF file');
+                    pdfToImageFileDisplay.innerHTML = '';
                     return;
                 }
-
-                const format = document.getElementById('pdfImageFormat').value;
-                const quality = parseFloat(document.getElementById('pdfImageQuality').value);
-                const dpi = parseInt(document.getElementById('pdfImageDPI').value);
-                const scale = dpi / 72;
-
-                const arrayBuffer = await pdfToImageFile.arrayBuffer();
-                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-                const numPages = pdf.numPages;
-                const zip = new JSZip();
-                const imgFolder = zip.folder('images');
-
-                for (let i = 1; i <= numPages; i++) {
-                    const page = await pdf.getPage(i);
-                    const viewport = page.getViewport({ scale });
-                    const canvas = document.createElement('canvas');
-                    const context = canvas.getContext('2d');
-                    canvas.width = viewport.width;
-                    canvas.height = viewport.height;
-
-                    await page.render({ canvasContext: context, viewport }).promise;
-
-                    let mimeType = format === 'jpg' ? 'image/jpeg' : 'image/png';
-                    const blob = await new Promise(resolve => canvas.toBlob(resolve, mimeType, quality));
-                    imgFolder.file(`page_${i}.${format}`, blob);
-                }
-
-                const zipBlob = await zip.generateAsync({ type: 'blob' });
-                const url = URL.createObjectURL(zipBlob);
-
-                document.getElementById('downloadInfo').textContent = `ZIP with ${numPages} image(s) created.`;
-                document.getElementById('downloadContainer').innerHTML = `
-                    <a href="${url}" download="pdf_images.zip" class="btn btn-success download-btn">
-                        <i data-lucide="download" width="16"></i> Download ZIP
-                    </a>
+                
+                const size = (pdfToImageFile.size / 1024).toFixed(1);
+                pdfToImageFileDisplay.innerHTML = `
+                    <div class="file-item">
+                        <div class="file-info">
+                            <span class="file-name">📄 ${escapeHtml(pdfToImageFile.name)}</span>
+                            <span class="file-size">${size} KB</span>
+                        </div>
+                        <span class="remove-pdf-image">
+                            <i data-lucide="x" width="16"></i>
+                        </span>
+                    </div>
                 `;
-                document.getElementById('downloadArea').classList.remove('hidden');
                 lucide.createIcons();
-            });
+                
+                const removeBtn = pdfToImageFileDisplay.querySelector('.remove-pdf-image');
+                if (removeBtn) {
+                    removeBtn.addEventListener('click', () => {
+                        pdfToImageFile = null;
+                        pdfToImageInput.value = '';
+                        updatePdfToImageDisplay();
+                    });
+                }
+            }
+
+            if (pdfToImageBtn) {
+                pdfToImageBtn.addEventListener('click', async () => {
+                    if (!pdfToImageFile) {
+                        alert('Please upload a PDF file');
+                        return;
+                    }
+
+                    // Show loading state
+                    pdfToImageBtn.disabled = true;
+                    const originalBtnText = pdfToImageBtn.innerHTML;
+                    pdfToImageBtn.innerHTML = '<i data-lucide="loader" width="16"></i> Processing...';
+                    lucide.createIcons();
+
+                    try {
+                        // Ensure PDF.js worker is configured
+                        if (typeof pdfjsLib === 'undefined') {
+                            throw new Error('PDF.js library not loaded');
+                        }
+                        
+                        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
+                        const format = document.getElementById('pdfImageFormat').value;
+                        const quality = parseFloat(document.getElementById('pdfImageQuality').value);
+                        const dpi = parseInt(document.getElementById('pdfImageDPI').value);
+                        const scale = dpi / 72;
+
+                        // Read the PDF file
+                        const arrayBuffer = await pdfToImageFile.arrayBuffer();
+                        
+                        // Load the PDF document
+                        const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+                        const pdf = await loadingTask.promise;
+                        const numPages = pdf.numPages;
+
+                        if (numPages === 0) {
+                            throw new Error('PDF has no pages');
+                        }
+
+                        // Get base filename from PDF
+                        const baseFileName = pdfToImageFile.name.replace(/\.pdf$/i, '');
+
+                        // Process first page to get info
+                        const firstPage = await pdf.getPage(1);
+                        const viewport = firstPage.getViewport({ scale });
+                        
+                        // Create canvas for first page
+                        const canvas = document.createElement('canvas');
+                        const context = canvas.getContext('2d');
+                        canvas.width = viewport.width;
+                        canvas.height = viewport.height;
+
+                        await firstPage.render({ canvasContext: context, viewport }).promise;
+
+                        let mimeType = format === 'jpg' ? 'image/jpeg' : 'image/png';
+                        
+                        // If only 1 page - download directly as single image
+                        if (numPages === 1) {
+                            const blob = await new Promise(resolve => {
+                                canvas.toBlob(resolve, mimeType, quality);
+                            });
+                            
+                            const url = URL.createObjectURL(blob);
+                            const fileName = `${baseFileName}_page_1.${format}`;
+                            
+                            document.getElementById('downloadInfo').textContent = `1 image extracted. Size: ${(blob.size / 1024).toFixed(1)} KB`;
+                            document.getElementById('downloadContainer').innerHTML = `
+                                <a href="${url}" download="${fileName}" class="btn btn-success download-btn">
+                                    <i data-lucide="download" width="16"></i> Download Image (${format.toUpperCase()})
+                                </a>
+                                <button class="btn btn-secondary" onclick="this.parentElement.innerHTML='';document.getElementById('downloadArea').classList.add('hidden');">
+                                    <i data-lucide="x" width="16"></i> Close
+                                </button>
+                            `;
+                            document.getElementById('downloadArea').classList.remove('hidden');
+                            lucide.createIcons();
+                            
+                            pdfToImageBtn.disabled = false;
+                            pdfToImageBtn.innerHTML = originalBtnText;
+                            lucide.createIcons();
+                            return;
+                        }
+
+                        // Multiple pages - create ZIP file
+                        const zip = new JSZip();
+                        const imgFolder = zip.folder('images');
+
+                        // Add first page
+                        const firstBlob = await new Promise(resolve => {
+                            canvas.toBlob(resolve, mimeType, quality);
+                        });
+                        imgFolder.file(`${baseFileName}_page_001.${format}`, firstBlob);
+
+                        // Process remaining pages
+                        for (let i = 2; i <= numPages; i++) {
+                            // Update button text to show progress
+                            pdfToImageBtn.innerHTML = `<i data-lucide="loader" width="16"></i> Processing page ${i}/${numPages}...`;
+                            lucide.createIcons();
+
+                            const page = await pdf.getPage(i);
+                            const pageViewport = page.getViewport({ scale });
+                            
+                            const pageCanvas = document.createElement('canvas');
+                            const pageContext = pageCanvas.getContext('2d');
+                            pageCanvas.width = pageViewport.width;
+                            pageCanvas.height = pageViewport.height;
+
+                            await page.render({ canvasContext: pageContext, viewport: pageViewport }).promise;
+
+                            const blob = await new Promise(resolve => {
+                                pageCanvas.toBlob(resolve, mimeType, quality);
+                            });
+                            
+                            const pageNum = i.toString().padStart(3, '0');
+                            imgFolder.file(`${baseFileName}_page_${pageNum}.${format}`, blob);
+                        }
+
+                        // Generate zip file
+                        pdfToImageBtn.innerHTML = `<i data-lucide="loader" width="16"></i> Creating ZIP file...`;
+                        lucide.createIcons();
+                        
+                        const zipBlob = await zip.generateAsync({ 
+                            type: 'blob',
+                            compression: "DEFLATE",
+                            compressionOptions: { level: 6 }
+                        });
+                        
+                        const url = URL.createObjectURL(zipBlob);
+                        const zipFileName = `${baseFileName}_images.zip`;
+
+                        // Show download area
+                        document.getElementById('downloadInfo').textContent = `Successfully extracted ${numPages} pages. Total size: ${(zipBlob.size / 1024).toFixed(1)} KB`;
+                        document.getElementById('downloadContainer').innerHTML = `
+                            <a href="${url}" download="${zipFileName}" class="btn btn-success download-btn">
+                                <i data-lucide="download" width="16"></i> Download ZIP (${numPages} images)
+                            </a>
+                            <button class="btn btn-secondary" onclick="this.parentElement.innerHTML='';document.getElementById('downloadArea').classList.add('hidden');">
+                                <i data-lucide="x" width="16"></i> Close
+                            </button>
+                        `;
+                        document.getElementById('downloadArea').classList.remove('hidden');
+                        lucide.createIcons();
+
+                    } catch (error) {
+                        console.error('PDF to Images error:', error);
+                        alert('Error processing PDF: ' + error.message);
+                    } finally {
+                        // Reset button
+                        pdfToImageBtn.disabled = false;
+                        pdfToImageBtn.innerHTML = originalBtnText;
+                        lucide.createIcons();
+                    }
+                });
+            }
 
             // Helper functions
             function loadImage(src) {
@@ -1684,6 +1867,7 @@ Fast, free, and works directly in your browser with no uploads required. 100% se
             }
 
             function escapeHtml(str) {
+                if (!str) return '';
                 return str.replace(/[&<>]/g, function(m) {
                     if (m === '&') return '&amp;';
                     if (m === '<') return '&lt;';
